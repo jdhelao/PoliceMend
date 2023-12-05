@@ -1,0 +1,122 @@
+<!-- *ngIf="!loading"-->
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-toolbar class="toolbar" color="primary">
+    <button mat-icon-button aria-label="Cancelar" routerLink="/admin/personal" onclick="event.preventDefault()">
+      <mat-icon>clear</mat-icon>
+    </button>
+    <span>{{title}}</span>
+    <span class="flex-spacer"></span>
+    <button mat-icon-button aria-label="Guardar" [disabled]="submitting||loading">
+      <mat-icon>save</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <mat-form-field class="width2-3">
+    <mat-label>Cédula</mat-label>
+    <input matInput formControlName="pe_dni" [ngClass]="{ 'is-invalid': submitted && f.pe_dni.errors }"
+      oninput="this.value=this.value.replace(/[^\d]/,'')">
+    <div *ngIf="submitted && f.pe_dni.errors" class="invalid-feedback">
+      <div *ngIf="f.pe_dni.errors.required">Cédula requerida</div>
+      <div *ngIf="f.pe_dni.errors.minlength || f.pe_dni.errors.maxlength">Cédula debe tener 10 digitos</div>
+      <div *ngIf="f.pe_dni.errors.pattern">Cédula sólo de tener números</div>
+    </div>
+  </mat-form-field>
+
+  <mat-form-field class="width1-3">
+    <mat-label>Sangre</mat-label>
+    <input type="text" aria-label="Tipo de sangre" matInput [matAutocomplete]="auto" formControlName="pe_sangre"
+      [ngClass]="{ 'is-invalid': submitted && f.pe_sangre.errors }">
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions_blood | async" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+    <div *ngIf="submitted && f.pe_sangre.errors" class="invalid-feedback">
+      <div *ngIf="f.pe_sangre.errors.required">Tipo de sangre</div>
+    </div>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Rango</mat-label>
+    <mat-select formControlName="ra_codigo" >
+      <mat-option *ngFor="let ra of lsRanks" [value]="ra.ra_codigo">
+        {{ra.ra_nombre}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="half-width">
+    <mat-label>1<sup>er</sup> nombre</mat-label>
+    <input matInput formControlName="pe_nombre1" [ngClass]="{ 'is-invalid': submitted && f.pe_nombre1.errors }">
+    <div *ngIf="submitted && f.pe_nombre1.errors" class="invalid-feedback">
+      <div *ngIf="f.pe_nombre1.errors.required">Nombre requerido</div>
+    </div>
+  </mat-form-field>
+
+  <mat-form-field class="half-width">
+    <mat-label>2<sup>do</sup> nombre</mat-label>
+    <input matInput formControlName="pe_nombre2" [ngClass]="{ 'is-invalid': submitted && f.pe_nombre2.errors }">
+  </mat-form-field>
+
+  <mat-form-field class="half-width">
+    <mat-label>1<sup>er</sup> apellido</mat-label>
+    <input matInput formControlName="pe_apellido1" [ngClass]="{ 'is-invalid': submitted && f.pe_apellido1.errors }">
+    <div *ngIf="submitted && f.pe_apellido1.errors" class="invalid-feedback">
+      <div *ngIf="f.pe_apellido1.errors.required">Apellido requerido</div>
+    </div>
+  </mat-form-field>
+  <mat-form-field class="half-width">
+    <mat-label>2<sup>do</sup> apellido</mat-label>
+    <input matInput formControlName="pe_apellido2" [ngClass]="{ 'is-invalid': submitted && f.pe_apellido2.errors }">
+  </mat-form-field>
+
+  <mat-form-field class="half-width">
+    <mat-label>Pais</mat-label>
+    <mat-select formControlName="pa_codigo" (selectionChange)="loadProvincesList($event.value)">
+      <mat-option *ngFor="let pa of lsCountries" [value]="pa.pa_codigo">
+        {{pa.pa_nombre}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="half-width">
+    <mat-label>Provincia</mat-label>
+    <mat-select formControlName="pr_codigo" (selectionChange)="loadCitiesList($event.value)">
+      <mat-option *ngFor="let pr of lsProvinces" [value]="pr.pr_codigo">
+        {{pr.pr_nombre}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="half-width">
+    <mat-label>Ciudad</mat-label>
+    <mat-select formControlName="ci_codigo" [ngClass]="{ 'is-invalid': submitted && f.ci_codigo.errors }">
+      <mat-option *ngFor="let ci of lsCities" [value]="ci.ci_codigo">
+        {{ci.ci_nombre}}
+      </mat-option>
+    </mat-select>
+    <div *ngIf="submitted && f.ci_codigo.errors" class="invalid-feedback">
+      <div *ngIf="f.ci_codigo.errors.required">Requerido</div>
+    </div>
+  </mat-form-field>
+
+  <mat-form-field class="half-width">
+    <mat-label>Nacimiento</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="pe_fnacimiento"
+      [ngClass]="{ 'is-invalid': submitted && f.pe_fnacimiento.errors }">
+    <div *ngIf="submitted && f.pe_fnacimiento.errors" class="invalid-feedback">
+      <div *ngIf="f.pe_fnacimiento.errors.required">Fecha de Nacimiento</div>
+    </div>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+
+
+
+</form>
+<!--
+<div *ngIf="loading" class="text-center m-5">
+    <span class="spinner-border spinner-border-lg align-center"></span>
+</div>-->
+<span *ngIf="loading||submitting" class="spinner-border spinner-border-lg align-center"></span>

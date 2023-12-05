@@ -1,0 +1,30 @@
+<!-- nav 
+<nav class="navbar navbar-expand navbar-dark bg-dark px-3" *ngIf="user && get_showNavBar()">
+  <div class="navbar-nav">
+    <a class="nav-item nav-link" routerLink="/" routerLinkActive="active"
+      [routerLinkActiveOptions]="{exact: true}">Home</a>
+    <a class="nav-item nav-link" routerLink="/users" routerLinkActive="active">Users</a>
+
+    <button class="btn btn-link nav-item nav-link" (click)="updateEntities()">    .    </button>
+    <button class="btn btn-link nav-item nav-link" (click)="logout()">Logout</button>
+  </div>
+</nav>-->
+<!---->
+<mat-toolbar color="primary" *ngIf="user && get_showNavBar()">
+  <!--<span>My App</span>-->
+  <span class="spacer">
+    <a mat-button routerLink="../home">
+      <img class="btnHome" src="assets/icons/icon.svg" alt="PoliceMend" height="32" width="32"></a>
+  </span>
+  <button size mat-icon-button matTooltip="Salir" aria-label="Limpiar Busqueda" (click)="logout()">
+    <mat-icon>logout</mat-icon></button>
+<!--
+  <button size mat-icon-button matTooltip="Update" aria-label="Actualizar" (click)="updateProducts()">
+    <mat-icon>update</mat-icon></button>-->
+</mat-toolbar>
+<!-- main app container -->
+<!--div class="app-container" [ngClass]="{ 'bg-light': user }">-->
+<div class="app-container">
+  <alert></alert>
+  <router-outlet></router-outlet>
+</div>

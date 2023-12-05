@@ -1,0 +1,337 @@
+<!-- *ngIf="!loading"-->
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-toolbar class="toolbar" color="primary">
+    <button mat-icon-button aria-label="Cancelar" routerLink="/admin/vehiculo" onclick="event.preventDefault()">
+      <mat-icon>clear</mat-icon>
+    </button>
+    <span>{{title}}</span>
+    <span class="flex-spacer"></span>
+    <button mat-icon-button aria-label="Guardar" [disabled]="submitting||loading">
+      <mat-icon>save</mat-icon>
+    </button>
+  </mat-toolbar>
+  <igx-bottom-nav>
+    <igx-bottom-nav-item>
+      <igx-bottom-nav-header>
+        <igx-icon>directions_car</igx-icon>Vehículo
+      </igx-bottom-nav-header>
+      <igx-bottom-nav-content>
+        <!--Vehículo-->
+
+        <mat-form-field class="width1-3">
+          <mat-label>Placa</mat-label>
+          <input matInput formControlName="ve_placa" [ngClass]="{ 'is-invalid': submitted && f.ve_placa.errors }"
+            oninput="this.value=this.value.toUpperCase().replace(/[^\A-Z0-9]/,'')">
+          <div *ngIf="submitted && f.ve_placa.errors" class="invalid-feedback">
+            <div *ngIf="f.ve_placa.errors.required">Dato requerido</div>
+            <div *ngIf="f.ve_placa.errors.minlength">Debe tener al menos {{f.ve_placa.errors.minlength.requiredLength}} carácteres</div>
+            <div *ngIf="f.ve_placa.errors.maxlength">No debe superar los {{f.ve_placa.errors.maxlength.requiredLength}} carácteres</div>
+            <div *ngIf="f.ve_placa.errors.pattern">Placa sólo de tener letras y números</div>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field class="width2-3">
+          <mat-label>Tipo</mat-label>
+          <mat-select formControlName="vt_codigo">
+            <mat-option *ngFor="let vt of lsVehicleTypes" [value]="vt.vt_codigo">
+              {{vt.vt_nombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="half-width">
+          <mat-label>Chasis</mat-label>
+          <input matInput formControlName="ve_chasis" [ngClass]="{ 'is-invalid': submitted && f.ve_chasis.errors }"
+            oninput="this.value=this.value.toUpperCase().replace(/[^\A-Z0-9]/,'')">
+        </mat-form-field>
+
+        <mat-form-field class="half-width">
+          <mat-label>Motor</mat-label>
+          <input matInput formControlName="ve_motor" [ngClass]="{ 'is-invalid': submitted && f.ve_motor.errors }"
+            oninput="this.value=this.value.toUpperCase().replace(/[^\A-Z0-9]/,'')">
+        </mat-form-field>
+
+        <mat-form-field class="width1-3">
+          <mat-label>Origen</mat-label>
+          <mat-select formControlName="pa_codigo">
+            <mat-option *ngFor="let pa of lsCountries" [value]="pa.pa_codigo">
+              {{pa.pa_nombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="width1-3">
+          <mat-label>Frabricante</mat-label>
+          <mat-select formControlName="vm_codigo">
+            <mat-option *ngFor="let vm of lsVehicleBrands" [value]="vm.vm_codigo">
+              {{vm.vm_nombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="width1-3">
+          <mat-label>Año</mat-label>
+          <input matInput type="number" aria-label="Año de frabricación" formControlName="ve_anio"
+            [ngClass]="{ 'is-invalid': submitted && f.ve_anio.errors }"
+            oninput="this.value=this.value.replace(/[^\d]/,'')">
+          <div *ngIf="submitted && f.ve_anio.errors" class="invalid-feedback">
+            <div *ngIf="f.ve_anio.errors.required">Dato requerido</div>
+            <div *ngIf="f.ve_anio.errors.min">No debe ser más antiguo que 50 años </div>
+            <div *ngIf="f.ve_anio.errors.max">No debe superar a este año</div>
+            <div *ngIf="f.ve_anio.errors.minlength || f.ve_anio.errors.maxlength">Sólo 4 digitos</div>
+            <div *ngIf="f.ve_anio.errors.pattern">Sólo de tener números</div>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field class="width2-3">
+          <mat-label>Modelo</mat-label>
+          <input aria-label="Modelo" matInput [matAutocomplete]="Modelo" formControlName="ve_modelo"
+            [ngClass]="{ 'is-invalid': submitted && f.ve_modelo.errors }">
+          <mat-autocomplete autoActiveFirstOption #Modelo="matAutocomplete">
+            <mat-option *ngFor="let option of flModels | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+          <div *ngIf="submitted && f.ve_modelo.errors" class="invalid-feedback">
+            <div *ngIf="f.ve_modelo.errors.required">Dato requerido</div>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field class="width1-3">
+          <mat-label>Cilindraje (L)</mat-label>
+          <input matInput type="number" aria-label="Cilindraje" formControlName="ve_cilindaraje"
+            [ngClass]="{ 'is-invalid': submitted && f.ve_cilindaraje.errors }">
+          <div *ngIf="submitted && f.ve_cilindaraje.errors" class="invalid-feedback">
+            <div *ngIf="f.ve_cilindaraje.errors.required">Dato requerido</div>
+            <div *ngIf="f.ve_cilindaraje.errors.min">Mínimo requerido</div>
+            <div *ngIf="f.ve_cilindaraje.errors.max">Máximo sobrepasado</div>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field class="width1-3">
+          <mat-label>Carga (Tn.)</mat-label>
+          <input matInput type="number" aria-label="Capacidad de Carga" formControlName="ve_capacidadCarga"
+            [ngClass]="{ 'is-invalid': submitted && f.ve_capacidadCarga.errors }">
+          <div *ngIf="submitted && f.ve_capacidadCarga.errors" class="invalid-feedback">
+            <div *ngIf="f.ve_capacidadCarga.errors.required">Dato requerido</div>
+            <div *ngIf="f.ve_capacidadCarga.errors.min">Mínimo requerido</div>
+            <div *ngIf="f.ve_capacidadCarga.errors.max">Máximo sobrepasado</div>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field class="width1-3">
+          <mat-label>Pasajeros (pers.)</mat-label>
+          <input matInput type="number" aria-label="Capacidad de pasajeros" formControlName="ve_capacidadPasajero"
+            [ngClass]="{ 'is-invalid': submitted && f.ve_capacidadPasajero.errors }"
+            oninput="this.value=this.value.replace(/[^\d]/,'')">
+          <div *ngIf="submitted && f.ve_capacidadPasajero.errors" class="invalid-feedback">
+            <div *ngIf="f.ve_capacidadPasajero.errors.required">Dato requerido</div>
+            <div *ngIf="f.ve_capacidadPasajero.errors.min">Mínimo requerido</div>
+            <div *ngIf="f.ve_capacidadPasajero.errors.max">Máximo sobrepasado</div>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field class="width1-3">
+          <mat-label>Kilometraje</mat-label>
+          <input matInput type="number" aria-label="Kilometraje" formControlName="ve_km"
+            [ngClass]="{ 'is-invalid': submitted && f.ve_km.errors }">
+          <div *ngIf="submitted && f.ve_km.errors" class="invalid-feedback">
+            <div *ngIf="f.ve_km.errors.required">Dato requerido</div>
+            <div *ngIf="f.ve_km.errors.min">Mínimo requerido</div>
+            <div *ngIf="f.ve_km.errors.max">Máximo sobrepasado</div>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field class="width1-3">
+          <mat-label>Color</mat-label>
+          <input type="text" aria-label="Color principal" matInput [matAutocomplete]="Color" formControlName="ve_color"
+            [ngClass]="{ 'is-invalid': submitted && f.ve_color.errors }">
+          <mat-autocomplete autoActiveFirstOption #Color="matAutocomplete">
+            <mat-option *ngFor="let option of flColor1 | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+          <div *ngIf="submitted && f.ve_color.errors" class="invalid-feedback">
+            <div *ngIf="f.ve_color.errors.required">Dato requerido</div>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field class="width1-3">
+          <mat-label>Color 2</mat-label>
+          <input type="text" aria-label="Color secundario" matInput [matAutocomplete]="Color2" formControlName="ve_color2"
+            [ngClass]="{ 'is-invalid': submitted && f.ve_color2.errors }">
+          <mat-autocomplete autoActiveFirstOption #Color2="matAutocomplete">
+            <mat-option *ngFor="let option of flColor2 | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+          <div *ngIf="submitted && f.ve_color2.errors" class="invalid-feedback">
+            <div *ngIf="f.ve_color2.errors.required">Dato requerido</div>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field class="width1-3">
+          <mat-label>Combustible</mat-label>
+          <input type="text" aria-label="Tipo de combustible" matInput [matAutocomplete]="Combustible" formControlName="ve_combustible"
+            [ngClass]="{ 'is-invalid': submitted && f.ve_combustible.errors }">
+          <mat-autocomplete autoActiveFirstOption #Combustible="matAutocomplete">
+            <mat-option *ngFor="let option of flFuels | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+          <div *ngIf="submitted && f.ve_combustible.errors" class="invalid-feedback">
+            <div *ngIf="f.ve_combustible.errors.required">Dato requerido</div>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field class="width1-3">
+          <mat-label>Torque</mat-label>
+          <input matInput type="number" aria-label="Torque" formControlName="ve_torque"
+            [ngClass]="{ 'is-invalid': submitted && f.ve_torque.errors }">
+          <div *ngIf="submitted && f.ve_torque.errors" class="invalid-feedback">
+            <div *ngIf="f.ve_torque.errors.required">Dato requerido</div>
+            <div *ngIf="f.ve_torque.errors.min">Mínimo requerido</div>
+            <div *ngIf="f.ve_torque.errors.max">Máximo sobrepasado</div>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field class="width1-3">
+          <mat-label>Transmisión</mat-label>
+          <input matInput type="number" aria-label="Transmision" formControlName="ve_transmision"
+            [ngClass]="{ 'is-invalid': submitted && f.ve_transmision.errors }">
+          <div *ngIf="submitted && f.ve_transmision.errors" class="invalid-feedback">
+            <div *ngIf="f.ve_transmision.errors.required">Dato requerido</div>
+            <div *ngIf="f.ve_transmision.errors.min">Mínimo requerido</div>
+            <div *ngIf="f.ve_transmision.errors.max">Máximo sobrepasado</div>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field class="width1-3">
+          <mat-label>Caballos</mat-label>
+          <input matInput type="number" aria-label="Transmision" formControlName="ve_caballos"
+            [ngClass]="{ 'is-invalid': submitted && f.ve_caballos.errors }"
+            oninput="this.value=this.value.replace(/[^\d]/,'')">
+          <div *ngIf="submitted && f.ve_caballos.errors" class="invalid-feedback">
+            <div *ngIf="f.ve_caballos.errors.required">Dato requerido</div>
+            <div *ngIf="f.ve_caballos.errors.min">Mínimo requerido</div>
+            <div *ngIf="f.ve_caballos.errors.max">Máximo sobrepasado</div>
+          </div>
+        </mat-form-field>
+
+
+        <!--Vehículo-->
+      </igx-bottom-nav-content>
+    </igx-bottom-nav-item>
+    <igx-bottom-nav-item>
+      <igx-bottom-nav-header>
+        <igx-icon>group_work</igx-icon>Dependencia
+      </igx-bottom-nav-header>
+      <igx-bottom-nav-content>
+        <!--Dependencias-->
+        <div class="list">
+          <igx-list displayDensity="comfortable" style="margin: 0;">
+            <igx-list-item igxRipple igxRippleTarget=".igx-list__item-content" #item
+              *ngFor="let de of lsDependencies; index as i">
+
+              <span igxListLineTitle>
+
+                <mat-form-field class="width1-3" style="padding: 0;">
+                  <mat-label>Distrito</mat-label>
+                  <mat-select [value]="de.di_codigo" (selectionChange)="editDependency(i,$event.value,1)">
+                    <mat-option *ngFor="let di of lsDistricts" [value]="di.di_codigo">
+                      {{di.di_nombre}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="width1-3" style="padding: 0;">
+                  <mat-label>Circuito</mat-label>
+                  <mat-select [value]="de.cc_codigo" (selectionChange)="editDependency(i,$event.value,2)">
+                    <ng-container *ngFor="let cc of lsCircuits">
+                      <mat-option *ngIf="cc.di_codigo==de.di_codigo" [value]="cc.cc_codigo">
+                        {{cc.cc_nombre}}
+                      </mat-option>
+                    </ng-container>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="width1-3" style="padding: 0;">
+                  <mat-label>Subcircuito</mat-label>
+                  <mat-select [value]="de.sc_codigo" (selectionChange)="editDependency(i,$event.value,3)">
+                    <ng-container *ngFor="let sc of lsSubcircuits">
+                      <mat-option *ngIf="sc.cc_codigo==de.cc_codigo" [value]="sc.sc_codigo">
+                        {{sc.sc_nombre}}
+                      </mat-option>
+                    </ng-container>
+                  </mat-select>
+                </mat-form-field>
+
+              </span>
+              <!--<span igxListLineSubTitle>aa</span>-->
+              <span igxListAction>
+                <igx-switch *ngIf="de.vs_codigo !== undefined && de.vs_estado !== undefined" [checked]="de.vs_estado"
+                  (click)="lsDependencies[i].vs_estado = !lsDependencies[i].vs_estado; loadCustodiansList()"></igx-switch>
+
+                <button *ngIf="de.vs_codigo === undefined || de.vs_estado === undefined" mat-mini-fab color="warn"
+                  aria-label="Quitar registro" (click)="lsDependencies.splice(i,1); loadCustodiansList();">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </span>
+            </igx-list-item>
+          </igx-list>
+        </div>
+
+
+        <button class="add" mat-fab color="primary" aria-label="Crear Dependencia" onclick="event.preventDefault()"
+          (click)="addDependencyRow()">
+          <mat-icon>add</mat-icon>
+        </button>
+        <!--Dependencias-->
+      </igx-bottom-nav-content>
+    </igx-bottom-nav-item>
+    <igx-bottom-nav-item>
+      <igx-bottom-nav-header>
+        <igx-icon>group</igx-icon>Responsables
+      </igx-bottom-nav-header>
+      <igx-bottom-nav-content>
+        <!--Responsables-->
+
+        <igx-input-group type="search" class="search">
+          <igx-prefix>
+              <igx-icon>search</igx-icon>
+          </igx-prefix>
+          <!--<input #search igxInput placeholder="Buscar Personal" [(ngModel)]="searchCustodian" formControlName = "searchCustodian">-->
+          <input #search igxInput placeholder="Buscar Personal" formControlName = "searchCustodian">
+          <igx-suffix *ngIf="search.value.length > 0" (click)="clearSearchCustodians()">
+              <igx-icon>clear</igx-icon>
+          </igx-suffix>
+        </igx-input-group>
+        <div class="list">
+          <igx-list displayDensity="comfortable" style="margin: 0;">
+              <igx-list-item [isHeader]="true">Personal</igx-list-item>
+              <igx-list-item igxRipple igxRippleTarget=".igx-list__item-content" #item
+                  *ngFor="let vc of lsCustodians | igxFilter: filterCustodians | slice:0:30;">
+
+                  <span igxListLineTitle>{{ vc.pe_nombres }}</span>
+                  <span igxListLineSubTitle>{{ vc.ra_nombre }} </span>
+
+                  <span igxListAction>
+                      <igx-switch [checked]="vc.vc_estado" (click)="disableCustodian(vc.pe_codigo)"></igx-switch>
+                  </span><!--(click)="disable(vc.vc_codigo)"-->
+              </igx-list-item>
+          </igx-list>
+        </div>
+
+
+        <!--Responsables-->
+      </igx-bottom-nav-content>
+    </igx-bottom-nav-item>
+
+
+  </igx-bottom-nav>
+</form>
+<!--
+<div *ngIf="loading" class="text-center m-5">
+    <span class="spinner-border spinner-border-lg align-center"></span>
+</div>-->
+<span *ngIf="loading||submitting" class="spinner-border spinner-border-lg align-center"></span>

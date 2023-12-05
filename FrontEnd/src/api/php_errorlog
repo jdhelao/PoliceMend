@@ -1,0 +1,25 @@
+[08-Jun-2023 17:47:17 America/Guayaquil] PHP Fatal error:  Uncaught Error: Call to a member function children() on bool in /home/customer/www/test.safied.com/public_html/api/clsGetData.php:93
+Stack trace:
+#0 /home/customer/www/test.safied.com/public_html/api/index.php(49): clsGetData::get_DataSet(2813, '1, '[object Obj...', 1, false)
+#1 {main}
+  thrown in /home/customer/www/test.safied.com/public_html/api/clsGetData.php on line 93
+[08-Jun-2023 17:48:13 America/Guayaquil] PHP Fatal error:  Uncaught Error: Call to a member function children() on bool in /home/customer/www/test.safied.com/public_html/api/clsGetData.php:93
+Stack trace:
+#0 /home/customer/www/test.safied.com/public_html/api/index.php(49): clsGetData::get_DataSet(2813, '1, '2023-06-07 ...', 1, false)
+#1 {main}
+  thrown in /home/customer/www/test.safied.com/public_html/api/clsGetData.php on line 93
+[08-Jun-2023 17:49:10 America/Guayaquil] PHP Fatal error:  Uncaught Error: Call to a member function children() on bool in /home/customer/www/test.safied.com/public_html/api/clsGetData.php:93
+Stack trace:
+#0 /home/customer/www/test.safied.com/public_html/api/index.php(49): clsGetData::get_DataSet(2813, '1, '2023-06-07 ...', 1, false)
+#1 {main}
+  thrown in /home/customer/www/test.safied.com/public_html/api/clsGetData.php on line 93
+[08-Jun-2023 17:51:00 America/Guayaquil] PHP Fatal error:  Uncaught Error: Call to a member function children() on bool in /home/customer/www/test.safied.com/public_html/api/clsGetData.php:93
+Stack trace:
+#0 /home/customer/www/test.safied.com/public_html/api/index.php(49): clsGetData::get_DataSet(2813, '1, '2023-06-07 ...', 1, false)
+#1 {main}
+  thrown in /home/customer/www/test.safied.com/public_html/api/clsGetData.php on line 93
+[08-Jun-2023 17:51:14 America/Guayaquil] PHP Fatal error:  Uncaught Error: Call to a member function children() on bool in /home/customer/www/test.safied.com/public_html/api/clsGetData.php:93
+Stack trace:
+#0 /home/customer/www/test.safied.com/public_html/api/index.php(49): clsGetData::get_DataSet(2813, '1, '2023-06-07 ...', 1, false)
+#1 {main}
+  thrown in /home/customer/www/test.safied.com/public_html/api/clsGetData.php on line 93

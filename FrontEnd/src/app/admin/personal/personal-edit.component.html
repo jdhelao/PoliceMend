@@ -1,0 +1,256 @@
+<!-- *ngIf="!loading"-->
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-toolbar class="toolbar" color="primary">
+    <button mat-icon-button aria-label="Cancelar" routerLink="/admin/personal" onclick="event.preventDefault()">
+      <mat-icon>clear</mat-icon>
+    </button>
+    <span>{{title}}</span>
+    <span class="flex-spacer"></span>
+    <button mat-icon-button aria-label="Guardar" [disabled]="submitting||loading">
+      <mat-icon>save</mat-icon>
+    </button>
+  </mat-toolbar>
+  <igx-bottom-nav>
+    <igx-bottom-nav-item>
+      <igx-bottom-nav-header>
+        <igx-icon>person</igx-icon>Personal
+      </igx-bottom-nav-header>
+      <igx-bottom-nav-content>
+        <!--Personal-->
+
+        <mat-form-field class="width2-3">
+          <mat-label>Cédula</mat-label>
+          <input matInput formControlName="pe_dni" [ngClass]="{ 'is-invalid': submitted && f.pe_dni.errors }"
+            oninput="this.value=this.value.replace(/[^\d]/,'')">
+          <div *ngIf="submitted && f.pe_dni.errors" class="invalid-feedback">
+            <div *ngIf="f.pe_dni.errors.required">Cédula requerida</div>
+            <div *ngIf="f.pe_dni.errors.minlength || f.pe_dni.errors.maxlength">Cédula debe tener 10 digitos</div>
+            <div *ngIf="f.pe_dni.errors.pattern">Cédula sólo de tener números</div>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field class="width1-3">
+          <mat-label>Sangre</mat-label>
+          <input type="text" aria-label="Tipo de sangre" matInput [matAutocomplete]="auto" formControlName="pe_sangre"
+            [ngClass]="{ 'is-invalid': submitted && f.pe_sangre.errors }">
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions_blood | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+          <div *ngIf="submitted && f.pe_sangre.errors" class="invalid-feedback">
+            <div *ngIf="f.pe_sangre.errors.required">Tipo de sangre</div>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <mat-label>Rango</mat-label>
+          <mat-select formControlName="ra_codigo">
+            <mat-option *ngFor="let ra of lsRanks" [value]="ra.ra_codigo">
+              {{ra.ra_nombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="half-width">
+          <mat-label>1<sup>er</sup> nombre</mat-label>
+          <input matInput formControlName="pe_nombre1" [ngClass]="{ 'is-invalid': submitted && f.pe_nombre1.errors }">
+          <div *ngIf="submitted && f.pe_nombre1.errors" class="invalid-feedback">
+            <div *ngIf="f.pe_nombre1.errors.required">Nombre requerido</div>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field class="half-width">
+          <mat-label>2<sup>do</sup> nombre</mat-label>
+          <input matInput formControlName="pe_nombre2" [ngClass]="{ 'is-invalid': submitted && f.pe_nombre2.errors }">
+        </mat-form-field>
+
+        <mat-form-field class="half-width">
+          <mat-label>1<sup>er</sup> apellido</mat-label>
+          <input matInput formControlName="pe_apellido1"
+            [ngClass]="{ 'is-invalid': submitted && f.pe_apellido1.errors }">
+          <div *ngIf="submitted && f.pe_apellido1.errors" class="invalid-feedback">
+            <div *ngIf="f.pe_apellido1.errors.required">Apellido requerido</div>
+          </div>
+        </mat-form-field>
+        <mat-form-field class="half-width">
+          <mat-label>2<sup>do</sup> apellido</mat-label>
+          <input matInput formControlName="pe_apellido2"
+            [ngClass]="{ 'is-invalid': submitted && f.pe_apellido2.errors }">
+        </mat-form-field>
+
+        <mat-form-field class="half-width">
+          <mat-label>Pais</mat-label>
+          <mat-select formControlName="pa_codigo" (selectionChange)="loadProvincesList($event.value)">
+            <mat-option *ngFor="let pa of lsCountries" [value]="pa.pa_codigo">
+              {{pa.pa_nombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="half-width">
+          <mat-label>Provincia</mat-label>
+          <mat-select formControlName="pr_codigo" (selectionChange)="loadCitiesList($event.value)">
+            <mat-option *ngFor="let pr of lsProvinces" [value]="pr.pr_codigo">
+              {{pr.pr_nombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="half-width">
+          <mat-label>Ciudad</mat-label>
+          <mat-select formControlName="ci_codigo" [ngClass]="{ 'is-invalid': submitted && f.ci_codigo.errors }">
+            <mat-option *ngFor="let ci of lsCities" [value]="ci.ci_codigo">
+              {{ci.ci_nombre}}
+            </mat-option>
+          </mat-select>
+          <div *ngIf="submitted && f.ci_codigo.errors" class="invalid-feedback">
+            <div *ngIf="f.ci_codigo.errors.required">Requerido</div>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field class="half-width">
+          <mat-label>Nacimiento</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="pe_fnacimiento"
+            [ngClass]="{ 'is-invalid': submitted && f.pe_fnacimiento.errors }">
+          <div *ngIf="submitted && f.pe_fnacimiento.errors" class="invalid-feedback">
+            <div *ngIf="f.pe_fnacimiento.errors.required">Fecha de Nacimiento</div>
+          </div>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <!--Personal-->
+      </igx-bottom-nav-content>
+    </igx-bottom-nav-item>
+    <igx-bottom-nav-item>
+      <igx-bottom-nav-header>
+        <igx-icon>contact_phone</igx-icon>Contacto
+      </igx-bottom-nav-header>
+      <igx-bottom-nav-content>
+        <!--Contacto-->
+        <div class="list">
+          <igx-list displayDensity="comfortable" style="margin: 0;">
+            <igx-list-item igxRipple igxRippleTarget=".igx-list__item-content" #item
+              *ngFor="let co of lsContacts; index as i">
+
+              <igx-avatar igxListThumbnail shape="circle" size="medium" style="width: 55px; height: 55px;">
+                <ng-container *ngFor="let tc of lsContactTypes">
+                  <mat-icon *ngIf="tc.tc_codigo==co.tc_codigo">{{tc.tc_ico}}</mat-icon>
+                </ng-container>
+                <!--<mat-icon>{{co.tc_ico}}</mat-icon>-->
+              </igx-avatar>
+
+              <span igxListLineTitle>
+
+                <mat-form-field class="width1-3" style="padding: 0;">
+                  <mat-label>Tipo</mat-label>
+                  <mat-select [value]="co.tc_codigo" (selectionChange)="editContact_type(i,$event.value)">
+                    <mat-option *ngFor="let tc of lsContactTypes" [value]="tc.tc_codigo">
+                      {{tc.tc_nombre}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="width2-3" style="padding: 0;">
+                  <mat-label>Descrición</mat-label>
+                  <input matInput value="{{ co.co_descripcion }}" (change)="editContact_value(i,$event.target)">
+                </mat-form-field>
+
+              </span>
+              <!--<span igxListLineSubTitle>aa</span>-->
+              <span igxListAction class="pe-actions">
+                <igx-switch *ngIf="co.co_codigo !== undefined && co.co_estado !== undefined" [checked]="co.co_estado"
+                  (click)="lsContacts[i].co_estado = !lsContacts[i].co_estado"></igx-switch>
+
+                <button *ngIf="co.co_codigo === undefined || co.co_estado === undefined" mat-mini-fab color="warn"
+                  aria-label="Quitar registro" (click)="lsContacts.splice(i,1)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </span>
+            </igx-list-item>
+          </igx-list>
+        </div>
+
+
+
+        <button class="add" mat-fab color="primary" aria-label="Crear Contacto" onclick="event.preventDefault()"
+          (click)="addContactRow()">
+          <mat-icon>add</mat-icon>
+        </button>
+        <!--Contacto-->
+      </igx-bottom-nav-content>
+    </igx-bottom-nav-item>
+    <igx-bottom-nav-item>
+      <igx-bottom-nav-header>
+        <igx-icon>group_work</igx-icon>Dependencia
+      </igx-bottom-nav-header>
+      <igx-bottom-nav-content>
+        <!--Dependencias-->
+        <div class="list">
+          <igx-list displayDensity="comfortable" style="margin: 0;">
+            <igx-list-item igxRipple igxRippleTarget=".igx-list__item-content" #item
+              *ngFor="let de of lsDependencies; index as i">
+
+              <span igxListLineTitle>
+
+                <mat-form-field class="width1-3" style="padding: 0;">
+                  <mat-label>Distrito</mat-label>
+                  <mat-select [value]="de.di_codigo" (selectionChange)="editDependency(i,$event.value,1)">
+                    <mat-option *ngFor="let di of lsDistricts" [value]="di.di_codigo">
+                      {{di.di_nombre}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="width1-3" style="padding: 0;">
+                  <mat-label>Circuito</mat-label>
+                  <mat-select [value]="de.cc_codigo" (selectionChange)="editDependency(i,$event.value,2)">
+                    <ng-container *ngFor="let cc of lsCircuits">
+                      <mat-option *ngIf="cc.di_codigo==de.di_codigo" [value]="cc.cc_codigo">
+                        {{cc.cc_nombre}}
+                      </mat-option>
+                    </ng-container>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="width1-3" style="padding: 0;">
+                  <mat-label>Subcircuito</mat-label>
+                  <mat-select [value]="de.sc_codigo" (selectionChange)="editDependency(i,$event.value,3)">
+                    <ng-container *ngFor="let sc of lsSubcircuits">
+                      <mat-option *ngIf="sc.cc_codigo==de.cc_codigo" [value]="sc.sc_codigo">
+                        {{sc.sc_nombre}}
+                      </mat-option>
+                    </ng-container>
+                  </mat-select>
+                </mat-form-field>
+
+              </span>
+              <!--<span igxListLineSubTitle>aa</span>-->
+              <span igxListAction class="pe-actions">
+                <igx-switch *ngIf="de.ps_codigo !== undefined && de.ps_estado !== undefined" [checked]="de.ps_estado"
+                  (click)="lsDependencies[i].ps_estado = !lsDependencies[i].ps_estado"></igx-switch>
+
+                <button *ngIf="de.ps_codigo === undefined || de.ps_estado === undefined" mat-mini-fab color="warn"
+                  aria-label="Quitar registro" (click)="lsDependencies.splice(i,1)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </span>
+            </igx-list-item>
+          </igx-list>
+        </div>
+
+
+        <button class="add" mat-fab color="primary" aria-label="Crear Dependencia" onclick="event.preventDefault()"
+          (click)="addDependencyRow()">
+          <mat-icon>add</mat-icon>
+        </button>
+        <!--Dependencias-->
+      </igx-bottom-nav-content>
+    </igx-bottom-nav-item>
+  </igx-bottom-nav>
+</form>
+<!--
+<div *ngIf="loading" class="text-center m-5">
+    <span class="spinner-border spinner-border-lg align-center"></span>
+</div>-->
+<span *ngIf="loading||submitting" class="spinner-border spinner-border-lg align-center"></span>

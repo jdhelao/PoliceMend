@@ -1,0 +1,141 @@
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-toolbar class="toolbar" color="primary">
+        <button mat-icon-button aria-label="Cancelar" routerLink="/inicio">
+            <mat-icon>clear</mat-icon>
+        </button>
+        <span>Crear {{title}}</span>
+        <span class="flex-spacer"></span>
+        <button mat-icon-button aria-label="Guardar" [disabled]="submitting">
+            <mat-icon>save</mat-icon>
+        </button>
+    </mat-toolbar>
+
+    <mat-form-field class="half-width">
+        <mat-label>Tipo</mat-label>
+        <mat-select formControlName="su_tipo" (selectionChange)="changeTitle($event.value)"
+            [ngClass]="{ 'is-invalid': submitted && f.su_tipo.errors }">
+            <mat-option *ngFor="let td of lsTypes" [value]="td.su_tipo">
+                {{td.td_nombre}}
+            </mat-option>
+        </mat-select>
+        <div *ngIf="submitted && f.su_tipo.errors" class="invalid-feedback">
+            <div *ngIf="f.su_tipo.errors.required">Requerido</div>
+        </div>
+    </mat-form-field>
+
+    <mat-form-field class="half-width">
+        <mat-label>Distrito</mat-label>
+        <mat-select formControlName="di_codigo" (selectionChange)="loadCircuitList($event.value)">
+            <mat-option *ngFor="let di of lsDistricts" [value]="di.di_codigo">
+                {{di.di_nombre}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="half-width">
+        <mat-label>Circuito</mat-label>
+        <mat-select formControlName="cc_codigo" (selectionChange)="loadSubcircuitList($event.value)">
+            <mat-option *ngFor="let cc of lsCircuits" [value]="cc.cc_codigo">
+                {{cc.cc_nombre}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="half-width">
+        <mat-label>Subcircuito</mat-label>
+        <mat-select formControlName="sc_codigo" [ngClass]="{ 'is-invalid': submitted && f.sc_codigo.errors }">
+            <mat-option *ngFor="let sc of lsSubcircuits" [value]="sc.sc_codigo">
+                {{sc.sc_nombre}}
+            </mat-option>
+        </mat-select>
+        <div *ngIf="submitted && f.sc_codigo.errors" class="invalid-feedback">
+            <div *ngIf="f.sc_codigo.errors.required">Requerido</div>
+        </div>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+        <mat-label>Contacto</mat-label>
+        <input matInput formControlName="su_contacto" oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+            [ngClass]="{ 'is-invalid': submitted && f.su_contacto.errors }">
+        <div *ngIf="submitted && f.su_contacto.errors" class="invalid-feedback">
+            <div *ngIf="f.su_contacto.errors.required">Requerido</div>
+            <div *ngIf="f.su_contacto.errors.minlength">Detener más digitos</div>
+            <div *ngIf="f.su_contacto.errors.maxlength">Detener menos digitos</div>
+        </div>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+        <mat-label>Nombres</mat-label>
+        <input matInput formControlName="su_nombres" [ngClass]="{ 'is-invalid': submitted && f.su_nombres.errors }">
+        <div *ngIf="submitted && f.su_nombres.errors" class="invalid-feedback">
+            <div *ngIf="f.su_nombres.errors.required">Requerido</div>
+        </div>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+        <mat-label>Apellidos</mat-label>
+        <input matInput formControlName="su_apellidos" [ngClass]="{ 'is-invalid': submitted && f.su_apellidos.errors }">
+        <div *ngIf="submitted && f.su_apellidos.errors" class="invalid-feedback">
+            <div *ngIf="f.su_apellidos.errors.required">Requerido</div>
+        </div>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+        <mat-label>Detlles de {{title}}</mat-label>
+        <textarea matInput formControlName="su_detalles" placeholder="Descripción de {{title}}..." [ngClass]="{ 'is-invalid': submitted && f.su_detalles.errors }"></textarea>
+        <div *ngIf="submitted && f.su_detalles.errors" class="invalid-feedback">
+            <div *ngIf="f.su_detalles.errors.required">Requerido</div>
+        </div> 
+    </mat-form-field>
+
+
+    <!--
+    <mat-form-field class="full-width">
+        <mat-label>Usuario</mat-label>
+        <input matInput formControlName="us_login" [ngClass]="{ 'is-invalid': submitted && f.us_login.errors }"
+            oninput="this.value=this.value.replace(/[^a-zA-Z0-9]/g,'')">
+        <div *ngIf="submitted && f.us_login.errors" class="invalid-feedback">
+            <div *ngIf="f.us_login.errors.required">Login requerido</div>
+            <div *ngIf="f.us_login.errors.minlength">Login debetener más characters</div>
+            <div *ngIf="f.us_login.errors.maxlength">Login debetener menos characters</div>
+        </div>
+    </mat-form-field>
+
+    <mat-form-field class="half-width">
+        <mat-label>Perfil</mat-label>
+        <mat-select formControlName="pf_codigo">
+            <mat-option *ngFor="let pf of lsProfiles" [value]="pf.pf_codigo">
+                {{pf.pf_nombre}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="half-width">
+        <mat-label>Personal</mat-label>
+        <mat-select formControlName="pe_codigo">
+            <mat-option *ngFor="let pe of lsPeople" [value]="pe.pe_codigo">
+                {{pe.pe_apellido1}} {{pe.pe_apellido2}} {{pe.pe_nombre1}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+        <mat-label>Constraseña
+            <em *ngIf="id">(Dejar en blanco para mantener contaseña)</em>
+        </mat-label>
+        <input type="password" matInput formControlName="us_password" [ngClass]="{ 'is-invalid': submitted && f.us_password.errors }">
+        <div *ngIf="submitted && f.us_password.errors" class="invalid-feedback">
+            <div *ngIf="f.us_password.errors.required">Constraseña requerido</div>
+            <div *ngIf="f.us_password.errors.minlength">Constraseña debetener más characters</div>
+            <div *ngIf="f.us_password.errors.maxlength">Constraseña debetener menos characters</div>
+        </div>
+    </mat-form-field>
+-->
+</form>
+<!--
+<div *ngIf="loading" class="text-center m-5">
+    <span class="spinner-border spinner-border-lg align-center"></span>
+</div>
+-->
+<span *ngIf="loading" class="spinner-border spinner-border-lg align-center"></span>
+

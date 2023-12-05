@@ -1,0 +1,88 @@
+<!-- *ngIf="!loading"-->
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-toolbar class="toolbar" color="primary">
+    <button mat-icon-button aria-label="Cancelar" routerLink="/admin/solicitud-vehicular" onclick="event.preventDefault()">
+      <mat-icon>clear</mat-icon>
+    </button>
+    <span>{{title}}</span>
+    <span class="flex-spacer"></span>
+    <button mat-icon-button aria-label="Guardar" [disabled]="submitting||loading">
+      <mat-icon>save</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <mat-form-field class="width1-3">
+    <mat-label>Tipo</mat-label>
+    <mat-select formControlName="kt_codigo">
+      <mat-option *ngFor="let kt of lsContractTypes" [value]="kt.kt_codigo">
+        {{kt.kt_nombre}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="width2-3">
+    <mat-label>Vehículo</mat-label>
+    <mat-select formControlName="ve_codigo" (selectionChange)="setMinKM($event.value)">
+      <mat-option *ngFor="let ve of lsVehicles" [value]="ve.ve_codigo">
+        {{ve.ve_placa}} ({{ ve.vm_nombre }} {{ ve.ve_color }})
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="half-width">
+    <mat-label>Fecha</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="sv_fecha_requerimiento"
+      [ngClass]="{ 'is-invalid': submitted && f.sv_fecha_requerimiento.errors }">
+    <div *ngIf="submitted && f.sv_fecha_requerimiento.errors" class="invalid-feedback">
+      <div *ngIf="f.sv_fecha_requerimiento.errors.required">Fecha de requerimiento</div>
+      <div *ngIf="f.sv_fecha_requerimiento.errors.minDate">No deber ser antes de hoy</div>
+    </div>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field class="half-width">
+    <mat-label>Kilometraje</mat-label>
+    <input matInput type="number" aria-label="Kilometraje" formControlName="ve_km" step="10" min="{{ve_km_min}}"
+      [ngClass]="{ 'is-invalid': submitted && f.ve_km.errors }">
+    <div *ngIf="submitted && f.ve_km.errors" class="invalid-feedback">
+      <div *ngIf="f.ve_km.errors.required">Dato requerido</div>
+      <div *ngIf="f.ve_km.errors.min">Mínimo requerido</div>
+      <div *ngIf="f.ve_km.errors.max">Máximo sobrepasado</div>
+    </div>
+  </mat-form-field>
+
+
+  <!--<mat-form-field class="width1-3">
+
+    <mat-slider min="1" max="99" step="1" showTickMarks discrete class="width1-3" formControlName="ve_combustible_nivel">
+      <input matSliderThumb>
+      <mat-label>Nivel combustible (%)</mat-label>
+    </mat-slider>-->
+  <!--</mat-form-field>-->
+
+
+    <!--[displayWith]="f.ve_combustible_nivel.value"-->
+    <label class="full-width">Nivel combustible ({{ f.ve_combustible_nivel.value }} %)
+    <mat-slider min="1" max="{{ f.kt_codigo.value == 2 ? 50 : 99 }}" step="1" discrete style="width: 98%;">
+      <input matSliderThumb formControlName="ve_combustible_nivel">
+    </mat-slider></label>
+    <div *ngIf="submitted && f.ve_combustible_nivel.errors" class="invalid-feedback">
+      <div *ngIf="f.ve_combustible_nivel.errors.required">Dato requerido</div>
+      <div *ngIf="f.ve_combustible_nivel.errors.min">Mínimo requerido</div>
+      <div *ngIf="f.ve_combustible_nivel.errors.max">Máximo sobrepasado</div>
+    </div>
+
+
+    <mat-form-field class="full-width">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput placeholder="Descrición de solicitud..." formControlName="sv_descripcion"></textarea>
+    </mat-form-field>
+
+
+</form>
+<!--
+<div *ngIf="loading" class="text-center m-5">
+    <span class="spinner-border spinner-border-lg align-center"></span>
+</div>-->
+<span *ngIf="loading||submitting" class="spinner-border spinner-border-lg align-center"></span>

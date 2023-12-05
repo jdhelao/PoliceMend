@@ -1,0 +1,48 @@
+<!-- *ngIf="!loading"-->
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-toolbar class="toolbar" color="primary">
+    <button mat-icon-button aria-label="Cancelar" routerLink="/admin/subcircuito" onclick="event.preventDefault()">
+      <mat-icon>clear</mat-icon>
+    </button>
+    <span>{{title}}</span>
+    <span class="flex-spacer"></span>
+    <button mat-icon-button aria-label="Guardar" [disabled]="submitting||loading">
+      <mat-icon>save</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <mat-form-field class="full-width">
+    <mat-label>Distrito</mat-label>
+    <mat-select formControlName="di_codigo" (selectionChange)="getCircuitsList($event.value)">
+      <mat-option *ngFor="let di of lsDistricts" [value]="di.di_codigo" [disabled]="id!=undefined">
+        {{di.di_nombre}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Circuito</mat-label>
+    <mat-select formControlName="cc_codigo">
+      <mat-option *ngFor="let cc of lsCircuits" [value]="cc.cc_codigo" [disabled]="id!=undefined">
+        {{cc.cc_nombre}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Subcircuito</mat-label>
+    <input matInput formControlName="sc_nombre" [ngClass]="{ 'is-invalid': submitted && f.sc_nombre.errors }"
+      oninput="this.value=this.value.replace(/[^a-zA-Z0-9 ]/g,'')">
+    <div *ngIf="submitted && f.sc_nombre.errors" class="invalid-feedback">
+      <div *ngIf="f.sc_nombre.errors.required">Nombre requerido</div>
+      <div *ngIf="f.sc_nombre.errors.minlength">Nombre debetener más characters</div>
+      <div *ngIf="f.sc_nombre.errors.maxlength">Nombre debetener menos characters</div>
+    </div>
+  </mat-form-field>
+
+</form>
+<!--
+<div *ngIf="loading" class="text-center m-5">
+    <span class="spinner-border spinner-border-lg align-center"></span>
+</div>-->
+<span *ngIf="loading||submitting" class="spinner-border spinner-border-lg align-center"></span>

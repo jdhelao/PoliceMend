@@ -1,0 +1,148 @@
+<!-- *ngIf="!loading"-->
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-toolbar class="toolbar" color="primary">
+    <button mat-icon-button aria-label="Cancelar" routerLink="/admin/contrato" onclick="event.preventDefault()">
+      <mat-icon>clear</mat-icon>
+    </button>
+    <span>{{title}}</span>
+    <span class="flex-spacer"></span>
+    <button mat-icon-button aria-label="Guardar" [disabled]="submitting||loading">
+      <mat-icon>save</mat-icon>
+    </button>
+  </mat-toolbar>
+  <igx-bottom-nav>
+    <igx-bottom-nav-item>
+      <igx-bottom-nav-header>
+        <igx-icon>history_edu</igx-icon>Contrato
+      </igx-bottom-nav-header>
+      <igx-bottom-nav-content>
+        <!--Contrato-->
+
+        <mat-form-field class="width1-3">
+          <mat-label>Tipo</mat-label>
+          <mat-select formControlName="kt_codigo" (selectionChange)="loadEntitiesList()">
+            <mat-option *ngFor="let kt of lsContractTypes" [value]="kt.kt_codigo" >
+              {{kt.kt_nombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="width2-3">
+          <mat-label>Documento</mat-label>
+          <input matInput formControlName="ko_documento" [ngClass]="{ 'is-invalid': submitted && f.ko_documento.errors }"
+            oninput="this.value=this.value.toUpperCase().replace(/[^a-zA-Z0-9 -]/g,'')">
+          <div *ngIf="submitted && f.ko_documento.errors" class="invalid-feedback">
+            <div *ngIf="f.ko_documento.errors.required">Documento requerido</div>
+            <div *ngIf="f.ko_documento.errors.minlength">Documento debetener más characters</div>
+            <div *ngIf="f.ko_documento.errors.maxlength">Documento debetener menos characters</div>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field class="width1-3">
+          <mat-label>Monto</mat-label>
+          <input matInput type="number" aria-label="Monto" formControlName="ko_monto"
+            [ngClass]="{ 'is-invalid': submitted && f.ko_monto.errors }">
+          <div *ngIf="submitted && f.ko_monto.errors" class="invalid-feedback">
+            <div *ngIf="f.ko_monto.errors.required">Dato requerido</div>
+            <div *ngIf="f.ko_monto.errors.min">Mínimo requerido</div>
+            <div *ngIf="f.ko_monto.errors.max">Máximo sobrepasado</div>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field class="width2-3">
+          <mat-label>Fechas de validez</mat-label>
+          <mat-date-range-input [rangePicker]="picker">
+            <input matStartDate formControlName="ko_inicio" placeholder="Inico" aria-label="Fecha de incio">
+            <input matEndDate formControlName="ko_fin" placeholder="Fin" aria-label="Fecha de fin">
+          </mat-date-range-input>
+          <!--<mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>-->
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <mat-label>Compadecientes</mat-label>
+          <textarea matInput placeholder="Personas involucradas..." formControlName="ko_compadecientes"></textarea>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <mat-label>Clausulas</mat-label>
+          <textarea matInput placeholder="Terminos y condiciones..." formControlName="ko_clausulas"></textarea>
+        </mat-form-field>
+
+        <mat-form-field class="half-width">
+          <mat-label>Contratante</mat-label>
+          <mat-select formControlName="kt_contratante">
+            <mat-option *ngFor="let pe of lsPeople" [value]="pe.pe_codigo">
+              {{pe.pe_apellido1}} {{pe.pe_apellido2}} {{pe.pe_nombre1}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="half-width">
+          <mat-label>Contratista</mat-label>
+          <mat-select formControlName="kt_contratista">
+            <mat-option *ngFor="let pe of lsPeople" [value]="pe.pe_codigo">
+              {{pe.pe_apellido1}} {{pe.pe_apellido2}} {{pe.pe_nombre1}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!--Contrato-->
+      </igx-bottom-nav-content>
+    </igx-bottom-nav-item>
+
+    <igx-bottom-nav-item>
+      <igx-bottom-nav-header>
+        <igx-icon>domain</igx-icon>Entidades
+      </igx-bottom-nav-header>
+      <igx-bottom-nav-content>
+        <!--Responsables-->
+
+        <igx-input-group type="search" class="search">
+          <igx-prefix>
+              <igx-icon>search</igx-icon>
+          </igx-prefix>
+          <input #search igxInput placeholder="Buscar Entidad" formControlName = "searchEntity">
+          <igx-suffix *ngIf="search.value.length > 0" (click)="clearSearchEntities()">
+              <igx-icon>clear</igx-icon>
+          </igx-suffix>
+        </igx-input-group>
+        <div class="list">
+          <igx-list displayDensity="comfortable" style="margin: 0;">
+              <igx-list-item [isHeader]="true">Usuarios</igx-list-item>
+              <igx-list-item igxRipple igxRippleTarget=".igx-list__item-content" #item
+                  *ngFor="let ke of lsEntities | igxFilter: filterEntities | slice:0:30;">
+                  <igx-avatar igxListThumbnail shape="circle" *ngIf="ke.en_latitud&&ke.en_longitud">
+                    <a href="https://www.google.com/maps/search/?api=1&query={{ke.en_latitud}},{{ke.en_longitud}}" target="_blank">
+                      <mat-icon>location_on</mat-icon>
+                    </a>
+                  </igx-avatar>
+                  <igx-avatar igxListThumbnail shape="rounded" *ngIf="ke.en_plus_code">
+                    <a href="https://www.google.com/maps/place/{{ encodeURI(ke.en_plus_code) }}" target="_blank">
+                      <mat-icon>my_location</mat-icon>
+                    </a>
+                  </igx-avatar>
+                  <span igxListLineTitle>{{ ke.en_nombre }} {{ ke.pe_nombres ? '(' + ke.pe_nombres + ')' : '' }}</span>
+                  <span igxListLineSubTitle>{{ ke.di_nombre }}{{ ke.en_plus_code ? ' | ' + ke.en_plus_code : '' }}{{ ke.en_24horas ? ' | 24HORAS' : '' }}</span>
+
+                  <span igxListAction>
+                      <igx-switch [checked]="ke.ke_estado" (click)="disableEntity(ke.en_codigo)"></igx-switch>
+                  </span><!--(click)="disable(eu.eu_codigo)"-->
+              </igx-list-item>
+          </igx-list>
+        </div>
+
+
+        <!--Responsables-->
+      </igx-bottom-nav-content>
+    </igx-bottom-nav-item>
+
+
+  </igx-bottom-nav>
+</form>
+<!--
+<div *ngIf="loading" class="text-center m-5">
+    <span class="spinner-border spinner-border-lg align-center"></span>
+</div>-->
+<span *ngIf="loading||submitting" class="spinner-border spinner-border-lg align-center"></span>

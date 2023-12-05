@@ -1,0 +1,35 @@
+<div class="bg"></div>
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+      <div id="divLoginLogo"><img src="assets/icons/icon.svg" alt="PoliceMend" height="56" with="56"></div>
+      <br />
+      <!--
+      <mat-error *ngIf="!loginValid">
+        El usuario y la contraseña no son validos
+      </mat-error>-->
+      <mat-form-field appearance="outline">
+        <mat-label>Usuario</mat-label>
+        <input matInput type="text" placeholder="" formControlName="username" matAutocomplete="auto"autocomplete="on" required>
+        <mat-icon matSuffix>account_circle</mat-icon>
+        <mat-error>
+          Ingrese un usuario
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Contraseña</mat-label>
+        <input matInput type="password" placeholder="" formControlName="password" matAutocomplete="auto" autocomplete="on" required>
+        <mat-icon matSuffix>password</mat-icon>
+        <mat-error>
+          Ingrese la contraseña
+        </mat-error>
+      </mat-form-field>
+      <button type="submit" mat-raised-button color="primary" [disabled]="!form.valid || loading">INICIAR</button>
+      <br />
+      <!--<a mat-button routerLink="../register">Registrar</a>-->
+      <a class="cancel" mat-button routerLink="/inicio">Cancelar</a>
+
+    </form>
+  </mat-card-content>
+</mat-card>

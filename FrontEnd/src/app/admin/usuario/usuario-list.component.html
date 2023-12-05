@@ -1,0 +1,41 @@
+<igx-input-group type="search" class="search">
+    <igx-prefix>
+        <igx-icon>search</igx-icon>
+    </igx-prefix>
+    <input #search igxInput placeholder="Buscar Usuario" [(ngModel)]="searchUser">
+    <igx-suffix *ngIf="search.value.length > 0" (click)="searchUser = ''">
+        <igx-icon>clear</igx-icon>
+    </igx-suffix>
+</igx-input-group>
+<div class="list">
+    <igx-list [displayDensity]="density">
+        <igx-list-item [isHeader]="true">Usuarios</igx-list-item>
+        <igx-list-item igxRipple igxRippleTarget=".igx-list__item-content" #item
+            *ngFor="let user of users | igxFilter: filterUsers | slice:0:30;">
+            <igx-avatar igxListThumbnail shape="circle">
+                <button mat-icon-button aria-label="Editar usuario"
+                    routerLink="/admin/usuario/edit/{{user.us_codigo}}">
+                    <!--<igx-icon fontSet="material">edit</igx-icon>-->
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </igx-avatar>
+            <span igxListLineTitle>{{ user.us_login }}</span>
+            <span igxListLineSubTitle>{{ user.pf_nombre }}</span>
+
+            <span igxListAction class="user-actions">
+                <igx-switch [checked]="user.us_estado" (click)="disable(user.us_codigo)"></igx-switch>
+            </span>
+            <!--<button mat-icon-button aria-label="Editar usuario">
+                <mat-icon>edit</mat-icon>
+            </button>-->
+            <!--
+            <igx-icon igxListAction [style.color]="contact.isFavorite ? 'orange' : 'lightgray'" igxRipple="pink"
+                [igxRippleCentered]="true" (click)="toggleFavorite(contact, $event)"
+                (mousedown)="mousedown($event)">star</igx-icon>-->
+        </igx-list-item>
+    </igx-list>
+</div>
+<button class="add" mat-fab color="primary" aria-label="Crear" routerLink="/admin/usuario/add">
+    <mat-icon>add</mat-icon>
+</button>
+<span *ngIf="loading" class="spinner-border spinner-border-lg align-center"></span>

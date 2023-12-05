@@ -1,0 +1,55 @@
+.content {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: pink;
+    background: url(../../../assets/media/IMG-20211129-WA0109.webp);
+    background-size: cover;
+    /* <------ */
+    background-repeat: no-repeat;
+    background-position: top right;
+}
+
+nav {
+    text-align: right;
+    background-color: rgba(200, 200, 200, 0.30);
+    padding: 10px;
+
+    img {
+        float: left;
+    }
+}
+
+h5 {
+    color: lightgray;
+    text-shadow: #1d4a85 0 0 10px, #1d4a85 0 0 10px, #1d4a85 0 0 10px;
+    margin: 50vh auto;
+    padding: 10px;
+}
+
+@media only screen and (max-width: 481px) {
+    nav {
+        height: 100vh;
+        text-align: center;
+        vertical-align: bottom;
+
+        background-color: transparent;
+        padding: 10px;
+
+        position: absolute;
+        width: 100%;
+        bottom: 10px;
+
+        display: flex;
+        flex-direction: column;
+
+
+        img {
+            margin: 10px auto;
+        }
+
+        button { bottom: 0; }
+        a { margin-top: auto; background-color: lightgrey;}
+
+    }
+}

@@ -1,0 +1,93 @@
+
+@use "igniteui-angular/theming" as *;
+// Uncomment the following lines if you want to add a custom palette:
+// $primary: #731963 !default;
+// $secondary: #ce5712 !default;
+// $app-palette: palette($primary, $secondary, $surface);
+
+/* autoprefixer grid: on */
+
+@include core();
+@include typography($font-family: $material-typeface, $type-scale: $material-type-scale);
+@include theme($default-palette);
+// CSS Reset, comment out if not required or using a different module
+@import 'minireset.css/minireset';
+/* You can add global styles to this file, and also import other style files */
+/*@import '~@angular/material/prebuilt-themes/pink-bluegrey.css';*/
+@import "../node_modules/@angular/material/theming";
+@include mat-core();
+
+/*http://mcg.mbitson.com/*/
+$mat-pm: (
+  50 : #e4e9f0,
+  100 : #bbc9da,
+  200 : #8ea5c2,
+  300 : #6180aa,
+  400 : #3f6597,
+  500 : #1d4a85,
+  600 : #1a437d,
+  700 : #153a72,
+  800 : #113268,
+  900 : #0a2255,
+  A100: #ffffff,
+  A200: #bbbbbb,
+  A400: #919191,
+  A700: #5d5d5d,
+  contrast: (50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+/*$my-primary: mat-palette($mat-blue, 500);*/
+$pm-primary: mat-palette($mat-pm, 500);
+$pm-accent: mat-palette($mat-pm, A700);
+$pm-theme: mat-light-theme($pm-primary, $pm-accent);
+
+@include angular-material-theme($pm-theme);
+
+.alternative {
+  /*https://www.youtube.com/watch?v=NugqJxFYmDM*/
+  $my-primary: mat-palette($mat-amber, 800);
+  $my-accent: mat-palette($mat-light-green, 800);
+  $my-theme: mat-light-theme($my-primary, $my-accent);
+  @include angular-material-theme($my-theme);
+}
+
+/***/
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.spinner-border {
+  position: fixed;
+  left: 50%;
+  top: 15px;
+  margin: 0 auto;
+  z-index: 2;
+  color: white;
+}
+
+$switch-theme: switch-theme(
+    $thumb-on-color: mat-color($pm-primary),
+    $track-on-color: mat-color(mat-palette($mat-pm, 100))
+);
+
+@include switch($switch-theme);

@@ -1,0 +1,62 @@
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { GetData } from '@app/_models';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class GetDataService {
+  id: number=3;
+  parameters: string="1";
+  //data: any[][]=[];
+  data: any;
+
+  constructor( private http: HttpClient ) { }
+  //constructor() { }
+  /*
+  performGetEx():Observable<any>{
+    return this.http.get<any>('../assets/php/clsGetData.php');
+  }*/
+  dataSet(id: number, parameters: string):any {
+
+    /*ar soap = require('soap');
+    var url = 'http://190.12.54.147/wsSafiedDHweb/Servicio.asmx?WSDL';
+    var args = {id: 85, cadena:'3,1'};
+      
+    // then/catch
+    soap.createClientAsync(url).then((client: { MyFunctionAsync: (arg0: { id: number; cadena: string; }) => any; }) => {
+      return client.MyFunctionAsync(args);
+    }).then((result: any) => {
+      console.log(result);
+    });
+  
+    // async/await
+    
+    var client = await soap.createClientAsync(url);
+    var result = await client.MyFunctionAsync(args);
+    console.log(result[0]);
+*/
+
+/*
+fetch("http://190.12.54.147/wsSafiedDHweb/Servicio.asmx?WSDL", {
+    method: "POST",
+    body: this.toSoap(),
+    headers: { "Content-type": "text/xml; charset=utf-8", "SOAPAction": "http://190.12.54.147/wsSafiedDHweb/Servicio.asmx?op=wmObtenerDatos_ds" }
+}).then(response => response.text())
+.then(xml => {
+        console.log(xml);
+    }).catch (err => console.log(err));
+*/
+
+    this.http.post<any>('http://dh:8080/test/safied/src/api/index.php', {"id": "32","cadena": "3,'1'"}).subscribe(data => {
+      this.data = data;
+    });
+    /*this.data[0]=[];
+    this.data[0][0]=[];
+    this.data[0][0][0]='aaa';
+    this.data[0][0][1]='bbb';
+    this.data[0][0][2]='ccc';*/
+    return this.data;
+  }
+}

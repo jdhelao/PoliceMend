@@ -1,0 +1,61 @@
+<!-- *ngIf="!loading"-->
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-toolbar class="toolbar" color="primary">
+    <button mat-icon-button aria-label="Cancelar" routerLink="/admin/usuario" onclick="event.preventDefault()">
+      <mat-icon>clear</mat-icon>
+    </button>
+    <span>{{title}}</span>
+    <span class="flex-spacer"></span>
+    <button mat-icon-button aria-label="Guardar" [disabled]="submitting||loading">
+      <mat-icon>save</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <mat-form-field class="full-width">
+    <mat-label>Usuario</mat-label>
+    <input matInput formControlName="us_login" [ngClass]="{ 'is-invalid': submitted && f.us_login.errors }"
+      oninput="this.value=this.value.replace(/[^a-zA-Z0-9]/g,'')">
+    <div *ngIf="submitted && f.us_login.errors" class="invalid-feedback">
+      <div *ngIf="f.us_login.errors.required">Login requerido</div>
+      <div *ngIf="f.us_login.errors.minlength">Login debetener más characters</div>
+      <div *ngIf="f.us_login.errors.maxlength">Login debetener menos characters</div>
+    </div>
+  </mat-form-field>
+
+  <mat-form-field class="half-width">
+    <mat-label>Perfil</mat-label>
+    <mat-select formControlName="pf_codigo">
+      <mat-option *ngFor="let pf of lsProfiles" [value]="pf.pf_codigo">
+        {{pf.pf_nombre}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="half-width">
+    <mat-label>Personal</mat-label>
+    <mat-select formControlName="pe_codigo">
+      <mat-option *ngFor="let pe of lsPeople" [value]="pe.pe_codigo">
+        {{pe.pe_apellido1}} {{pe.pe_apellido2}} {{pe.pe_nombre1}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Constraseña
+      <em *ngIf="id">(Dejar en blanco para mantener contaseña)</em>
+    </mat-label>
+    <input type="password" matInput formControlName="us_password"
+      [ngClass]="{ 'is-invalid': submitted && f.us_password.errors }">
+    <div *ngIf="submitted && f.us_password.errors" class="invalid-feedback">
+      <div *ngIf="f.us_password.errors.required">Constraseña requerido</div>
+      <div *ngIf="f.us_password.errors.minlength">Constraseña debetener más characters</div>
+      <div *ngIf="f.us_password.errors.maxlength">Constraseña debetener menos characters</div>
+    </div>
+  </mat-form-field>
+
+</form>
+<!--
+<div *ngIf="loading" class="text-center m-5">
+    <span class="spinner-border spinner-border-lg align-center"></span>
+</div>-->
+<span *ngIf="loading||submitting" class="spinner-border spinner-border-lg align-center"></span>

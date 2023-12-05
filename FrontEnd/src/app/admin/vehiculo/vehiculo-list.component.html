@@ -1,0 +1,34 @@
+<igx-input-group type="search" class="search">
+  <igx-prefix>
+      <igx-icon>search</igx-icon>
+  </igx-prefix>
+  <input #search igxInput placeholder="Buscar Vehículo" [(ngModel)]="searchVehicle">
+  <igx-suffix *ngIf="search.value.length > 0" (click)="searchVehicle = ''">
+      <igx-icon>clear</igx-icon>
+  </igx-suffix>
+</igx-input-group>
+<div class="list">
+  <igx-list [displayDensity]="density">
+      <igx-list-item [isHeader]="true">Vehículos</igx-list-item>
+      <igx-list-item igxRipple igxRippleTarget=".igx-list__item-content" #item
+          *ngFor="let ve of lsVehicles | igxFilter: filterVehicles | slice:0:30;">
+          <igx-avatar igxListThumbnail shape="circle">
+              <button mat-icon-button aria-label="Editar vehículos"
+                  routerLink="/admin/vehiculo/edit/{{ve.ve_codigo}}">
+                  <!--<igx-icon fontSet="material">edit</igx-icon>-->
+                  <mat-icon>edit</mat-icon>
+              </button>
+          </igx-avatar>
+          <span igxListLineTitle>PLACA: {{ ve.ve_placa }} ({{ ve.ve_chasis }}) </span>
+          <span igxListLineSubTitle>{{ ve.ve_modelo }} / {{ ve.ve_anio }}  ({{ ve.ve_color }})</span>
+
+          <span igxListAction>
+              <igx-switch [checked]="ve.ve_estado" (click)="disable(ve.ve_codigo)"></igx-switch>
+          </span>
+      </igx-list-item>
+  </igx-list>
+</div>
+<button class="add" mat-fab color="primary" aria-label="Crear" routerLink="/admin/vehiculo/add">
+  <mat-icon>add</mat-icon>
+</button>
+<span *ngIf="loading" class="spinner-border spinner-border-lg align-center"></span>

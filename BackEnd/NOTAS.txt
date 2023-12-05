@@ -1,0 +1,15 @@
+/*https://blog.treblle.com/how-to-create-rest-api-using-laravel*/
+
+php artisan serve
+
+php artisan migrate:refresh --path=database/migrations/2014_10_12_100000_create_password_resets_table.php
+php artisan migrate:refresh --path=database/migrations/2023_08_28_195950_create_tables.php
+
+/*php artisan make:seeder UserSeeder*/
+php artisan db:seed --class=UserSeeder
+php artisan db:seed
+
+
+php artisan make:model Books
+php artisan make:controller BookController
+

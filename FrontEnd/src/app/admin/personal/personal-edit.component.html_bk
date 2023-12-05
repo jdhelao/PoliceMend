@@ -1,0 +1,157 @@
+<form class="form" *ngIf="!loading" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-toolbar class="this-toolbar" color="primary">
+        <button mat-icon-button aria-label="Cancelar" routerLink="/admin/personal">
+            <mat-icon>clear</mat-icon>
+        </button>
+        <span>{{title}}</span>
+        <span class="flex-spacer"></span>
+        <button mat-icon-button aria-label="Guardar" [disabled]="submitting">
+            <mat-icon>save</mat-icon>
+        </button>
+    </mat-toolbar>
+
+
+    <mat-form-field class="full-width">
+        <mat-label>Cédula</mat-label>
+        <input matInput formControlName="pe_dni" [ngClass]="{ 'is-invalid': submitted && f.pe_dni.errors }"
+            oninput="this.value=this.value.replace(/[^\d]/,'')">
+        <div *ngIf="submitted && f.pe_dni.errors" class="invalid-feedback">
+            <div *ngIf="f.pe_dni.errors.required">Cédula requerida</div>
+            <div *ngIf="f.pe_dni.errors.minlength || f.pe_dni.errors.maxlength">Cédula debe tener 10 digitos</div>
+            <div *ngIf="f.pe_dni.errors.pattern">Cédula sólo de tener números</div>
+        </div>
+    </mat-form-field>
+
+    <mat-form-field class="half-width">
+        <mat-label>1er nombre</mat-label>
+        <input matInput formControlName="pe_nombre1" [ngClass]="{ 'is-invalid': submitted && f.pe_nombre1.errors }">
+        <div *ngIf="submitted && f.pe_nombre1.errors" class="invalid-feedback">
+            <div *ngIf="f.pe_nombre1.errors.required">Nombre requerido</div>
+        </div>
+    </mat-form-field>
+
+    <mat-form-field class="half-width">
+        <mat-label>2do nombre</mat-label>
+        <input matInput formControlName="pe_nombre2" [ngClass]="{ 'is-invalid': submitted && f.pe_nombre2.errors }">
+    </mat-form-field>
+
+    <mat-form-field class="half-width">
+        <mat-label>1er apellido</mat-label>
+        <input matInput formControlName="pe_apellido1" [ngClass]="{ 'is-invalid': submitted && f.pe_apellido1.errors }">
+        <div *ngIf="submitted && f.pe_apellido1.errors" class="invalid-feedback">
+            <div *ngIf="f.pe_apellido1.errors.required">Apellido requerido</div>
+        </div>
+    </mat-form-field>
+    <mat-form-field class="half-width">
+        <mat-label>2do apellido</mat-label>
+        <input matInput formControlName="pe_apellido2" [ngClass]="{ 'is-invalid': submitted && f.pe_apellido2.errors }">
+    </mat-form-field>
+    <!--
+    <mat-form-field class="width1-3">
+        <mat-label>Sangre</mat-label>
+        <input matInput placeholder="Sangre" formControlName="pe_sangre"
+            [ngClass]="{ 'is-invalid': submitted && f.pe_sangre.errors }">
+        <div *ngIf="submitted && f.pe_sangre.errors" class="invalid-feedback">
+            <div *ngIf="f.pe_sangre.errors.required">Tipo de sangre</div>
+        </div>
+    </mat-form-field>
+-->
+    <mat-form-field class="width1-3">
+        <mat-label>Sangre</mat-label>
+        <input type="text" aria-label="Tipo de sangre" matInput [matAutocomplete]="auto" formControlName="pe_sangre"
+            [ngClass]="{ 'is-invalid': submitted && f.pe_sangre.errors }">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions_blood | async" [value]="option">
+                {{option}}
+            </mat-option>
+        </mat-autocomplete>
+        <div *ngIf="submitted && f.pe_sangre.errors" class="invalid-feedback">
+            <div *ngIf="f.pe_sangre.errors.required">Tipo de sangre</div>
+        </div>
+    </mat-form-field>
+
+    <mat-form-field class="width2-3">
+        <mat-label>Nacimiento</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="pe_fnacimiento"
+            [ngClass]="{ 'is-invalid': submitted && f.pe_fnacimiento.errors }">
+        <div *ngIf="submitted && f.pe_fnacimiento.errors" class="invalid-feedback">
+            <div *ngIf="f.pe_fnacimiento.errors.required">Fecha de Nacimiento</div>
+        </div>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="width1-3">
+        <mat-label>Rango</mat-label>
+        <mat-select formControlName="ra_codigo">
+            <mat-option *ngFor="let rank of lsRanks" [value]="rank.ra_codigo">
+                {{rank.ra_nombre}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="width2-3">
+        <mat-label>Ciudad</mat-label>
+        <mat-select formControlName="ci_codigo">
+            <mat-option *ngFor="let city of lsCities" [value]="city.ci_codigo">
+                {{city.ci_nombre}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+
+    <!--  <div class="ssssrow">
+        <div class="mb-3 col">
+            <label class="form-label">Nombres</label>
+            <input type="text" formControlName="pe_nombre1" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.pe_nombre1.errors }" />
+            <div *ngIf="submitted && f.pe_nombre1.errors" class="invalid-feedback">
+                <div *ngIf="f.pe_nombre1.errors.required">Nombre necesario</div>
+            </div>
+        </div>
+        <div class="mb-3 col">
+            <label class="form-label">Apellidos</label>
+            <input type="text" formControlName="pe_apellido1" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.pe_apellido1.errors }" />
+            <div *ngIf="submitted && f.pe_apellido1.errors" class="invalid-feedback">
+                <div *ngIf="f.pe_apellido1.errors.required">Apellido es necesario</div>
+            </div>
+        </div>
+     </div>       
+        -->
+
+    <!--
+    <div class="row">
+        <div class="mb-3 col">
+            <label class="form-label">Usuario</label>
+            <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+            <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                <div *ngIf="f.username.errors.required">Username is required</div>
+            </div>
+        </div>
+        <div class="mb-3 col">
+            <label class="form-label">
+                Password
+                <em *ngIf="id">(Leave blank to keep the same password)</em>
+            </label>
+            <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                <div *ngIf="f.password.errors.required">Password is required</div>
+                <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <button [disabled]="submitting" class="btn btn-primary">
+            <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
+            Guardar
+        </button>
+        <a routerLink="/admin/personal" class="btn btn-link">Cancelar</a>
+    </div>
+-->
+
+</form>
+<div *ngIf="loading" class="text-center m-5">
+    <span class="spinner-border spinner-border-lg align-center"></span>
+</div>

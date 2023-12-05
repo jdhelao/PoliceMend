@@ -1,0 +1,25 @@
+{
+  "name": "PoliceMend",
+  "short_name": "PoliceMend",
+  "theme_color": "#BBBBBB",
+  "background_color": "#1D4A85",
+  "orientation": "any",
+  "lang": "es",
+  "display": "standalone",
+  "scope": "./",
+  "start_url": "./",
+  "icons": [
+    {
+      "src": "assets/icons/icon-mask.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    },
+	{
+      "src": "assets/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

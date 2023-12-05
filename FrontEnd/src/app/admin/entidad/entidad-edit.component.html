@@ -1,0 +1,176 @@
+<!-- *ngIf="!loading"-->
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-toolbar class="toolbar" color="primary">
+    <button mat-icon-button aria-label="Cancelar" routerLink="/admin/entidad" onclick="event.preventDefault()">
+      <mat-icon>clear</mat-icon>
+    </button>
+    <span>{{title}}</span>
+    <span class="flex-spacer"></span>
+    <button mat-icon-button aria-label="Guardar" [disabled]="submitting||loading">
+      <mat-icon>save</mat-icon>
+    </button>
+  </mat-toolbar>
+  <igx-bottom-nav>
+    <igx-bottom-nav-item>
+      <igx-bottom-nav-header>
+        <igx-icon>domain</igx-icon>Entidad
+      </igx-bottom-nav-header>
+      <igx-bottom-nav-content>
+        <!--Entidad-->
+
+        <mat-form-field class="width1-3">
+          <mat-label>Tipo</mat-label>
+          <mat-select formControlName="kt_codigo">
+            <mat-option *ngFor="let kt of lsContractTypes" [value]="kt.kt_codigo">
+              {{kt.kt_nombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="width2-3">
+          <mat-label>Representante</mat-label>
+          <mat-select formControlName="pe_codigo">
+            <mat-option *ngFor="let pe of lsPeople" [value]="pe.pe_codigo">
+              {{pe.pe_nombre1}} {{pe.pe_apellido1}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="width2-3">
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="en_nombre" [ngClass]="{ 'is-invalid': submitted && f.en_nombre.errors }" >
+          <div *ngIf="submitted && f.en_nombre.errors" class="invalid-feedback">
+            <div *ngIf="f.en_nombre.errors.required">Dato requerido</div>
+            <div *ngIf="f.en_nombre.errors.minlength">Debe tener al menos {{f.en_nombre.errors.minlength.requiredLength}} carácteres</div>
+            <div *ngIf="f.en_nombre.errors.maxlength">No debe superar los {{f.en_nombre.errors.maxlength.requiredLength}} carácteres</div>
+            <div *ngIf="f.en_nombre.errors.pattern">Hay carácteres invalidos</div>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field class="width1-3">
+          <mat-label>Franquicia</mat-label>
+          <input matInput formControlName="en_franquicia" [ngClass]="{ 'is-invalid': submitted && f.en_franquicia.errors }"
+            oninput="this.value=this.value.toUpperCase()">
+          <div *ngIf="submitted && f.en_franquicia.errors" class="invalid-feedback">
+            <div *ngIf="f.en_franquicia.errors.required">Dato requerido</div>
+            <div *ngIf="f.en_franquicia.errors.minlength">Debe tener al menos {{f.en_franquicia.errors.minlength.requiredLength}} carácteres</div>
+            <div *ngIf="f.en_franquicia.errors.maxlength">No debe superar los {{f.en_franquicia.errors.maxlength.requiredLength}} carácteres</div>
+            <div *ngIf="f.en_franquicia.errors.pattern">Hay carácteres invalidos</div>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <mat-label>Especialidad</mat-label>
+          <input matInput formControlName="en_especialidad" [ngClass]="{ 'is-invalid': submitted && f.en_especialidad.errors }">
+          <div *ngIf="submitted && f.en_especialidad.errors" class="invalid-feedback">
+            <div *ngIf="f.en_especialidad.errors.required">Dato requerido</div>
+            <div *ngIf="f.en_especialidad.errors.minlength">Debe tener al menos {{f.en_especialidad.errors.minlength.requiredLength}} carácteres</div>
+            <div *ngIf="f.en_especialidad.errors.maxlength">No debe superar los {{f.en_especialidad.errors.maxlength.requiredLength}} carácteres</div>
+            <div *ngIf="f.en_especialidad.errors.pattern">Hay carácteres invalidos</div>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field class="width1-3">
+          <mat-label>Distrito</mat-label>
+          <mat-select formControlName="di_codigo">
+            <mat-option *ngFor="let di of lsDistricts" [value]="di.di_codigo">
+              {{di.di_nombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="width1-3">
+          <mat-label>Latitud (GPS)</mat-label>
+          <input matInput type="number" aria-label="Latitud de GPS" formControlName="en_latitud"
+            [ngClass]="{ 'is-invalid': submitted && f.en_latitud.errors }" >
+          <div *ngIf="submitted && f.en_latitud.errors" class="invalid-feedback">
+            <div *ngIf="f.en_latitud.errors.required">Dato requerido</div>
+            <div *ngIf="f.en_latitud.errors.min">No debe ser mayor a -90</div>
+            <div *ngIf="f.en_latitud.errors.max">No debe ser menor a 90</div>
+            <div *ngIf="f.en_latitud.errors.pattern">Sólo de tener números</div>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field class="width1-3">
+          <mat-label>Longitud (GPS)</mat-label>
+          <input matInput type="number" aria-label="Longitud de GPS" formControlName="en_longitud"
+            [ngClass]="{ 'is-invalid': submitted && f.en_longitud.errors }" >
+          <div *ngIf="submitted && f.en_longitud.errors" class="invalid-feedback">
+            <div *ngIf="f.en_longitud.errors.required">Dato requerido</div>
+            <div *ngIf="f.en_longitud.errors.min">No debe ser mayor a -180</div>
+            <div *ngIf="f.en_longitud.errors.max">No debe ser menor a 180</div>
+            <div *ngIf="f.en_longitud.errors.pattern">Sólo de tener números</div>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field class="width2-3">
+          <mat-label>PlusCode (Google Maps)</mat-label>
+          <input matInput formControlName="en_plus_code" aria-label="PlusCode o dirección de Google maps" [ngClass]="{ 'is-invalid': submitted && f.en_plus_code.errors }">
+          <div *ngIf="submitted && f.en_plus_code.errors" class="invalid-feedback">
+            <div *ngIf="f.en_plus_code.errors.required">Dato requerido</div>
+            <div *ngIf="f.en_plus_code.errors.minlength">Debe tener al menos {{f.en_plus_code.errors.minlength.requiredLength}} carácteres</div>
+            <div *ngIf="f.en_plus_code.errors.maxlength">No debe superar los {{f.en_plus_code.errors.maxlength.requiredLength}} carácteres</div>
+            <div *ngIf="f.en_plus_code.errors.pattern">Hay carácteres invalidos</div>
+          </div>
+        </mat-form-field>
+
+        <mat-checkbox formControlName="en_24horas" color="primary" class="width1-3" aria-label="Abierto las 24 horas">24 horas</mat-checkbox>
+
+<!--
+        <mat-form-field class="width1-3">
+          <mat-label>24 horas</mat-label>
+          <input matInput formControlName="en_24horas" aria-label="Abierto las 24 horas">
+          <mat-checkbox >Hide required marker</mat-checkbox>
+        </mat-form-field>-->
+
+
+
+        <!--Entidad-->
+      </igx-bottom-nav-content>
+    </igx-bottom-nav-item>
+
+    <igx-bottom-nav-item>
+      <igx-bottom-nav-header>
+        <igx-icon>group</igx-icon>Usuarios
+      </igx-bottom-nav-header>
+      <igx-bottom-nav-content>
+        <!--Responsables-->
+
+        <igx-input-group type="search" class="search">
+          <igx-prefix>
+              <igx-icon>search</igx-icon>
+          </igx-prefix>
+          <input #search igxInput placeholder="Buscar Usuario" formControlName = "searchCustodian">
+          <igx-suffix *ngIf="search.value.length > 0" (click)="clearSearchCustodians()">
+              <igx-icon>clear</igx-icon>
+          </igx-suffix>
+        </igx-input-group>
+        <div class="list">
+          <igx-list displayDensity="comfortable" style="margin: 0;">
+              <igx-list-item [isHeader]="true">Usuarios</igx-list-item>
+              <igx-list-item igxRipple igxRippleTarget=".igx-list__item-content" #item
+                  *ngFor="let eu of lsCustodians | igxFilter: filterCustodians | slice:0:30;">
+
+                  <span igxListLineTitle>{{ eu.us_login }} {{ eu.pe_nombres ? '(' + eu.pe_nombres + ')' : '' }}</span>
+                  <span igxListLineSubTitle>{{ eu.pf_nombre }} </span>
+
+                  <span igxListAction>
+                      <igx-switch [checked]="eu.eu_estado" (click)="disableCustodian(eu.us_codigo)"></igx-switch>
+                  </span><!--(click)="disable(eu.eu_codigo)"-->
+              </igx-list-item>
+          </igx-list>
+        </div>
+
+
+        <!--Responsables-->
+      </igx-bottom-nav-content>
+    </igx-bottom-nav-item>
+
+
+  </igx-bottom-nav>
+</form>
+<!--
+<div *ngIf="loading" class="text-center m-5">
+    <span class="spinner-border spinner-border-lg align-center"></span>
+</div>-->
+<span *ngIf="loading||submitting" class="spinner-border spinner-border-lg align-center"></span>
