@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
         DB::table('personas')->insertOrIgnore(['pe_dni' => '0999999990','pe_nombre1' => 'HHH','pe_apellido1' => 'hhh']);
 
         DB::table('usuarios')->insertOrIgnore(['us_codigo' => 1,'us_login' => 'dhelao'          ,'pf_codigo' => 1,'pe_codigo' => 1,'us_password' => 'dd8e165fbae895ee31e2818a5cf830bb6dd42409f7e69c2c19212fbf680a8f0a']);
-        DB::table('usuarios')->insertOrIgnore(['us_codigo' => 2,'us_login' => 'custodio'        ,'pf_codigo' => 2,'pe_codigo' => 2,'us_password' => Hash::make('123456')]);
+        DB::table('usuarios')->insertOrIgnore(['us_codigo' => 2,'us_login' => 'custodio'        ,'pf_codigo' => 2,'pe_codigo' => 2,'us_password' => '3b372d104f9c2949cf0b29181a14d8991bf51013c108144b008cd2464e504119']);
         DB::table('usuarios')->insertOrIgnore(['us_codigo' => 3,'us_login' => 'logistica'       ,'pf_codigo' => 3,'pe_codigo' => 3,'us_password' => Hash::make('123456')]);
         DB::table('usuarios')->insertOrIgnore([                 'us_login' => 'tallerjefe1'     ,'pf_codigo' => 4,'pe_codigo' => 4,'us_password' => Hash::make('123456')]);
         DB::table('usuarios')->insertOrIgnore([                 'us_login' => 'tallerjefe2'     ,'pf_codigo' => 4,'pe_codigo' => 5,'us_password' => Hash::make('123456')]);
@@ -445,12 +445,12 @@ class DatabaseSeeder extends Seeder
         DB::table('vehiculo_tipos')->insertOrIgnore(['vt_codigo' => 2, 'vt_nombre' => 'Motocicleta']);
         DB::table('vehiculo_tipos')->insertOrIgnore(['vt_codigo' => 3, 'vt_nombre' => 'Camioneta']);
         DB::table('vehiculo_tipos')->insertOrIgnore(['vt_codigo' => 4, 'vt_nombre' => 'Autobús']);
-        DB::table('vehiculo_tipos')->insertOrIgnore(['vt_codigo' => 5, 'vt_nombre' => 'Vehículo todo terreno (ATV)']);
+        DB::table('vehiculo_tipos')->insertOrIgnore(['vt_codigo' => 5, 'vt_nombre' => 'Vehículo todo terreno (ATV)']);/*
         DB::table('vehiculo_tipos')->insertOrIgnore(['vt_codigo' => 6, 'vt_nombre' => 'Caballo']);
         DB::table('vehiculo_tipos')->insertOrIgnore(['vt_codigo' => 7, 'vt_nombre' => 'Bicicleta']);
         DB::table('vehiculo_tipos')->insertOrIgnore(['vt_codigo' => 8, 'vt_nombre' => 'Bote']);
         DB::table('vehiculo_tipos')->insertOrIgnore(['vt_codigo' => 9, 'vt_nombre' => 'Aeronave']);
-        DB::table('vehiculo_tipos')->insertOrIgnore(['vt_codigo' => 10, 'vt_nombre' => 'Scooter']);
+        DB::table('vehiculo_tipos')->insertOrIgnore(['vt_codigo' => 10, 'vt_nombre' => 'Scooter']);*/
 
         DB::table('vehiculo_marcas')->insertOrIgnore(['vm_codigo' => 0, 'vm_nombre' => 'Ninguno']);
         DB::table('vehiculo_marcas')->insertOrIgnore(['vm_codigo' => 1, 'vm_nombre' => 'Audi']);

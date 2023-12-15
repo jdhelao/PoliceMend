@@ -20,7 +20,7 @@ use App\Http\Controllers\DependenciaController;
 use App\Http\Controllers\VehiculoController;
 use App\Http\Controllers\ContratoController;
 use App\Http\Controllers\EntidadController;
-
+use App\Http\Controllers\SolicitudVehiculoController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -146,6 +146,10 @@ Route::put('/entidades',[EntidadController::class,'update']);
 Route::get('/entidades/contrato/{id}',[EntidadController::class,'getEntitiesFromContract']);
 Route::get('/entidades/contrato/{id}/{type}',[EntidadController::class,'getEntitiesFromContract']);
 Route::patch('/entidades/contrato',[EntidadController::class,'saveEntitiesFromContract']);
+
+Route::get('/solicitud-vehiculos',[SolicitudVehiculoController::class,'index']);
+Route::post('/solicitud-vehiculos',[SolicitudVehiculoController::class,'create']);
+Route::put('/solicitud-vehiculos',[SolicitudVehiculoController::class,'update']);
 
 Route::get('/sugerencias',[SugerenciaController::class,'index']);
 Route::get('/sugerencias/{all}',[SugerenciaController::class,'read']);

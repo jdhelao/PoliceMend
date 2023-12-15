@@ -64,14 +64,14 @@
 
     <!--[displayWith]="f.ve_combustible_nivel.value"-->
     <label class="full-width">Nivel combustible ({{ f.ve_combustible_nivel.value }} %)
+    <div *ngIf="submitted && f.ve_combustible_nivel.errors">
+      <mat-error *ngIf="f.ve_combustible_nivel.errors.required">Dato requerido</mat-error>
+      <mat-error *ngIf="f.ve_combustible_nivel.errors.min">Mínimo requerido</mat-error>
+      <mat-error *ngIf="f.ve_combustible_nivel.errors.max">Máximo sobrepasado</mat-error>
+    </div>
     <mat-slider min="1" max="{{ f.kt_codigo.value == 2 ? 50 : 99 }}" step="1" discrete style="width: 98%;">
       <input matSliderThumb formControlName="ve_combustible_nivel">
     </mat-slider></label>
-    <div *ngIf="submitted && f.ve_combustible_nivel.errors" class="invalid-feedback">
-      <div *ngIf="f.ve_combustible_nivel.errors.required">Dato requerido</div>
-      <div *ngIf="f.ve_combustible_nivel.errors.min">Mínimo requerido</div>
-      <div *ngIf="f.ve_combustible_nivel.errors.max">Máximo sobrepasado</div>
-    </div>
 
 
     <mat-form-field class="full-width">

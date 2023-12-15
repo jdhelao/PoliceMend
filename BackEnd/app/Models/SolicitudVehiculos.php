@@ -5,33 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Vehiculos extends Model
+class SolicitudVehiculos extends Model
 {
     use HasFactory;
 
-    protected $tabe = 'vehiculos';
+    protected $tabe = 'solicitud-vehiculos';
 
-    protected $primaryKey = 've_codigo';
+    protected $primaryKey = 'sv_codigo';
 
     protected $fillable = [
-        've_placa',
-        've_chasis',
-        've_motor',
-        'vt_codigo',
-        'vm_codigo',
-        'pa_codigo',
-        've_modelo',
-        've_anio',
-        've_cilindaraje',
-        've_capacidadCarga',
-        've_capacidadPasajero',
+        'kt_codigo',
+        'pe_codigo',
+        've_codigo',
         've_km',
-        've_color',
-        've_color2',
-        've_combustible',
-        've_torque',
-        've_transmision',
-        've_caballos'
+        've_combustible_nivel',
+        'sv_fecha_requerimiento',
+        'sv_descripcion',
+        'sv_aprobacion',
+        'sv_estado'
     ];
 
     /**
@@ -40,7 +31,8 @@ class Vehiculos extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        've_estado' => 'boolean'
+        'sv_estado' => 'boolean',
+        'sv_fecha_requerimiento' => 'datetime',
     ];
 
     /**

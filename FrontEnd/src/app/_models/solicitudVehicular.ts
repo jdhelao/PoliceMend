@@ -12,7 +12,7 @@ export class SolicitudVehicular {
     sv_descripcion?: string;
 
     sv_aprobacion?: boolean;
-    pa_estado?: boolean;
+    sv_estado?: boolean;
 
     kt_nombre?: string;
     pe_nombres?: string;
@@ -21,5 +21,8 @@ export class SolicitudVehicular {
     /*Orden mantenimiento/abastecimiento*/
     om_codigo?: number;
     oa_codigo?: number;
+
+    /*Auditoria*/
+    us_codigo?: number;
 
 }

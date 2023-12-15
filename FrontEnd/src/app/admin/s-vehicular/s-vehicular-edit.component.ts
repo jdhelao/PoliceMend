@@ -51,10 +51,13 @@ export class SVehicularEditComponent implements OnInit {
       kt_codigo: [null, Validators.required],
       pe_codigo: [null, Validators.required],
       ve_codigo: [null, Validators.required],
-      ve_km: [null, [Validators.required, this.minKmValidator, Validators.max(320000)]],
-      ve_combustible_nivel: [null, [Validators.required, Validators.min(1), Validators.max(this.form?.value?.kt_codigo == 2 ? 50 : 99)]],
+      ve_km:                [null, [Validators.required, this.minKmValidator, Validators.max(320000)]],
+      //ve_combustible_nivel: [null, [Validators.required, Validators.min(10), Validators.max(this.form?.value?.kt_codigo == 2 ? 50 : 99)]],
+      ve_combustible_nivel: [null, [Validators.required, Validators.min(10), this.maxFuelValidator]],
       sv_fecha_requerimiento: [null, [Validators.required, this.minDateValidator]],
       sv_descripcion: [null, Validators.required],
+
+      us_codigo: [null],
     });
 
     this.title = 'Crear Solicitud';
@@ -67,7 +70,7 @@ export class SVehicularEditComponent implements OnInit {
         .subscribe(
           {
             next: (data: SolicitudVehicular | any) => {
-              if (data !== null && data !== undefined && data.us_codigo !== null && data.us_codigo !== undefined) {
+              if (data !== null && data !== undefined && data.sv_codigo !== null && data.sv_codigo !== undefined) {
                 this.form.patchValue(data as SolicitudVehicular);
                 this.loading = false;
               }
@@ -88,6 +91,8 @@ export class SVehicularEditComponent implements OnInit {
     this.http.get<any>(environment.urlAPI + 'contrato/tipos').subscribe((data: TipoContrato | any) => {
       if (data !== null && data !== undefined && data.length > 0) {
         this.lsContractTypes = data;
+        // remove option "Ninguno"
+        if (this.lsContractTypes.length > 0) { this.lsContractTypes.splice(0, 1); }
       }
       this.loading = false;
     });
@@ -134,9 +139,9 @@ export class SVehicularEditComponent implements OnInit {
       this.ve_km_min = Number(ve.ve_km);
       console.log(this.ve_km_min);
       /////////
-/*
-      const control = this.form;
-      control.setValidators([Validators.required, Validators.min(ve.ve_km), Validators.max(320000)]);*/
+      /*
+            const control = this.form;
+            control.setValidators([Validators.required, Validators.min(ve.ve_km), Validators.max(320000)]);*/
       this.form.controls["ve_km"].setValidators([Validators.required, Validators.min(ve.ve_km), Validators.max(320000)]);
       //control.updateValueAndValidity();
 
@@ -153,7 +158,7 @@ export class SVehicularEditComponent implements OnInit {
     }
     return 1;
   }
-  minKmValidator(control: AbstractControl, ): { [key: string]: any } | null {
+  minKmValidator(control: AbstractControl,): { [key: string]: any } | null {
     /*
     const ve_km =lsVe;//.find((ve) => ve?.ve_codigo == 2);
     console.log('ve');
@@ -166,6 +171,17 @@ export class SVehicularEditComponent implements OnInit {
       return { min: true };
     }
     return null;
+  }
+
+  maxFuelValidator(control: AbstractControl, kt_codigo:number=this.form.value.kt_codigo): { [key: string]: any } | null {
+    if (40 > Number(control.value)) {
+      console.log('zzzzzzz: '+kt_codigo);
+      return { max: true };
+    }
+    return null;
+  }
+  get maxFuel():number {
+    return 50;
   }
 
   get minKm() {
@@ -186,29 +202,26 @@ export class SVehicularEditComponent implements OnInit {
 
     this.submitted = true;
 
+    this.form.patchValue(this.user as SolicitudVehicular);
+console.log(this.form.value);
     // stop here if form is invalid
     if (this.form.invalid) {
       return;
     }
 
     if (navigator.onLine) {
-
       this.submitting = true;
-
-      this.form.value.pe_codigo = this.user?.pe_codigo;
-      this.form.value.created_by = this.user?.us_codigo;
-      this.form.value.updated_by = this.user?.us_codigo;
-      (this.form.value.us_codigo ?
-        this.http.put<any>(environment.urlAPI + 'solicitud-vehicular', this.form.value) :
-        this.http.post<any>(environment.urlAPI + 'solicitud-vehicular', this.form.value))
+      (this.form.value.sv_codigo ?
+        this.http.put<any>(environment.urlAPI + 'solicitud-vehiculos', this.form.value) :
+        this.http.post<any>(environment.urlAPI + 'solicitud-vehiculos', this.form.value))
         .pipe(first())
         .subscribe(
           {
             next: (data: SolicitudVehicular | any) => {
-              if (data !== null && data !== undefined && data.us_codigo !== null && data.us_codigo !== undefined) {
+              if (data !== null && data !== undefined && data.sv_codigo !== null && data.sv_codigo !== undefined) {
                 this.form.patchValue(data as SolicitudVehicular);
                 this.title = 'Editar Solicitud';
-                this.alertService.success('Solicitud #' + data.us_codigo + ' guardada', { autoClose: true, keepAfterRouteChange: true });
+                this.alertService.success('Solicitud #' + data.sv_codigo + ' guardada', { autoClose: true, keepAfterRouteChange: true });
                 this.submitting = false;
                 //this.router.navigateByUrl('admin/usuario');
               }
