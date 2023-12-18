@@ -1,7 +1,8 @@
 <!-- *ngIf="!loading"-->
 <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
   <mat-toolbar class="toolbar" color="primary">
-    <button mat-icon-button aria-label="Cancelar" routerLink="/admin/solicitud-vehicular" onclick="event.preventDefault()">
+    <button mat-icon-button aria-label="Cancelar" routerLink="/admin/solicitud-vehicular"
+      onclick="event.preventDefault()">
       <mat-icon>clear</mat-icon>
     </button>
     <span>{{title}}</span>
@@ -13,7 +14,7 @@
 
   <mat-form-field class="width1-3">
     <mat-label>Tipo</mat-label>
-    <mat-select formControlName="kt_codigo">
+    <mat-select formControlName="kt_codigo" (selectionChange)="setMaxFuel()">
       <mat-option *ngFor="let kt of lsContractTypes" [value]="kt.kt_codigo">
         {{kt.kt_nombre}}
       </mat-option>
@@ -52,18 +53,7 @@
     </div>
   </mat-form-field>
 
-
-  <!--<mat-form-field class="width1-3">
-
-    <mat-slider min="1" max="99" step="1" showTickMarks discrete class="width1-3" formControlName="ve_combustible_nivel">
-      <input matSliderThumb>
-      <mat-label>Nivel combustible (%)</mat-label>
-    </mat-slider>-->
-  <!--</mat-form-field>-->
-
-
-    <!--[displayWith]="f.ve_combustible_nivel.value"-->
-    <label class="full-width">Nivel combustible ({{ f.ve_combustible_nivel.value }} %)
+  <label class="full-width">Nivel combustible ({{ f.ve_combustible_nivel.value }} %)
     <div *ngIf="submitted && f.ve_combustible_nivel.errors">
       <mat-error *ngIf="f.ve_combustible_nivel.errors.required">Dato requerido</mat-error>
       <mat-error *ngIf="f.ve_combustible_nivel.errors.min">Mínimo requerido</mat-error>
@@ -71,13 +61,13 @@
     </div>
     <mat-slider min="1" max="{{ f.kt_codigo.value == 2 ? 50 : 99 }}" step="1" discrete style="width: 98%;">
       <input matSliderThumb formControlName="ve_combustible_nivel">
-    </mat-slider></label>
+    </mat-slider>
+  </label>
 
-
-    <mat-form-field class="full-width">
-      <mat-label>Descripción</mat-label>
-      <textarea matInput placeholder="Descrición de solicitud..." formControlName="sv_descripcion"></textarea>
-    </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Descripción</mat-label>
+    <textarea matInput placeholder="Descrición de solicitud..." formControlName="sv_descripcion"></textarea>
+  </mat-form-field>
 
 
 </form>

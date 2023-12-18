@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Inject, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractType, Component, Inject, OnInit } from '@angular/core';
+import { AbstractControl, AbstractFormGroupDirective, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TipoContrato, User, Vehiculo, SolicitudVehicular } from '@app/_models';
 import { Perfil } from '@app/_models/perfil';
@@ -26,7 +26,8 @@ export class SVehicularEditComponent implements OnInit {
 
   lsContractTypes: TipoContrato[] = [];
   lsVehicles: Vehiculo[] = [];
-  ve_km_min: number = 100;
+
+  ve_km_min: number = 0;
 
   constructor(
     private http: HttpClient,
@@ -51,9 +52,8 @@ export class SVehicularEditComponent implements OnInit {
       kt_codigo: [null, Validators.required],
       pe_codigo: [null, Validators.required],
       ve_codigo: [null, Validators.required],
-      ve_km:                [null, [Validators.required, this.minKmValidator, Validators.max(320000)]],
-      //ve_combustible_nivel: [null, [Validators.required, Validators.min(10), Validators.max(this.form?.value?.kt_codigo == 2 ? 50 : 99)]],
-      ve_combustible_nivel: [null, [Validators.required, Validators.min(10), this.maxFuelValidator]],
+      ve_km: [null, [Validators.required, Validators.min(1), Validators.max(320000)]],
+      ve_combustible_nivel: [null, [Validators.required, Validators.min(1), Validators.max(99)]],
       sv_fecha_requerimiento: [null, [Validators.required, this.minDateValidator]],
       sv_descripcion: [null, Validators.required],
 
@@ -114,78 +114,19 @@ export class SVehicularEditComponent implements OnInit {
     }
     return null;
   }
-  /*
-  minKmValidator(control: AbstractControl): { [key: string]: any } | null {
-    const ve = this.lsVehicles.find((ve) => Number(ve.ve_codigo) === Number(this.form.value.ve_codigo));
-    console.log('ve'+ve);
-    if (ve && ve.ve_km !== undefined && control.value >= ve.ve_km ) {
-      return { min: true};
-    }
-    return null;
-  }*/
-
-  /*
-    getMinKM(ve_codigo: number): Number {
-      this.lsVehicles.forEach((ve) => {
-        if (ve.ve_codigo == ve_codigo) {
-          return Number(ve.ve_km);
-        }
-      });
-      return 0;
-    }*/
   setMinKM(ve_codigo: number = this.form.value.ve_codigo) {
+    console.log('setMinKM');
     const ve = this.lsVehicles.find((ve) => Number(ve.ve_codigo) === ve_codigo);
     if (ve !== undefined && ve.ve_km != undefined) {
-      this.ve_km_min = Number(ve.ve_km);
-      console.log(this.ve_km_min);
-      /////////
-      /*
-            const control = this.form;
-            control.setValidators([Validators.required, Validators.min(ve.ve_km), Validators.max(320000)]);*/
+      this.ve_km_min = ve.ve_km;
       this.form.controls["ve_km"].setValidators([Validators.required, Validators.min(ve.ve_km), Validators.max(320000)]);
-      //control.updateValueAndValidity();
-
-
+      this.form.patchValue({ ve_km: this.form.value.ve_km }); // assign the same value to re-throw validation prompt
     }
   }
-  getMinKM(): number {
-    const ve = this.lsVehicles.find((ve) => Number(ve.ve_codigo) === Number(this?.form?.value?.ve_codigo));
-    console.log('ve');
-    console.log(ve);
-    if (ve !== undefined && ve.ve_km != undefined) {
-      console.log(ve.ve_km);
-      return Number(ve.ve_km);
-    }
-    return 1;
-  }
-  minKmValidator(control: AbstractControl,): { [key: string]: any } | null {
-    /*
-    const ve_km =lsVe;//.find((ve) => ve?.ve_codigo == 2);
-    console.log('ve');
-    console.log(ve_km);
-*/
-    let v = this?.minKm;
-    console.log('v');
-    console.log(v);
-    if (5 > Number(control.value)) {
-      return { min: true };
-    }
-    return null;
-  }
-
-  maxFuelValidator(control: AbstractControl, kt_codigo:number=this.form.value.kt_codigo): { [key: string]: any } | null {
-    if (40 > Number(control.value)) {
-      console.log('zzzzzzz: '+kt_codigo);
-      return { max: true };
-    }
-    return null;
-  }
-  get maxFuel():number {
-    return 50;
-  }
-
-  get minKm() {
-    return 150;
+  setMaxFuel() {
+    console.log('setMaxFuel');
+    this.form.controls["ve_combustible_nivel"].setValidators([Validators.required, Validators.min(1), Validators.max(this.form.value.kt_codigo == 2 ? 50 : 99)]);
+    this.form.patchValue({ ve_combustible_nivel: this.form.value.ve_combustible_nivel }); // assign the same value to re-throw validation prompt
   }
 
   ngOnDestroy() {
@@ -203,7 +144,7 @@ export class SVehicularEditComponent implements OnInit {
     this.submitted = true;
 
     this.form.patchValue(this.user as SolicitudVehicular);
-console.log(this.form.value);
+    console.log(this.form.value);
     // stop here if form is invalid
     if (this.form.invalid) {
       return;
