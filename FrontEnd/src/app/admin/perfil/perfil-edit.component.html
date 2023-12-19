@@ -1,0 +1,79 @@
+<!-- *ngIf="!loading"-->
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-toolbar class="toolbar" color="primary">
+    <button mat-icon-button aria-label="Cancelar" routerLink="/admin/perfil" onclick="event.preventDefault()">
+      <mat-icon>clear</mat-icon>
+    </button>
+    <span>{{title}}</span>
+    <span class="flex-spacer"></span>
+    <button mat-icon-button aria-label="Guardar" [disabled]="submitting||loading">
+      <mat-icon>save</mat-icon>
+    </button>
+  </mat-toolbar>
+  <igx-bottom-nav>
+    <igx-bottom-nav-item>
+      <igx-bottom-nav-header>
+        <igx-icon>account_circle</igx-icon>Perfil
+      </igx-bottom-nav-header>
+      <igx-bottom-nav-content>
+        <!--Perfil-->
+
+        <mat-form-field class="full-width">
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="pf_nombre" [ngClass]="{ 'is-invalid': submitted && f.pf_nombre.errors }" >
+          <div *ngIf="submitted && f.pf_nombre.errors" class="invalid-feedback">
+            <div *ngIf="f.pf_nombre.errors.required">Dato requerido</div>
+            <div *ngIf="f.pf_nombre.errors.minlength">Debe tener al menos {{f.pf_nombre.errors.minlength.requiredLength}} carácteres</div>
+            <div *ngIf="f.pf_nombre.errors.maxlength">No debe superar los {{f.pf_nombre.errors.maxlength.requiredLength}} carácteres</div>
+            <div *ngIf="f.pf_nombre.errors.pattern">Hay carácteres invalidos</div>
+          </div>
+        </mat-form-field>
+
+        <!--Perfil-->
+      </igx-bottom-nav-content>
+    </igx-bottom-nav-item>
+
+    <igx-bottom-nav-item>
+      <igx-bottom-nav-header>
+        <igx-icon>rule</igx-icon>Permisos
+      </igx-bottom-nav-header>
+      <igx-bottom-nav-content>
+        <!--PermisosApps-->
+
+        <igx-input-group type="search" class="search">
+          <igx-prefix>
+              <igx-icon>search</igx-icon>
+          </igx-prefix>
+          <input #search igxInput placeholder="Buscar Aplicación" formControlName = "searchApp">
+          <igx-suffix *ngIf="search.value.length > 0" (click)="clearSearchApps()">
+              <igx-icon>clear</igx-icon>
+          </igx-suffix>
+        </igx-input-group>
+        <div class="list">
+          <igx-list displayDensity="comfortable" style="margin: 0;">
+              <igx-list-item [isHeader]="true">Aplicaciones</igx-list-item>
+              <igx-list-item igxRipple igxRippleTarget=".igx-list__item-content" #item
+                  *ngFor="let ap of lsApps | igxFilter: filterApps | slice:0:30;">
+
+                  <span igxListLineTitle>{{ ap.ap_nombre }} </span>
+
+                  <span igxListAction>
+                      <igx-switch [checked]="ap.ap_estado" (click)="disableApp(ap.ap_codigo)"></igx-switch>
+                  </span>
+              </igx-list-item>
+          </igx-list>
+        </div>
+
+
+        <!--PermisosApps-->
+      </igx-bottom-nav-content>
+    </igx-bottom-nav-item>
+
+
+  </igx-bottom-nav>
+</form>
+<!--
+<div *ngIf="loading" class="text-center m-5">
+    <span class="spinner-border spinner-border-lg align-center"></span>
+</div>-->
+<span *ngIf="loading||submitting" class="spinner-border spinner-border-lg align-center"></span>

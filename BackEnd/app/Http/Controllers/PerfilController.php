@@ -12,18 +12,34 @@ class PerfilController extends Controller
         return response()->json($perfiles, 200);
     }
 
-    public function create (Request $request) {
-        if (isset($request->pf_nombre)) {
-            $perfil = new Perfiles;
-            $perfil->pf_nombre = $request->pf_nombre;
-            $perfil->pf_estado = is_null($request->pf_estado) ? true : $request->pf_estado;
-            $perfil->updated_at = null;
-            $perfil->save();
-            return response()->json([$perfil], 201);
+    public function create (Request $req) {
+        if (isset($req->pf_nombre)) {
+            if (!Perfiles::where('pf_nombre', $req->pf_nombre)->exists()) {
+                $obj = $this->save(new Perfiles, $req);
+                return response()->json($obj, 201);
+            }
+            else {
+                return response()->make(['message' => 'Ya existe'], 409);
+            }
         }
         else {
-            return response()->json([], 400);
+            return response()->make(['message' => 'Petición incorrecta'], 400);
         }
+    }
+
+    public function save (Perfiles $obj , Request $req) {
+        if (isset($req->pf_nombre))             { $obj->pf_nombre  = $req->pf_nombre; }
+        if (isset($req->pf_estado))             { $obj->pf_estado  = $req->pf_estado; }
+
+        /*existing data*/
+        if (isset($obj->pf_codigo) and (isset($req->updated_by) or isset($req->us_codigo))) { $obj->updated_by  = (isset($req->updated_by)?$req->updated_by:$req->us_codigo); }
+        /*new data*/
+        if (is_null($obj->pf_codigo)) {
+            if (isset($req->created_by) or isset($req->us_codigo)) { $obj->created_by  = (isset($req->created_by)?$req->created_by:$req->us_codigo); }
+            $obj->updated_at = null;
+        }
+        $obj->save();
+        return $obj;
     }
 
     public function read ($id) {
@@ -35,20 +51,18 @@ class PerfilController extends Controller
             return response()->json([], 404);
         }
         */
-        $perfil = ($id === 'all') ? Perfiles::all() : Perfiles::where('pf_codigo',(int)$id)->get();
-        return response()->json($perfil, (sizeof($perfil)?200:404));
+        $obj = ($id === 'all') ? Perfiles::all() : Perfiles::find($id);
+        return response()->json($obj, (strlen(serialize($obj))>2?200:404));
     }
 
-    public function update (Request $request) {
-        if (Perfiles::where('pf_codigo', $request->pf_codigo)->exists()) {
-            $perfil = Perfiles::find($request->pf_codigo);
-            $perfil->pf_nombre = is_null($request->pf_nombre) ? $perfil->pf_nombre : $request->pf_nombre;
-            $perfil->pf_estado = is_null($request->pf_estado) ? $perfil->pf_estado : $request->pf_estado;
-            $perfil->save();
-            return response()->json([$perfil], 202);
+    public function update (Request $req) {
+        if (Perfiles::where('pf_codigo', $req->pf_codigo)->exists()) {
+            $obj = Perfiles::find($req->pf_codigo);
+            $obj = $this->save($obj, $req);
+            return response()->json($obj, 202);
         }
         else {
-            return response()->json([], (!isset($request->pf_codigo)?400:404));
+            return response()->make((!isset($req->en_codigo)?'Petición incorrecta':'No encontrado'), (!isset($req->pf_codigo)?400:404));
         }
     }
 }

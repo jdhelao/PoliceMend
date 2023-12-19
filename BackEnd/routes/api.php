@@ -50,6 +50,8 @@ Route::put('/usuarios',[UsuarioController::class,'update']);
 
 Route::get('/login/{us}/{pw}',[UsuarioController::class,'login']);
 Route::get('/aplicaciones/perfil/{pf}',[AplicacionController::class,'profile']);
+Route::get('/aplicaciones/permisos-perfil/{pf}',[AplicacionController::class,'permissions']);
+Route::patch('/aplicaciones/permisos-perfil',[AplicacionController::class,'savePermissions']);
 
 Route::get('/distritostest',[DistritoController::class,'test']);
 Route::get('/distritos',[DistritoController::class,'index']);
@@ -150,6 +152,7 @@ Route::patch('/entidades/contrato',[EntidadController::class,'saveEntitiesFromCo
 Route::get('/solicitud-vehiculos',[SolicitudVehiculoController::class,'index']);
 Route::post('/solicitud-vehiculos',[SolicitudVehiculoController::class,'create']);
 Route::put('/solicitud-vehiculos',[SolicitudVehiculoController::class,'update']);
+Route::put('/solicitud-vehiculos/usuario/{id}',[SolicitudVehiculoController::class,'getVehicleRequestsFromPerson']);
 
 Route::get('/sugerencias',[SugerenciaController::class,'index']);
 Route::get('/sugerencias/{all}',[SugerenciaController::class,'read']);

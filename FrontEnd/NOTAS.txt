@@ -1,0 +1,4 @@
+ng serve
+npm start
+
+ng g component admin/perfil/perfil-edit --flat

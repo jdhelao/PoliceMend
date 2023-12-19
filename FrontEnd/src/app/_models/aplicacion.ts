@@ -4,4 +4,7 @@ export class Aplicacion {
     ap_ruta?: string;
     ra_imagen?: string;
     ap_estado?: boolean;
+
+
+    us_edit?: number;
 }

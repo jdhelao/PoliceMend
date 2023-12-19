@@ -29,6 +29,8 @@ import { SVehicularEditComponent } from './s-vehicular/s-vehicular-edit.componen
 
 import { RSugerenciasComponent } from './r-sugerencias/r-sugerencias.component';
 
+import { PerfilListComponent } from './perfil/perfil-list.component';
+import { PerfilEditComponent } from './perfil/perfil-edit.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -68,6 +70,10 @@ const routes: Routes = [
   { path: 'solicitud-vehicular', component: SVehicularListComponent },
   { path: 'solicitud-vehicular/edit/:id', component: SVehicularEditComponent },
   { path: 'solicitud-vehicular/add', component: SVehicularEditComponent },
+
+  { path: 'perfil', component: PerfilListComponent },
+  { path: 'perfil/edit/:id', component: PerfilEditComponent },
+  { path: 'perfil/add', component: PerfilEditComponent },
 
   { path: 'reporte-sugerencias', component: RSugerenciasComponent },
 ];

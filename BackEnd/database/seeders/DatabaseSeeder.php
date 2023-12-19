@@ -69,7 +69,8 @@ class DatabaseSeeder extends Seeder
         DB::table('aplicaciones')->insertOrIgnore(['ap_codigo' => 12, 'ap_nombre' => 'Reporte sugerencias' ,'ap_ruta' => '/admin/reporte-sugerencias', 'ap_imagen' => null]);
         DB::table('aplicaciones')->insertOrIgnore(['ap_codigo' => 13, 'ap_nombre' => 'Entidades' ,'ap_ruta' => '/admin/entidad', 'ap_imagen' => null]);
         DB::table('aplicaciones')->insertOrIgnore(['ap_codigo' => 14, 'ap_nombre' => 'Solicitudes Vehiculares' ,'ap_ruta' => '/admin/solicitud-vehicular', 'ap_imagen' => null]);
-        DB::table('aplicaciones')->insertOrIgnore(['ap_codigo' => 14, 'ap_nombre' => 'Aprobar Solicitudes Vehiculares' ,'ap_ruta' => '/admin/aprobar-solicitud-vehicular', 'ap_imagen' => null]);
+        DB::table('aplicaciones')->insertOrIgnore(['ap_codigo' => 15, 'ap_nombre' => 'Aprobar Solicitudes Vehiculares' ,'ap_ruta' => '/admin/aprobar-solicitud-vehicular', 'ap_imagen' => null]);
+        DB::table('aplicaciones')->insertOrIgnore(['ap_codigo' => 16, 'ap_nombre' => 'Perfiles' ,'ap_ruta' => '/admin/perfil', 'ap_imagen' => null]);
         /*Admin*/
         DB::table('aplicacion_perfil')->insertOrIgnore(['pf_codigo' => 1, 'ap_codigo' => 1]);
         DB::table('aplicacion_perfil')->insertOrIgnore(['pf_codigo' => 1, 'ap_codigo' => 2]);
@@ -89,6 +90,8 @@ class DatabaseSeeder extends Seeder
         DB::table('aplicacion_perfil')->insertOrIgnore(['pf_codigo' => 2, 'ap_codigo' => 14]);
         /*Jefe Logistica*/
         DB::table('aplicacion_perfil')->insertOrIgnore(['pf_codigo' => 3, 'ap_codigo' => 15]);
+        /*Admin profiles and permissions admin*/
+        DB::table('aplicacion_perfil')->insertOrIgnore(['pf_codigo' => 1, 'ap_codigo' => 16]);
 
         /*RANGOS, Fuente: https://ecuador.unir.net/actualidad-unir/rangos-policia-nacional-ecuador  ;   https://revistaseguridad360.com/noticias/comunicaciones/policia-rangos*/
         DB::table('rangos')->insertOrIgnore(['ra_codigo' => 0, 'ra_nombre' => 'Ninguno']);
@@ -578,8 +581,8 @@ class DatabaseSeeder extends Seeder
 
         /*Contratos*/
         DB::table('contrato_tipos')->insertOrIgnore(['kt_codigo' => 0, 'kt_nombre' => 'Ninguno']);
-        DB::table('contrato_tipos')->insertOrIgnore(['kt_codigo' => 1, 'kt_nombre' => 'Talleres']);
-        DB::table('contrato_tipos')->insertOrIgnore(['kt_codigo' => 2, 'kt_nombre' => 'Gasolineras']);
+        DB::table('contrato_tipos')->insertOrIgnore(['kt_codigo' => 1, 'kt_nombre' => 'Mantenimiento Vehicular']);
+        DB::table('contrato_tipos')->insertOrIgnore(['kt_codigo' => 2, 'kt_nombre' => 'Abastecimiento de combustible']);
 
 
     }

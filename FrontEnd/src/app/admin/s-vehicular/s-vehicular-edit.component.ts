@@ -92,7 +92,7 @@ export class SVehicularEditComponent implements OnInit {
       if (data !== null && data !== undefined && data.length > 0) {
         this.lsContractTypes = data;
         // remove option "Ninguno"
-        if (this.lsContractTypes.length > 0) { this.lsContractTypes.splice(0, 1); }
+        if (this.lsContractTypes.length > 0 && this.lsContractTypes[0] !== undefined) { this.lsContractTypes.splice(0, 1); }
       }
       this.loading = false;
     });

@@ -52,6 +52,8 @@ import { EntidadListComponent } from './entidad/entidad-list.component';
 import { EntidadEditComponent } from './entidad/entidad-edit.component';
 import { SVehicularListComponent } from './s-vehicular/s-vehicular-list.component';
 import { SVehicularEditComponent } from './s-vehicular/s-vehicular-edit.component';
+import { PerfilEditComponent } from './perfil/perfil-edit.component';
+import { PerfilListComponent } from './perfil/perfil-list.component';
 
 
 @NgModule({
@@ -61,7 +63,7 @@ import { SVehicularEditComponent } from './s-vehicular/s-vehicular-edit.componen
     CircuitoListComponent, CircuitoEditComponent,
     CircuitoListComponent, CircuitoEditComponent,
     SubcircuitoListComponent, SubcircuitoEditComponent,
-    PersonalComponent, PersonalListComponent, PersonalEditComponent, RSugerenciasComponent, DistritoListComponent, DistritoEditComponent, CircuitoListComponent, CircuitoEditComponent, SubcircuitoListComponent, SubcircuitoEditComponent, VehiculoListComponent, VehiculoEditComponent, ContratoEditComponent, ContratoListComponent, EntidadListComponent, EntidadEditComponent, SVehicularListComponent, SVehicularEditComponent
+    PersonalComponent, PersonalListComponent, PersonalEditComponent, RSugerenciasComponent, DistritoListComponent, DistritoEditComponent, CircuitoListComponent, CircuitoEditComponent, SubcircuitoListComponent, SubcircuitoEditComponent, VehiculoListComponent, VehiculoEditComponent, ContratoEditComponent, ContratoListComponent, EntidadListComponent, EntidadEditComponent, SVehicularListComponent, SVehicularEditComponent, PerfilEditComponent, PerfilListComponent
   ],
   imports: [
     CommonModule,

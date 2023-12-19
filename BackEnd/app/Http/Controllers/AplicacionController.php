@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Aplicaciones;
+use DB;
 
 class AplicacionController extends Controller
 {
@@ -62,5 +63,43 @@ class AplicacionController extends Controller
             ->where('perfiles.pf_codigo',(int)$id)
             ->get('aplicaciones.*');
         return response()->json($aplicaciones, (sizeof($aplicaciones)?200:404));
+    }
+
+    /*
+    get Apps by Profile's permissions
+    */
+    public function permissions ($id) {
+        $obj = Aplicaciones::select([DB::raw("$id as pf_codigo, aplicaciones.ap_codigo, aplicaciones.ap_nombre, pf.ap_estado")])
+            ->leftJoin('aplicacion_perfil as pf', function ($join) use ($id){
+                $join->on('pf.ap_codigo', '=', 'aplicaciones.ap_codigo')
+                     ->on('pf.pf_codigo', '=', DB::raw($id))
+                     ->on('pf.ap_estado', 'aplicaciones.ap_estado');
+            })
+            ->where('aplicaciones.ap_estado',true)
+            ->orderBy(DB::raw('aplicaciones.ap_nombre'))
+            ->get();
+        return response()->json($obj, 200);
+    }
+    /*
+    save Apps by Profile's permissions
+    */
+    public function savePermissions (Request $req) {
+        $objs = $req->input();
+        if (is_array($objs) and sizeof($objs) > 0 and isset($objs[0]['pf_codigo']) and isset($objs[0]['ap_codigo']) and isset($objs[0]['ap_estado'])) {
+            foreach ($objs as $obj) {
+                if (DB::table('aplicacion_perfil')->where('pf_codigo', $obj['pf_codigo'])->where('ap_codigo', $obj['ap_codigo'])->exists()) {
+                    //update existing
+                    DB::table('aplicacion_perfil')->where('pf_codigo',$obj['pf_codigo'])->where('ap_codigo',$obj['ap_codigo'])->update(['ap_estado' => (isset($obj['ap_estado'])?$obj['ap_estado']:true), 'updated_by' => (isset($obj['us_edit'])?$obj['us_edit']:null)]);
+                }
+                else {
+                    //Create new
+                    DB::insert('insert into aplicacion_perfil (pf_codigo, ap_codigo, ap_estado, created_by) values (?, ?, ?, ?)', [$obj['pf_codigo'], $obj['ap_codigo'], $obj['ap_estado'], (isset($obj['us_edit'])?$obj['us_edit']:null)]);
+                }
+            }
+            return $this->permissions($objs[0]['pf_codigo']);
+        }
+        else {
+            return response()->make(['message' => 'Petición incorrecta'], 400);
+        }
     }
 }

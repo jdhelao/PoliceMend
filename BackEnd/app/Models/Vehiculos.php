@@ -17,9 +17,9 @@ class Vehiculos extends Model
         've_placa',
         've_chasis',
         've_motor',
-        'vt_codigo',
-        'vm_codigo',
-        'pa_codigo',
+        'vt_codigo', // tipo
+        'vm_codigo', // modelo
+        'pa_codigo', // pais
         've_modelo',
         've_anio',
         've_cilindaraje',
