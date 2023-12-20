@@ -7,12 +7,12 @@
     </button>
     <span>{{title}}</span>
     <span class="flex-spacer"></span>
-    <button mat-icon-button aria-label="Guardar" [disabled]="submitting||loading">
+    <button mat-icon-button aria-label="Guardar" [disabled]="submitting||loading" *ngIf="f.sv_aprobacion.value===null">
       <mat-icon>save</mat-icon>
     </button>
   </mat-toolbar>
 
-  <mat-form-field class="width1-3">
+  <mat-form-field class="half-width">
     <mat-label>Tipo</mat-label>
     <mat-select formControlName="kt_codigo" (selectionChange)="setMaxFuel()">
       <mat-option *ngFor="let kt of lsContractTypes" [value]="kt.kt_codigo">
@@ -21,7 +21,7 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field class="width2-3">
+  <mat-form-field class="half-width">
     <mat-label>Vehículo</mat-label>
     <mat-select formControlName="ve_codigo" (selectionChange)="setMinKM($event.value)">
       <mat-option *ngFor="let ve of lsVehicles" [value]="ve.ve_codigo">
@@ -67,6 +67,11 @@
   <mat-form-field class="full-width">
     <mat-label>Descripción</mat-label>
     <textarea matInput placeholder="Descrición de solicitud..." formControlName="sv_descripcion"></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="full-width" *ngIf="f.sv_observacion.value">
+    <mat-label>Observación</mat-label>
+    <textarea matInput placeholder="Descrición de solicitud..." formControlName="sv_observacion" ></textarea>
   </mat-form-field>
 
 

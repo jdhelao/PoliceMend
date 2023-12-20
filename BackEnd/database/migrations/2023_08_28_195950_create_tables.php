@@ -40,6 +40,7 @@ return new class extends Migration
         Schema::dropIfExists('vehiculos');
         Schema::dropIfExists('vehiculo_subcircuitos');
         Schema::dropIfExists('vehiculo_custodios');
+        Schema::dropIfExists('vehiculo_historial');
 
         Schema::dropIfExists('contrato_tipos');
         Schema::dropIfExists('contratos');
@@ -408,6 +409,24 @@ return new class extends Migration
             $table->foreign('pe_codigo')->references('pe_codigo')->on('personas')->onDelete('set null');
         });
 
+        Schema::create('vehiculo_historiales', function (Blueprint $table) {
+            $table->id('vh_codigo');
+
+            $table->unsignedBigInteger('ve_codigo')->nullable();
+
+            $table->string('vh_tipo',10)->nullable();
+            $table->float('vh_valor')->nullable();
+
+            $table->boolean('vh_estado')->default(true);
+
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->unsignedBigInteger('created_by')->nullable();$table->foreign('created_by')->references('us_codigo')->on('usuarios')->onDelete('set null');
+            $table->timestamp('updated_at')->default(DB::raw('NULL ON UPDATE CURRENT_TIMESTAMP'))->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();$table->foreign('updated_by')->references('us_codigo')->on('usuarios')->onDelete('set null');
+
+            $table->foreign('ve_codigo')->references('ve_codigo')->on('vehiculos')->onDelete('set null');
+        });
+
         /*Contratos*/
         Schema::create('contrato_tipos', function (Blueprint $table) {
             $table->id('kt_codigo');
@@ -533,6 +552,7 @@ return new class extends Migration
             $table->string('sv_descripcion')->nullable();
 
             $table->boolean('sv_aprobacion')->nullable();
+            $table->string('sv_observacion')->nullable();
             $table->boolean('sv_estado')->default(true);
 
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
@@ -657,6 +677,7 @@ return new class extends Migration
         Schema::dropIfExists('vehiculos');
         Schema::dropIfExists('vehiculo_subcircuitos');
         Schema::dropIfExists('vehiculo_custodios');
+        Schema::dropIfExists('vehiculo_historial');
 
         Schema::dropIfExists('contrato_tipos');
         Schema::dropIfExists('contratos');

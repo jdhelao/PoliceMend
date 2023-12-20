@@ -86,6 +86,8 @@ class DatabaseSeeder extends Seeder
         DB::table('aplicacion_perfil')->insertOrIgnore(['pf_codigo' => 1, 'ap_codigo' => 12]);
         DB::table('aplicacion_perfil')->insertOrIgnore(['pf_codigo' => 1, 'ap_codigo' => 13]);
         DB::table('aplicacion_perfil')->insertOrIgnore(['pf_codigo' => 1, 'ap_codigo' => 14]);
+        DB::table('aplicacion_perfil')->insertOrIgnore(['pf_codigo' => 3, 'ap_codigo' => 15]);
+        DB::table('aplicacion_perfil')->insertOrIgnore(['pf_codigo' => 3, 'ap_codigo' => 16]);
         /*Policia-Custodio*/
         DB::table('aplicacion_perfil')->insertOrIgnore(['pf_codigo' => 2, 'ap_codigo' => 14]);
         /*Jefe Logistica*/

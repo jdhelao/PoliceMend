@@ -1,3 +1,37 @@
+<igx-input-group type="search" class="search">
+  <igx-prefix>
+      <igx-icon>search</igx-icon>
+  </igx-prefix>
+  <input #search igxInput placeholder="Buscar Solicitud" [(ngModel)]="seachVehicleRequest">
+  <igx-suffix *ngIf="search.value.length > 0" (click)="seachVehicleRequest = ''">
+      <igx-icon>clear</igx-icon>
+  </igx-suffix>
+</igx-input-group>
+<div class="list">
+  <igx-list [displayDensity]="density">
+      <igx-list-item [isHeader]="true">Solicitudes</igx-list-item>
+      <igx-list-item igxRipple igxRippleTarget=".igx-list__item-content" #item
+          *ngFor="let sv of vehicleRequests | igxFilter: filterVehicleRequests | slice:0:30;">
+          <igx-avatar igxListThumbnail shape="circle">
+              <button mat-icon-button aria-label="Editar solicitud"
+                  routerLink="/admin/solicitud-vehicular/edit/{{sv.sv_codigo}}">
+                  <!--<igx-icon fontSet="material">edit</igx-icon>-->
+                  <mat-icon *ngIf="sv.sv_aprobacion===null">edit</mat-icon>
+                  <mat-icon *ngIf="sv.sv_aprobacion!==null">visibility</mat-icon>
+              </button>
+          </igx-avatar>
+          <span igxListLineTitle><b>{{ sv.ve_placa }}</b> ({{ sv.vm_nombre }} {{ sv.ve_color }}) | {{ sv.pe_nombres }}</span>
+          <span igxListLineSubTitle>{{ sv.kt_nombre }} | {{ sv.sv_fecha_requerimiento | slice:0:10 }}</span>
+
+          <span igxListAction>
+              <igx-switch *ngIf="sv.sv_aprobacion===null" [checked]="sv.sv_estado" (click)="disable(sv.sv_codigo)"></igx-switch>
+              <mat-icon *ngIf="sv.sv_aprobacion===1" color="primary">thumb_up</mat-icon>
+              <mat-icon *ngIf="sv.sv_aprobacion===0" color="warn">thumb_down</mat-icon>
+          </span>
+      </igx-list-item>
+  </igx-list>
+</div>
 <button class="add" mat-fab color="primary" aria-label="Crear" routerLink="/admin/solicitud-vehicular/add">
   <mat-icon>add</mat-icon>
 </button>
+<span *ngIf="loading" class="spinner-border spinner-border-lg align-center"></span>

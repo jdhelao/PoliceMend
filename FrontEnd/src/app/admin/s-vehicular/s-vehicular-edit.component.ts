@@ -57,6 +57,8 @@ export class SVehicularEditComponent implements OnInit {
       sv_fecha_requerimiento: [null, [Validators.required, this.minDateValidator]],
       sv_descripcion: [null, Validators.required],
 
+      sv_aprobacion: [null],
+      sv_observacion: [null],
       us_codigo: [null],
     });
 
@@ -65,7 +67,7 @@ export class SVehicularEditComponent implements OnInit {
       // edit mode
       this.title = 'Editar Solicitud';
       this.loading = true;
-      this.http.get<any>(environment.urlAPI + 'solicitud-vehicular/' + this.id)
+      this.http.get<any>(environment.urlAPI + 'solicitud-vehiculos/' + this.id)
         .pipe(first())
         .subscribe(
           {
@@ -73,6 +75,10 @@ export class SVehicularEditComponent implements OnInit {
               if (data !== null && data !== undefined && data.sv_codigo !== null && data.sv_codigo !== undefined) {
                 this.form.patchValue(data as SolicitudVehicular);
                 this.loading = false;
+                if (data.sv_aprobacion !== undefined && data.sv_aprobacion !== null) {
+                  this.title = 'Solicitud ' + (Boolean(data.sv_aprobacion)?'Aprobada':'Negada');
+                  this.form.disable();
+                }
               }
             },
             error: (error) => {

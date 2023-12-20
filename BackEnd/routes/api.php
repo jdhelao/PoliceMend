@@ -150,9 +150,11 @@ Route::get('/entidades/contrato/{id}/{type}',[EntidadController::class,'getEntit
 Route::patch('/entidades/contrato',[EntidadController::class,'saveEntitiesFromContract']);
 
 Route::get('/solicitud-vehiculos',[SolicitudVehiculoController::class,'index']);
+Route::get('/solicitud-vehiculos/{all}',[SolicitudVehiculoController::class,'read']);
+Route::get('/solicitud-vehiculos/{id}',[SolicitudVehiculoController::class,'read']);
 Route::post('/solicitud-vehiculos',[SolicitudVehiculoController::class,'create']);
 Route::put('/solicitud-vehiculos',[SolicitudVehiculoController::class,'update']);
-Route::put('/solicitud-vehiculos/usuario/{id}',[SolicitudVehiculoController::class,'getVehicleRequestsFromPerson']);
+Route::get('/solicitud-vehiculos/persona/{id}',[SolicitudVehiculoController::class,'getVehicleRequestsFromPerson']);
 
 Route::get('/sugerencias',[SugerenciaController::class,'index']);
 Route::get('/sugerencias/{all}',[SugerenciaController::class,'read']);
