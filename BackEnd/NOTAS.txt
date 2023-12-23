@@ -1,5 +1,5 @@
 /*https://blog.treblle.com/how-to-create-rest-api-using-laravel*/
-
+/*   sudo /opt/lampp/bin/php artisan   */
 php artisan serve
 
 php artisan migrate:refresh --path=database/migrations/2014_10_12_100000_create_password_resets_table.php

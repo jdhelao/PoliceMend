@@ -1,0 +1,13 @@
+--GIT, upload changes--
+ git add .
+ git commit -m "Comment"
+ git push origin main
+
+--GIT, download changes--
+--Pulling the latest changes
+ git pull origin main
+--combines changes
+ git merge origin main
+
+
+ sudo code . --user-data-dir='.' --no-sandbox
