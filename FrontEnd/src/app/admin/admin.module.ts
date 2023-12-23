@@ -15,6 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatCardModule } from '@angular/material/card';
 
 import {
   IgxIconModule,
@@ -52,9 +53,12 @@ import { EntidadListComponent } from './entidad/entidad-list.component';
 import { EntidadEditComponent } from './entidad/entidad-edit.component';
 import { SVehicularListComponent } from './s-vehicular/s-vehicular-list.component';
 import { SVehicularEditComponent } from './s-vehicular/s-vehicular-edit.component';
+import { SVehicularAprobarListComponent } from './s-vehicular-aprobar/s-vehicular-aprobar-list.component';
+import { SVehicularAprobarEditComponent } from './s-vehicular-aprobar/s-vehicular-aprobar-edit.component';
 import { PerfilEditComponent } from './perfil/perfil-edit.component';
 import { PerfilListComponent } from './perfil/perfil-list.component';
-
+import { OrdenAbastecimientoEditComponent } from './orden-abastecimiento/orden-abastecimiento-edit.component';
+import { OrdenAbastecimientoListComponent } from './orden-abastecimiento/orden-abastecimiento-list.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +67,7 @@ import { PerfilListComponent } from './perfil/perfil-list.component';
     CircuitoListComponent, CircuitoEditComponent,
     CircuitoListComponent, CircuitoEditComponent,
     SubcircuitoListComponent, SubcircuitoEditComponent,
-    PersonalComponent, PersonalListComponent, PersonalEditComponent, RSugerenciasComponent, DistritoListComponent, DistritoEditComponent, CircuitoListComponent, CircuitoEditComponent, SubcircuitoListComponent, SubcircuitoEditComponent, VehiculoListComponent, VehiculoEditComponent, ContratoEditComponent, ContratoListComponent, EntidadListComponent, EntidadEditComponent, SVehicularListComponent, SVehicularEditComponent, PerfilEditComponent, PerfilListComponent
+    PersonalComponent, PersonalListComponent, PersonalEditComponent, RSugerenciasComponent, DistritoListComponent, DistritoEditComponent, CircuitoListComponent, CircuitoEditComponent, SubcircuitoListComponent, SubcircuitoEditComponent, VehiculoListComponent, VehiculoEditComponent, ContratoEditComponent, ContratoListComponent, EntidadListComponent, EntidadEditComponent, SVehicularListComponent, SVehicularEditComponent, PerfilEditComponent, PerfilListComponent, SVehicularAprobarListComponent, SVehicularAprobarEditComponent, OrdenAbastecimientoEditComponent, OrdenAbastecimientoListComponent
   ],
   imports: [
     CommonModule,
@@ -71,7 +75,7 @@ import { PerfilListComponent } from './perfil/perfil-list.component';
 
     MatButtonModule, MatIconModule,
 
-    FormsModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatToolbarModule, MatSelectModule, MatTableModule, MatCheckboxModule, MatSliderModule,
+    FormsModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatToolbarModule, MatSelectModule, MatTableModule, MatCheckboxModule, MatSliderModule, MatCardModule,
 
     IgxAvatarModule,
     IgxFilterModule,

@@ -8,11 +8,11 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '@environments/environment';
 
 @Component({
-  selector: 'app-s-vehicular-list',
-  templateUrl: './s-vehicular-list.component.html',
-  styleUrls: ['./s-vehicular-list.component.scss']
+  selector: 'app-s-vehicular-aprobar-list',
+  templateUrl: './s-vehicular-aprobar-list.component.html',
+  styleUrls: ['./s-vehicular-aprobar-list.component.scss']
 })
-export class SVehicularListComponent implements OnInit {
+export class SVehicularAprobarListComponent implements OnInit {
   public user: User | null;
   loading = false;
   public density: DisplayDensity = 'comfortable';
@@ -24,13 +24,13 @@ export class SVehicularListComponent implements OnInit {
   }
 
   public ngOnInit() {
-    this.accountService.checkAppPermission(14);
+    this.accountService.checkAppPermission(15);
     this.getVehicleRequestList();
   }
 
   async getVehicleRequestList() {
     this.loading = true;
-    this.http.get<any>(environment.urlAPI + 'solicitud-vehiculos/persona/' + (this.user?.pf_codigo == 1/*admin*/ ? 'all' : this.user?.pe_codigo)).subscribe((data: SolicitudVehicular | any) => {
+    this.http.get<any>(environment.urlAPI + 'solicitud-vehiculos/P').subscribe((data: SolicitudVehicular | any) => {
       if (data !== null && data !== undefined && data.length > 0) {
         this.vehicleRequests = data;
       }
@@ -40,7 +40,7 @@ export class SVehicularListComponent implements OnInit {
 
   get filterVehicleRequests() {
     const fo = new IgxFilterOptions();
-    fo.key = ['sv_descripcion', 'kt_nombre', 've_placa', 'vm_nombre', 'pe_dni', 'pe_nombres'];
+    fo.key = ['sv_descripcion','kt_nombre','ve_placa','vm_nombre','pe_dni','pe_nombres'];
     fo.inputValue = this.seachVehicleRequest;
     return fo;
   }
@@ -51,16 +51,16 @@ export class SVehicularListComponent implements OnInit {
 
   disable(id: number) {
     const index: number = -1;
-    this.vehicleRequests.forEach((sv, i) => {
-      if (sv.sv_codigo == id) {
+    this.vehicleRequests.forEach((us, i) => {
+      if (us.en_codigo == id) {
         console.log(id);
         if (navigator.onLine) {
-          this.http.put<any>(environment.urlAPI + 'solicitud-vehiculos'
-            , { "sv_codigo": sv.sv_codigo, "sv_estado": !sv.sv_estado, "us_codigo": this.user?.us_codigo }).subscribe((data: any) => {
+          this.http.put<any>(environment.urlAPI + 'entidades'
+            , { "en_codigo": us.en_codigo, "en_estado": !us.en_estado, "updated_by": this.user?.us_codigo }).subscribe((data: any) => {
               if (data !== null && data !== undefined
-                && data.sv_estado !== null && data.sv_estado !== undefined
+                && data.en_estado !== null && data.en_estado !== undefined
               ) {
-                this.vehicleRequests[i].sv_estado = data.sv_estado;
+                this.vehicleRequests[i].en_estado = data.en_estado;
               }
             },
               error => {

@@ -100,6 +100,11 @@ class EntidadController extends Controller
         return response()->json($obj, 200);
     }
 
+    public function getEntitiesByType($id) {
+        $obj = Entidades::where('en_estado',true)->where('kt_codigo',$id)->get();
+        return response()->json($obj, 200);
+    }
+
     public function saveEntitiesFromContract (Request $req) {
         $objs = $req->input();
         if (is_array($objs) and sizeof($objs) > 0 and isset($objs[0]['en_codigo']) and isset($objs[0]['ko_codigo'])) {

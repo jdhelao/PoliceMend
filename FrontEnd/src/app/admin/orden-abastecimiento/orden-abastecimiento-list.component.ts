@@ -8,11 +8,11 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '@environments/environment';
 
 @Component({
-  selector: 'app-s-vehicular-list',
-  templateUrl: './s-vehicular-list.component.html',
-  styleUrls: ['./s-vehicular-list.component.scss']
+  selector: 'app-orden-abastecimiento-list',
+  templateUrl: './orden-abastecimiento-list.component.html',
+  styleUrls: ['./orden-abastecimiento-list.component.scss']
 })
-export class SVehicularListComponent implements OnInit {
+export class OrdenAbastecimientoListComponent implements OnInit {
   public user: User | null;
   loading = false;
   public density: DisplayDensity = 'comfortable';
@@ -24,13 +24,13 @@ export class SVehicularListComponent implements OnInit {
   }
 
   public ngOnInit() {
-    this.accountService.checkAppPermission(14);
+    this.accountService.checkAppPermission(11);
     this.getVehicleRequestList();
   }
 
   async getVehicleRequestList() {
     this.loading = true;
-    this.http.get<any>(environment.urlAPI + 'solicitud-vehiculos/persona/' + (this.user?.pf_codigo == 1/*admin*/ ? 'all' : this.user?.pe_codigo)).subscribe((data: SolicitudVehicular | any) => {
+    this.http.get<any>(environment.urlAPI + 'solicitud-vehiculos-aprobadas/2/persona/' + this.user?.pe_codigo).subscribe((data: SolicitudVehicular | any) => {
       if (data !== null && data !== undefined && data.length > 0) {
         this.vehicleRequests = data;
       }

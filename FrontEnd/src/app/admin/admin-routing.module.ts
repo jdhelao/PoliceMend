@@ -26,6 +26,10 @@ import { EntidadEditComponent } from './entidad/entidad-edit.component';
 
 import { SVehicularListComponent } from './s-vehicular/s-vehicular-list.component';
 import { SVehicularEditComponent } from './s-vehicular/s-vehicular-edit.component';
+import { SVehicularAprobarListComponent } from './s-vehicular-aprobar/s-vehicular-aprobar-list.component';
+import { SVehicularAprobarEditComponent } from './s-vehicular-aprobar/s-vehicular-aprobar-edit.component';
+import { OrdenAbastecimientoListComponent } from './orden-abastecimiento/orden-abastecimiento-list.component';
+import { OrdenAbastecimientoEditComponent } from './orden-abastecimiento/orden-abastecimiento-edit.component';
 
 import { RSugerenciasComponent } from './r-sugerencias/r-sugerencias.component';
 
@@ -70,6 +74,11 @@ const routes: Routes = [
   { path: 'solicitud-vehicular', component: SVehicularListComponent },
   { path: 'solicitud-vehicular/edit/:id', component: SVehicularEditComponent },
   { path: 'solicitud-vehicular/add', component: SVehicularEditComponent },
+  { path: 'aprobar-solicitud-vehicular', component: SVehicularAprobarListComponent },
+  { path: 'aprobar-solicitud-vehicular/edit/:id', component: SVehicularAprobarEditComponent },
+
+  { path: 'orden-abastecimiento', component: OrdenAbastecimientoListComponent },
+  { path: 'orden-abastecimiento/edit/:id', component: OrdenAbastecimientoEditComponent },
 
   { path: 'perfil', component: PerfilListComponent },
   { path: 'perfil/edit/:id', component: PerfilEditComponent },

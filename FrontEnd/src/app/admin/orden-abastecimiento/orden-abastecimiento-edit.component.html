@@ -1,0 +1,71 @@
+<!-- *ngIf="!loading"-->
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-toolbar class="toolbar" color="primary">
+    <button mat-icon-button aria-label="Cancelar" routerLink="/admin/orden-abastecimiento"
+      onclick="event.preventDefault()">
+      <mat-icon>clear</mat-icon>
+    </button>
+    <span>{{title}}</span>
+    <span class="flex-spacer"></span>
+    <button mat-icon-button aria-label="Guardar" [disabled]="submitting||loading">
+      <mat-icon>save</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <mat-form-field class="full-width">
+    <mat-label>Gasolinera</mat-label>
+    <mat-select formControlName="en_codigo">
+      <mat-option *ngFor="let en of lsEntities" [value]="en.en_codigo">
+        {{en.en_nombre}} ({{ en.di_codigo}})
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Documento/Voucher/Factura</mat-label>
+    <input matInput aria-label="Documento" formControlName="oa_documento" [ngClass]="{ 'is-invalid': submitted && f.oa_documento.errors }">
+    <div *ngIf="submitted && f.oa_documento.errors" class="invalid-feedback">
+      <div *ngIf="f.oa_documento.errors.required">Dato requerido</div>
+    </div>
+  </mat-form-field>
+
+  <mat-form-field class="half-width">
+    <mat-label>Galones</mat-label>
+    <input matInput type="number" aria-label="Galones" formControlName="oa_galones" step="1" min="1"
+      [ngClass]="{ 'is-invalid': submitted && f.oa_galones.errors }">
+    <div *ngIf="submitted && f.oa_galones.errors" class="invalid-feedback">
+      <div *ngIf="f.oa_galones.errors.required">Dato requerido</div>
+      <div *ngIf="f.oa_galones.errors.min">Mínimo requerido</div>
+      <div *ngIf="f.oa_galones.errors.max">Máximo sobrepasado</div>
+    </div>
+  </mat-form-field>
+
+  <mat-form-field class="half-width">
+    <mat-label>Valor Total</mat-label>
+    <input matInput type="number" aria-label="Valor Total" formControlName="oa_total" step="1" min="1"
+      [ngClass]="{ 'is-invalid': submitted && f.oa_total.errors }">
+    <div *ngIf="submitted && f.oa_total.errors" class="invalid-feedback">
+      <div *ngIf="f.oa_total.errors.required">Dato requerido</div>
+      <div *ngIf="f.oa_total.errors.min">Mínimo requerido</div>
+      <div *ngIf="f.oa_total.errors.max">Máximo sobrepasado</div>
+    </div>
+  </mat-form-field>
+
+  <label class="full-width">Nivel combustible ({{ f.oa_combustible_nivel.value }} %)
+    <div *ngIf="submitted && f.oa_combustible_nivel.errors">
+      <mat-error *ngIf="f.oa_combustible_nivel.errors.required">Dato requerido</mat-error>
+      <mat-error *ngIf="f.oa_combustible_nivel.errors.min">Mínimo requerido</mat-error>
+      <mat-error *ngIf="f.oa_combustible_nivel.errors.max">Máximo sobrepasado</mat-error>
+    </div>
+    <mat-slider min="{{f.ve_combustible_nivel.value}}" max="100" step="1" discrete style="width: calc(100% - 20px); margin: 0 10px">
+      <input matSliderThumb formControlName="oa_combustible_nivel">
+    </mat-slider>
+  </label>
+
+
+</form>
+<!--
+<div *ngIf="loading" class="text-center m-5">
+    <span class="spinner-border spinner-border-lg align-center"></span>
+</div>-->
+<span *ngIf="loading||submitting" class="spinner-border spinner-border-lg align-center"></span>

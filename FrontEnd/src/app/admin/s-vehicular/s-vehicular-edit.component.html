@@ -10,6 +10,9 @@
     <button mat-icon-button aria-label="Guardar" [disabled]="submitting||loading" *ngIf="f.sv_aprobacion.value===null">
       <mat-icon>save</mat-icon>
     </button>
+    <button mat-raised-button aria-label="Número de orden" onclick="event.preventDefault()" routerLink="/admin/orden-abastecimiento/edit/{{f.id_orden.value}}" *ngIf="f.id_orden.value!==null&&f.sv_aprobacion.value===1">
+      Orden #{{f.id_orden.value}}
+    </button>
   </mat-toolbar>
 
   <mat-form-field class="half-width">
@@ -59,7 +62,7 @@
       <mat-error *ngIf="f.ve_combustible_nivel.errors.min">Mínimo requerido</mat-error>
       <mat-error *ngIf="f.ve_combustible_nivel.errors.max">Máximo sobrepasado</mat-error>
     </div>
-    <mat-slider min="1" max="{{ f.kt_codigo.value == 2 ? 50 : 99 }}" step="1" discrete style="width: 98%;">
+    <mat-slider min="1" max="{{ f.kt_codigo.value == 2 ? 50 : 99 }}" step="1" discrete style="width: calc(100% - 20px); margin: 0 10px">
       <input matSliderThumb formControlName="ve_combustible_nivel">
     </mat-slider>
   </label>

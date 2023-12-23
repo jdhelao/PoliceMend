@@ -12,17 +12,25 @@ export class SolicitudVehicular {
     sv_descripcion?: string;
 
     sv_aprobacion?: boolean;
+    sv_observacion?: string;
     sv_estado?: boolean;
 
-    kt_nombre?: string;
-    pe_nombres?: string;
-    ve_placa?: string;
-
     /*Orden mantenimiento/abastecimiento*/
+    id_orden?: number;
     om_codigo?: number;
     oa_codigo?: number;
 
     /*Auditoria*/
     us_codigo?: number;
 
+    /*Descripciones*/
+    kt_nombre?: string;
+    pe_nombres?: string;
+    ve_placa?: string;
+    ve_color?: string;
+    ve_combustible?: string;
+    pa_nombre?: string;
+    vm_nombre?: string;
+    vt_nombre?: string;
+    pe_dni?: string;
 }

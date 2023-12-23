@@ -14,10 +14,8 @@
           *ngFor="let sv of vehicleRequests | igxFilter: filterVehicleRequests | slice:0:30;">
           <igx-avatar igxListThumbnail shape="circle">
               <button mat-icon-button aria-label="Editar solicitud"
-                  routerLink="/admin/solicitud-vehicular/edit/{{sv.sv_codigo}}">
-                  <!--<igx-icon fontSet="material">edit</igx-icon>-->
-                  <mat-icon *ngIf="sv.sv_aprobacion===null">edit</mat-icon>
-                  <mat-icon *ngIf="sv.sv_aprobacion!==null">visibility</mat-icon>
+                  routerLink="/admin/orden-abastecimiento/edit/{{sv.id_orden}}">
+                  <mat-icon>edit</mat-icon>
               </button>
           </igx-avatar>
           <span igxListLineTitle><b>{{ sv.ve_placa }}</b> ({{ sv.vm_nombre }} {{ sv.ve_color }}) | {{ sv.pe_nombres }}</span>
@@ -35,7 +33,4 @@
       </igx-list-item>
   </igx-list>
 </div>
-<button class="add" mat-fab color="primary" aria-label="Crear" routerLink="/admin/solicitud-vehicular/add">
-  <mat-icon>add</mat-icon>
-</button>
 <span *ngIf="loading" class="spinner-border spinner-border-lg align-center"></span>

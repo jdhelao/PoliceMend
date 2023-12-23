@@ -21,6 +21,7 @@ use App\Http\Controllers\VehiculoController;
 use App\Http\Controllers\ContratoController;
 use App\Http\Controllers\EntidadController;
 use App\Http\Controllers\SolicitudVehiculoController;
+use App\Http\Controllers\OrdenAbastecimientoController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -145,16 +146,20 @@ Route::get('/entidades/{all}',[EntidadController::class,'read']);
 Route::get('/entidades/{id}',[EntidadController::class,'read']);
 Route::post('/entidades',[EntidadController::class,'create']);
 Route::put('/entidades',[EntidadController::class,'update']);
+Route::get('/entidades/por-tipo/{id}',[EntidadController::class,'getEntitiesByType']);
 Route::get('/entidades/contrato/{id}',[EntidadController::class,'getEntitiesFromContract']);
 Route::get('/entidades/contrato/{id}/{type}',[EntidadController::class,'getEntitiesFromContract']);
 Route::patch('/entidades/contrato',[EntidadController::class,'saveEntitiesFromContract']);
 
 Route::get('/solicitud-vehiculos',[SolicitudVehiculoController::class,'index']);
-Route::get('/solicitud-vehiculos/{all}',[SolicitudVehiculoController::class,'read']);
 Route::get('/solicitud-vehiculos/{id}',[SolicitudVehiculoController::class,'read']);
 Route::post('/solicitud-vehiculos',[SolicitudVehiculoController::class,'create']);
 Route::put('/solicitud-vehiculos',[SolicitudVehiculoController::class,'update']);
-Route::get('/solicitud-vehiculos/persona/{id}',[SolicitudVehiculoController::class,'getVehicleRequestsFromPerson']);
+Route::get('/solicitud-vehiculos/persona/{id}',[SolicitudVehiculoController::class,'getVehicleRequestsByPerson']);
+Route::get('/solicitud-vehiculos-aprobadas/{type}/persona/{person}',[SolicitudVehiculoController::class,'getApprovedVehicleRequestsByPerson']);
+
+Route::get('/orden-abastecimientos/{id}/persona/{person}',[OrdenAbastecimientoController::class,'getOrderByPerson']);
+Route::put('/orden-abastecimientos',[OrdenAbastecimientoController::class,'update']);
 
 Route::get('/sugerencias',[SugerenciaController::class,'index']);
 Route::get('/sugerencias/{all}',[SugerenciaController::class,'read']);

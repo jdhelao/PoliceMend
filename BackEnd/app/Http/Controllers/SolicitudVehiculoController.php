@@ -6,30 +6,45 @@ use Illuminate\Http\Request;
 use App\Models\SolicitudVehiculos;
 use App\Models\VehiculoHistoriales;
 use App\Models\Vehiculos;
+use App\Models\OrdenAbastecimientos;
 use DB;
 
 class SolicitudVehiculoController extends Controller
 {
     public function index() {
-        $obj = SolicitudVehiculos::select([DB::raw("solicitud_vehiculos.*, kt.kt_nombre, ve.ve_placa, ve.ve_color, ve.ve_combustible, pa.pa_nombre, vm.vm_nombre, vt.vt_nombre, pe.pe_dni, concat(pe.pe_nombre1, ' ', pe.pe_apellido1, ' ' ) as pe_nombres")])
+        $this->read('index');
+    }
+
+    public function getVehicleRequestsByPerson ($id) {
+        $obj = SolicitudVehiculos::select([DB::raw("solicitud_vehiculos.*, kt.kt_nombre, ve.ve_placa, ve.ve_color, ve.ve_combustible, pa.pa_nombre, vm.vm_nombre, vt.vt_nombre, pe.pe_dni, concat(pe.pe_nombre1, ' ', pe.pe_apellido1, ' ' ) as pe_nombres, IFNULL(oa.oa_codigo, om.om_codigo) as id_orden")])
         ->join('vehiculos as ve', 've.ve_codigo', '=', 'solicitud_vehiculos.ve_codigo')
         ->join('personas as pe', 'pe.pe_codigo', '=', 'solicitud_vehiculos.pe_codigo')
         ->leftJoin('contrato_tipos as kt', 'kt.kt_codigo', '=', 'solicitud_vehiculos.kt_codigo')
         ->leftJoin('paises as pa', 'pa.pa_codigo', '=', 've.pa_codigo')
         ->leftJoin('vehiculo_marcas as vm', 'vm.vm_codigo', '=', 've.vm_codigo')
         ->leftJoin('vehiculo_tipos as vt', 'vt.vt_codigo', '=', 've.vt_codigo')
-        ->where('sv_estado',true)->get();
+        ->leftJoin('orden_abastecimientos as oa', 'oa.sv_codigo', '=', 'solicitud_vehiculos.sv_codigo')
+        ->leftJoin('orden_mantenimientos  as om', 'om.sv_codigo', '=', 'solicitud_vehiculos.sv_codigo')
+        ->where('sv_estado',true)
+        ->where('solicitud_vehiculos.pe_codigo','like',($id=='all'?'%%':$id))
+        ->orderBy('solicitud_vehiculos.created_at', 'DESC')->get();
         return response()->json($obj, 200);
     }
-    public function getVehicleRequestsFromPerson ($id) {
-        $obj = SolicitudVehiculos::select([DB::raw("solicitud_vehiculos.*, kt.kt_nombre, ve.ve_placa, ve.ve_color, ve.ve_combustible, pa.pa_nombre, vm.vm_nombre, vt.vt_nombre, pe.pe_dni, concat(pe.pe_nombre1, ' ', pe.pe_apellido1, ' ' ) as pe_nombres")])
+
+    public function getApprovedVehicleRequestsByPerson ($type, $person) {
+        $obj = SolicitudVehiculos::select([DB::raw("solicitud_vehiculos.*, kt.kt_nombre, ve.ve_placa, ve.ve_color, ve.ve_combustible, pa.pa_nombre, vm.vm_nombre, vt.vt_nombre, pe.pe_dni, concat(pe.pe_nombre1, ' ', pe.pe_apellido1, ' ' ) as pe_nombres, IFNULL(oa.oa_codigo, om.om_codigo) as id_orden")])
         ->join('vehiculos as ve', 've.ve_codigo', '=', 'solicitud_vehiculos.ve_codigo')
         ->join('personas as pe', 'pe.pe_codigo', '=', 'solicitud_vehiculos.pe_codigo')
         ->leftJoin('contrato_tipos as kt', 'kt.kt_codigo', '=', 'solicitud_vehiculos.kt_codigo')
         ->leftJoin('paises as pa', 'pa.pa_codigo', '=', 've.pa_codigo')
         ->leftJoin('vehiculo_marcas as vm', 'vm.vm_codigo', '=', 've.vm_codigo')
         ->leftJoin('vehiculo_tipos as vt', 'vt.vt_codigo', '=', 've.vt_codigo')
-        ->where('sv_estado',true)->where('solicitud_vehiculos.pe_codigo','like',($id=='all'?'%%':$id))->get();
+        ->leftJoin('orden_abastecimientos as oa', 'oa.sv_codigo', '=', 'solicitud_vehiculos.sv_codigo')
+        ->leftJoin('orden_mantenimientos  as om', 'om.sv_codigo', '=', 'solicitud_vehiculos.sv_codigo')
+        ->where('sv_estado',true)
+        ->where('solicitud_vehiculos.pe_codigo',$person)
+        ->whereNotNull(($type==1)?'om.sv_codigo':'oa.sv_codigo')
+        ->orderBy('solicitud_vehiculos.created_at', 'DESC')->get();
         return response()->json($obj, 200);
     }
 
@@ -62,6 +77,8 @@ class SolicitudVehiculoController extends Controller
         if (isset($req->sv_fecha_requerimiento)){ $obj->sv_fecha_requerimiento  = $req->sv_fecha_requerimiento; }
         if (isset($req->sv_descripcion))        { $obj->sv_descripcion  = $req->sv_descripcion; }
         if (isset($req->sv_aprobacion))         { $obj->sv_aprobacion  = $req->sv_aprobacion; }
+        if (isset($req->sv_observacion))        { $obj->sv_observacion  = $req->sv_observacion; }
+        if (isset($req->sv_estado))             { $obj->sv_estado  = $req->sv_estado; }
 
         if (is_null($obj->sv_codigo)) { /*new data*/
             $obj->created_by = ($req->created_by??$req->us_codigo??null);
@@ -75,23 +92,27 @@ class SolicitudVehiculoController extends Controller
     }
 
     public function read ($id) {
-        $obj = ($id === 'all')
-        ? SolicitudVehiculos::select([DB::raw("solicitud_vehiculos.*, kt.kt_nombre, ve.ve_placa, ve.ve_color, ve.ve_combustible, pa.pa_nombre, vm.vm_nombre, vt.vt_nombre, pe.pe_dni, concat(pe.pe_nombre1, ' ', pe.pe_apellido1, ' ' ) as pe_nombres")])
+        $obj = SolicitudVehiculos::select([DB::raw("solicitud_vehiculos.*, kt.kt_nombre, ve.ve_placa, ve.ve_color, ve.ve_combustible, pa.pa_nombre, vm.vm_nombre, vt.vt_nombre, pe.pe_dni, concat(pe.pe_nombre1, ' ', pe.pe_apellido1, ' ' ) as pe_nombres, IFNULL(oa.oa_codigo, om.om_codigo) as id_orden")])
         ->join('vehiculos as ve', 've.ve_codigo', '=', 'solicitud_vehiculos.ve_codigo')
         ->join('personas as pe', 'pe.pe_codigo', '=', 'solicitud_vehiculos.pe_codigo')
         ->leftJoin('contrato_tipos as kt', 'kt.kt_codigo', '=', 'solicitud_vehiculos.kt_codigo')
         ->leftJoin('paises as pa', 'pa.pa_codigo', '=', 've.pa_codigo')
         ->leftJoin('vehiculo_marcas as vm', 'vm.vm_codigo', '=', 've.vm_codigo')
         ->leftJoin('vehiculo_tipos as vt', 'vt.vt_codigo', '=', 've.vt_codigo')
-        ->where('sv_estado',true)->get()
-        : SolicitudVehiculos::select([DB::raw("solicitud_vehiculos.*, kt.kt_nombre, ve.ve_placa, ve.ve_color, ve.ve_combustible, pa.pa_nombre, vm.vm_nombre, vt.vt_nombre, pe.pe_dni, concat(pe.pe_nombre1, ' ', pe.pe_apellido1, ' ' ) as pe_nombres")])
-        ->join('vehiculos as ve', 've.ve_codigo', '=', 'solicitud_vehiculos.ve_codigo')
-        ->join('personas as pe', 'pe.pe_codigo', '=', 'solicitud_vehiculos.pe_codigo')
-        ->leftJoin('contrato_tipos as kt', 'kt.kt_codigo', '=', 'solicitud_vehiculos.kt_codigo')
-        ->leftJoin('paises as pa', 'pa.pa_codigo', '=', 've.pa_codigo')
-        ->leftJoin('vehiculo_marcas as vm', 'vm.vm_codigo', '=', 've.vm_codigo')
-        ->leftJoin('vehiculo_tipos as vt', 'vt.vt_codigo', '=', 've.vt_codigo')
-        ->where('sv_estado',true)->get()->find($id);
+        ->leftJoin('orden_abastecimientos as oa', 'oa.sv_codigo', '=', 'solicitud_vehiculos.sv_codigo')
+        ->leftJoin('orden_mantenimientos  as om', 'om.sv_codigo', '=', 'solicitud_vehiculos.sv_codigo')
+        ->orderBy('solicitud_vehiculos.created_at', 'DESC');
+        if (in_array($id, ['all', 'P', 'index'])) {
+            if ($id === 'P') {
+                $obj->where('sv_aprobacion',null);
+            }
+            if (in_array($id, ['P', 'index'])) {
+                $obj->where('sv_estado',true);
+            }
+            $obj = $obj->get();
+        } else {
+            $obj = $obj->find($id);
+        }
         return response()->json($obj, (strlen(serialize($obj))>2?200:404));
     }
 
@@ -99,6 +120,21 @@ class SolicitudVehiculoController extends Controller
         if (SolicitudVehiculos::where('sv_codigo', $req->sv_codigo)->exists()) {
             $obj = SolicitudVehiculos::find($req->sv_codigo);
             $obj = $this->save($obj, $req);
+
+            /* CHECK ORDERS */
+            if ($obj->sv_aprobacion !== null) {
+                /*Fuel orders*/
+                if ($obj->kt_codigo == 2){
+                    if (OrdenAbastecimientos::where('sv_codigo', $obj->sv_codigo)->exists()) {
+                        OrdenAbastecimientos::where('sv_codigo', $obj->sv_codigo)->update(['oa_estado' => $obj->sv_aprobacion, 'updated_by' => ($req->updated_by??$req->us_codigo??null),]);
+                    }
+                    else {
+                        OrdenAbastecimientos::create(['sv_codigo' => $obj->sv_codigo, 'created_by' => ($req->updated_by??$req->us_codigo??null),]);
+                    }
+                }
+
+            }
+
             return response()->json($obj, 202);
         }
         else {

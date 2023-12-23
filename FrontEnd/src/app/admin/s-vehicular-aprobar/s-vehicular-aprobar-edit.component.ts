@@ -3,17 +3,19 @@ import { AbstractType, Component, Inject, OnInit } from '@angular/core';
 import { AbstractControl, AbstractFormGroupDirective, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TipoContrato, User, Vehiculo, SolicitudVehicular } from '@app/_models';
+import { Perfil } from '@app/_models/perfil';
+import { Personal } from '@app/_models/personal';
 import { AccountService, AlertService } from '@app/_services';
 import { environment } from '@environments/environment';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { first } from 'rxjs';
 
 @Component({
-  selector: 'app-s-vehicular-edit',
-  templateUrl: './s-vehicular-edit.component.html',
-  styleUrls: ['./s-vehicular-edit.component.scss']
+  selector: 'app-s-vehicular-aprobar-edit',
+  templateUrl: './s-vehicular-aprobar-edit.component.html',
+  styleUrls: ['./s-vehicular-aprobar-edit.component.scss']
 })
-export class SVehicularEditComponent implements OnInit {
+export class SVehicularAprobarEditComponent implements OnInit {
   public user: User | null;
   form!: FormGroup;
   id?: number;
@@ -22,10 +24,7 @@ export class SVehicularEditComponent implements OnInit {
   submitting = false;
   submitted = false;
 
-  lsContractTypes: TipoContrato[] = [];
-  lsVehicles: Vehiculo[] = [];
-
-  ve_km_min: number = 0;
+  vehicleRequest: SolicitudVehicular | undefined;
 
   constructor(
     private http: HttpClient,
@@ -38,26 +37,15 @@ export class SVehicularEditComponent implements OnInit {
   ) { this.accountService.set_showNavBar(false); this.user = this.accountService.userValue; }
 
   ngOnInit() {
-    this.accountService.checkAppPermission(14);
-    this.loadContractsTypesList();
-    this.loadVehiclesList();
+    this.accountService.checkAppPermission(15);
 
     this.id = this.route.snapshot.params['id'];
 
     // form with validation rules
     this.form = this.formBuilder.group({
-      sv_codigo: [null, (this.id ? Validators.required : null)],
-      kt_codigo: [null, Validators.required],
-      pe_codigo: [null, Validators.required],
-      ve_codigo: [null, Validators.required],
-      ve_km: [null, [Validators.required, Validators.min(1), Validators.max(320000)]],
-      ve_combustible_nivel: [null, [Validators.required, Validators.min(1), Validators.max(99)]],
-      sv_fecha_requerimiento: [null, [Validators.required, this.minDateValidator]],
-      sv_descripcion: [null, Validators.required],
-
-      sv_aprobacion: [null],
-      sv_observacion: [null],
-      id_orden: [null],
+      sv_codigo: [Validators.required],
+      sv_aprobacion: [null, Validators.required],
+      sv_observacion: [null, Validators.required],
       us_codigo: [null],
     });
 
@@ -74,6 +62,7 @@ export class SVehicularEditComponent implements OnInit {
               if (data !== null && data !== undefined && data.sv_codigo !== null && data.sv_codigo !== undefined) {
                 this.form.patchValue(data as SolicitudVehicular);
                 this.loading = false;
+                this.vehicleRequest = data;
                 if (data.sv_aprobacion !== undefined && data.sv_aprobacion !== null) {
                   this.title = 'Solicitud ' + (Boolean(data.sv_aprobacion)?'Aprobada':'Negada');
                   this.form.disable();
@@ -83,55 +72,15 @@ export class SVehicularEditComponent implements OnInit {
             error: (error) => {
               this.alertService.error(error, { autoClose: true, keepAfterRouteChange: true });
               this.loading = false;
-              this.router.navigateByUrl('admin/solicitud-vehicular');
+              this.router.navigateByUrl('admin/aprobar-solicitud-vehicular');
             }
           }
         );
     }
-
-  }
-
-  async loadContractsTypesList() {
-    this.loading = true;
-    this.http.get<any>(environment.urlAPI + 'contrato/tipos').subscribe((data: TipoContrato | any) => {
-      if (data !== null && data !== undefined && data.length > 0) {
-        this.lsContractTypes = data;
-        // remove option "Ninguno"
-        if (this.lsContractTypes.length > 0 && this.lsContractTypes[0] !== undefined) { this.lsContractTypes.splice(0, 1); }
-      }
-      this.loading = false;
-    });
-  }
-  async loadVehiclesList() {
-    this.loading = true;
-    this.http.get<any>(environment.urlAPI + 'vehiculo/personas/' + ((this.user?.pe_codigo !== null && this.user?.pe_codigo !== undefined) ? Number(this.user?.pe_codigo) : 0)).subscribe((data: Vehiculo | any) => {
-      if (data !== null && data !== undefined && data.length > 0) {
-        this.lsVehicles = data;
-      }
-      this.loading = false;
-    });
-  }
-  minDateValidator(control: AbstractControl): { [key: string]: any } | null {
-    const today = new Date(); today.setHours(0, 0, 0, 0);
-    const selectedDate = control.value;
-    if (selectedDate && selectedDate < today) {
-      return { minDate: true };
+    else {
+      this.router.navigateByUrl('admin/aprobar-solicitud-vehicular');
     }
-    return null;
-  }
-  setMinKM(ve_codigo: number = this.form.value.ve_codigo) {
-    console.log('setMinKM');
-    const ve = this.lsVehicles.find((ve) => Number(ve.ve_codigo) === ve_codigo);
-    if (ve !== undefined && ve.ve_km != undefined) {
-      this.ve_km_min = ve.ve_km;
-      this.form.controls["ve_km"].setValidators([Validators.required, Validators.min(ve.ve_km), Validators.max(320000)]);
-      this.form.patchValue({ ve_km: this.form.value.ve_km }); // assign the same value to re-throw validation prompt
-    }
-  }
-  setMaxFuel() {
-    console.log('setMaxFuel');
-    this.form.controls["ve_combustible_nivel"].setValidators([Validators.required, Validators.min(1), Validators.max(this.form.value.kt_codigo == 2 ? 50 : 99)]);
-    this.form.patchValue({ ve_combustible_nivel: this.form.value.ve_combustible_nivel }); // assign the same value to re-throw validation prompt
+
   }
 
   ngOnDestroy() {
@@ -141,6 +90,15 @@ export class SVehicularEditComponent implements OnInit {
   // convenience getter for easy access to form fields
   get f() { return this.form.controls; }
 
+  aprobar(value: boolean) {
+    if (this.form.value.sv_aprobacion === null || Boolean(this.form.value.sv_aprobacion) != value) {
+      this.form.patchValue({sv_aprobacion: value});
+    }
+    else if (Boolean(this.form.value.sv_aprobacion) == value) {
+      this.form.patchValue({sv_aprobacion: null});
+    }
+    console.log(this.form.value);
+  }
 
   onSubmit() {
     // reset alerts on submit
@@ -152,6 +110,7 @@ export class SVehicularEditComponent implements OnInit {
     console.log(this.form.value);
     // stop here if form is invalid
     if (this.form.invalid) {
+      console.log('form.invalid');
       return;
     }
 
