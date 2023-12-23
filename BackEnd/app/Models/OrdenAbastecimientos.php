@@ -18,6 +18,7 @@ class OrdenAbastecimientos extends Model
         'en_codigo',
         'oa_total',
         'oa_galones',
+        'oa_km',
         'oa_combustible_nivel',
         'oa_documento',
         'oa_archivo_datos',

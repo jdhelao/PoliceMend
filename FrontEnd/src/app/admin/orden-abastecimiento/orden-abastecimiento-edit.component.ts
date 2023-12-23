@@ -24,8 +24,6 @@ export class OrdenAbastecimientoEditComponent implements OnInit {
 
   lsEntities: Entidad[] = [];
 
-  ve_km_min: number = 0;
-
   constructor(
     private http: HttpClient,
     private dbService: NgxIndexedDBService,
@@ -48,6 +46,7 @@ export class OrdenAbastecimientoEditComponent implements OnInit {
       en_codigo: [null, Validators.required],
       oa_total: [null, Validators.required],
       oa_galones: [null, Validators.required],
+      oa_km: [null, [Validators.required, Validators.min(1), Validators.max(320000)]],
       oa_combustible_nivel: [null, [Validators.required, Validators.min(1), Validators.max(100)]],
 
       oa_documento: [null, Validators.required],
@@ -55,6 +54,7 @@ export class OrdenAbastecimientoEditComponent implements OnInit {
       oa_archivo_tipo: [null],
 
       ve_codigo: [null],
+      ve_km: [null],
       ve_combustible_nivel: [null],
       us_codigo: [null],
     });

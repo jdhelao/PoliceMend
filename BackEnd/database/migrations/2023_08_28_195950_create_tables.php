@@ -604,6 +604,7 @@ return new class extends Migration
 
             $table->float('oa_total')->nullable();
             $table->float('oa_galones')->nullable();
+            $table->integer('oa_km')->nullable();
             $table->tinyInteger('oa_combustible_nivel')->nullable();
 
             $table->string('oa_documento')->nullable(); /*Numero de factura*/

@@ -21,11 +21,22 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field class="full-width">
+  <mat-form-field class="width2-3">
     <mat-label>Documento/Voucher/Factura</mat-label>
     <input matInput aria-label="Documento" formControlName="oa_documento" [ngClass]="{ 'is-invalid': submitted && f.oa_documento.errors }">
     <div *ngIf="submitted && f.oa_documento.errors" class="invalid-feedback">
       <div *ngIf="f.oa_documento.errors.required">Dato requerido</div>
+    </div>
+  </mat-form-field>
+
+  <mat-form-field class="width1-3">
+    <mat-label>Kilometraje</mat-label>
+    <input matInput type="number" aria-label="Kilometraje" formControlName="oa_km" step="10" min="{{f.ve_km.value}}"
+      [ngClass]="{ 'is-invalid': submitted && f.oa_km.errors }">
+    <div *ngIf="submitted && f.oa_km.errors" class="invalid-feedback">
+      <div *ngIf="f.oa_km.errors.required">Dato requerido</div>
+      <div *ngIf="f.oa_km.errors.min">Mínimo requerido</div>
+      <div *ngIf="f.oa_km.errors.max">Máximo sobrepasado</div>
     </div>
   </mat-form-field>
 

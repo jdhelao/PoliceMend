@@ -15,6 +15,7 @@ export class OrdenAbastecimiento {
     oa_estado?: boolean;
 
     /*Solicitud*/
+    ve_km?: number;
     ve_combustible_nivel?: number;
 
     /*Auditoria*/

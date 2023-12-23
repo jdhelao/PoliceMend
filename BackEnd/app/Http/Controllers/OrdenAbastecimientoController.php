@@ -25,6 +25,7 @@ class OrdenAbastecimientoController extends Controller
         if (isset($req->en_codigo))             { $obj->en_codigo  = $req->en_codigo; }
         if (isset($req->oa_total))              { $obj->oa_total  = $req->oa_total; }
         if (isset($req->oa_galones))            { $obj->oa_galones  = $req->oa_galones; }
+        if (isset($req->oa_km))                 { $obj->oa_km  = $req->oa_km; }
         if (isset($req->oa_combustible_nivel))  { $obj->oa_combustible_nivel  = $req->oa_combustible_nivel; }
         if (isset($req->oa_documento))          { $obj->oa_documento  = $req->oa_documento; }
         if (isset($req->oa_archivo_datos))      { $obj->oa_archivo_datos  = $req->oa_archivo_datos; }
