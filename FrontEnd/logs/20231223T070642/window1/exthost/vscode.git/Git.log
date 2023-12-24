@@ -81,3 +81,6 @@
 2023-12-23 07:23:04.395 [warning] ENOENT: no such file or directory, open '/opt/lampp/htdocs/PoliceMend/.git/refs/remotes/origin/main'
 2023-12-23 07:23:04.396 [info] > git rev-parse refs/remotes/origin/main [0ms]
 2023-12-23 07:23:04.896 [info] > git status -z -uall [496ms]
+2023-12-23 07:38:50.003 [info] > git config --get commit.template [10ms]
+2023-12-23 07:38:50.004 [info] > git for-each-ref --format=%(refname)%00%(upstream:short)%00%(objectname)%00%(upstream:track)%00%(upstream:remotename)%00%(upstream:remoteref) refs/heads/main refs/remotes/main [2ms]
+2023-12-23 07:38:50.152 [info] > git status -z -uall [141ms]

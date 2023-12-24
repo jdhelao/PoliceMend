@@ -1,0 +1,48 @@
+<mat-form-field class="full-width">
+    <mat-label>Seleccione rango de fechas</mat-label>
+    <mat-date-range-input [rangePicker]="picker"  [disabled]="submitting">
+      <input matStartDate placeholder="Inicio" (dateChange)="onChangeDates($event.value,1)">
+      <input matEndDate placeholder="Fin" (dateChange)="onChangeDates($event.value,2)">
+    </mat-date-range-input>
+    <!--<mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>-->
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+</mat-form-field>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+  
+    <ng-container matColumnDef="Cant">
+      <th class="col_1" mat-header-cell *matHeaderCellDef> # </th>
+      <td class="col_1" mat-cell *matCellDef="let element" class="col_1"> {{element.Cant}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Tipo">
+      <th class="col_2" mat-header-cell *matHeaderCellDef> Tipo </th>
+      <td class="col_2" mat-cell *matCellDef="let element"> {{element.Tipo}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Distrito">
+      <th class="col_3" mat-header-cell *matHeaderCellDef> Distrito </th>
+      <td class="col_3" mat-cell *matCellDef="let element"> {{element.Distrito}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="Circuito">
+      <th class="col_4" mat-header-cell *matHeaderCellDef> Circuito </th>
+      <td class="col_4" mat-cell *matCellDef="let element"> {{element.Circuito}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Subcircuito">
+      <th class="col_5" mat-header-cell *matHeaderCellDef> Subcircuito </th>
+      <td class="col_5" mat-cell *matCellDef="let element"> {{element.Subcircuito}} </td>
+    </ng-container>
+    
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+<div *ngIf="loading" class="text-center m-5">
+    <span class="spinner-border spinner-border-lg align-center"></span>
+</div>

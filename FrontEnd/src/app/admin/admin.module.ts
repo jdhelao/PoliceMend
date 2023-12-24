@@ -59,6 +59,7 @@ import { PerfilEditComponent } from './perfil/perfil-edit.component';
 import { PerfilListComponent } from './perfil/perfil-list.component';
 import { OrdenAbastecimientoEditComponent } from './orden-abastecimiento/orden-abastecimiento-edit.component';
 import { OrdenAbastecimientoListComponent } from './orden-abastecimiento/orden-abastecimiento-list.component';
+import { RAbastecimientosComponent } from './r-abastecimientos/r-abastecimientos.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,7 @@ import { OrdenAbastecimientoListComponent } from './orden-abastecimiento/orden-a
     CircuitoListComponent, CircuitoEditComponent,
     CircuitoListComponent, CircuitoEditComponent,
     SubcircuitoListComponent, SubcircuitoEditComponent,
-    PersonalComponent, PersonalListComponent, PersonalEditComponent, RSugerenciasComponent, DistritoListComponent, DistritoEditComponent, CircuitoListComponent, CircuitoEditComponent, SubcircuitoListComponent, SubcircuitoEditComponent, VehiculoListComponent, VehiculoEditComponent, ContratoEditComponent, ContratoListComponent, EntidadListComponent, EntidadEditComponent, SVehicularListComponent, SVehicularEditComponent, PerfilEditComponent, PerfilListComponent, SVehicularAprobarListComponent, SVehicularAprobarEditComponent, OrdenAbastecimientoEditComponent, OrdenAbastecimientoListComponent
+    PersonalComponent, PersonalListComponent, PersonalEditComponent, RSugerenciasComponent, DistritoListComponent, DistritoEditComponent, CircuitoListComponent, CircuitoEditComponent, SubcircuitoListComponent, SubcircuitoEditComponent, VehiculoListComponent, VehiculoEditComponent, ContratoEditComponent, ContratoListComponent, EntidadListComponent, EntidadEditComponent, SVehicularListComponent, SVehicularEditComponent, PerfilEditComponent, PerfilListComponent, SVehicularAprobarListComponent, SVehicularAprobarEditComponent, OrdenAbastecimientoEditComponent, OrdenAbastecimientoListComponent, RAbastecimientosComponent
   ],
   imports: [
     CommonModule,

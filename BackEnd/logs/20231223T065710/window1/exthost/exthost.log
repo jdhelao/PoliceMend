@@ -10,3 +10,5 @@
 2023-12-23 06:58:35.061 [info] ExtensionService#_doActivateExtension vscode.php-language-features, startup: false, activationEvent: 'onLanguage:php'
 2023-12-23 06:58:35.095 [info] ExtensionService#_doActivateExtension vscode.emmet, startup: false, activationEvent: 'onLanguage'
 2023-12-23 07:05:56.078 [info] ExtensionService#_doActivateExtension esbenp.prettier-vscode, startup: false, activationEvent: 'onStartupFinished'
+2023-12-23 07:38:34.940 [info] Extension host terminating: renderer closed the MessagePort
+2023-12-23 07:38:34.972 [info] Extension host with pid 46031 exiting with code 0
