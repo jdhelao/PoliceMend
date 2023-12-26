@@ -6,3 +6,5 @@
 	at processMessageQueue (/root/.vscode/extensions/angular.ng-template-17.0.3/node_modules/vscode-jsonrpc/lib/common/connection.js:292:17)
 	at Immediate.<anonymous> (/root/.vscode/extensions/angular.ng-template-17.0.3/node_modules/vscode-jsonrpc/lib/common/connection.js:276:13)
 	at process.processImmediate (node:internal/timers:476:21)
+2023-12-23 23:25:45.506 [info] Extension host (LocalProcess pid: 10120) is unresponsive.
+2023-12-23 23:26:20.317 [info] Extension host (LocalProcess pid: 10120) is responsive.

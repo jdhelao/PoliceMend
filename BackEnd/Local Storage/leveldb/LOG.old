@@ -1,2 +1,3 @@
-2023/12/23-06:57:10.385 b369 Creating DB /opt/lampp/htdocs/PoliceMend/BackEnd/Local Storage/leveldb since it was missing.
-2023/12/23-06:57:10.401 b369 Reusing MANIFEST /opt/lampp/htdocs/PoliceMend/BackEnd/Local Storage/leveldb/MANIFEST-000001
+2023/12/25-05:05:31.633 2297 Reusing MANIFEST /opt/lampp/htdocs/PoliceMend/BackEnd/Local Storage/leveldb/MANIFEST-000001
+2023/12/25-05:05:31.633 2297 Recovering log #3
+2023/12/25-05:05:31.634 2297 Reusing old log /opt/lampp/htdocs/PoliceMend/BackEnd/Local Storage/leveldb/000003.log 

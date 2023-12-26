@@ -1,0 +1,33 @@
+2023-12-25 05:05:31.658 [info] update#setState idle
+2023-12-25 05:06:01.658 [info] update#setState checking for updates
+2023-12-25 05:06:01.660 [info] update#setState idle
+2023-12-25 06:06:01.661 [info] update#setState checking for updates
+2023-12-25 06:06:01.668 [info] update#setState idle
+2023-12-25 07:06:01.671 [info] update#setState checking for updates
+2023-12-25 07:06:01.679 [info] update#setState idle
+2023-12-25 07:46:37.560 [warning] No ptyHost heartbeat after 6 seconds
+2023-12-25 07:47:22.624 [warning] No ptyHost heartbeat after 6 seconds
+2023-12-25 08:06:01.686 [info] update#setState checking for updates
+2023-12-25 08:06:01.689 [info] update#setState idle
+2023-12-25 08:18:41.866 [warning] No ptyHost heartbeat after 6 seconds
+2023-12-25 08:19:41.651 [error] No ptyHost heartbeat after 12 seconds
+2023-12-25 08:24:38.880 [warning] No ptyHost heartbeat after 6 seconds
+2023-12-25 08:25:44.656 [warning] No ptyHost heartbeat after 6 seconds
+2023-12-25 08:27:50.678 [warning] No ptyHost heartbeat after 6 seconds
+2023-12-25 09:06:01.699 [info] update#setState checking for updates
+2023-12-25 09:06:01.705 [info] update#setState idle
+2023-12-25 10:06:01.705 [info] update#setState checking for updates
+2023-12-25 10:06:01.707 [info] update#setState idle
+2023-12-25 11:06:01.709 [info] update#setState checking for updates
+2023-12-25 11:06:01.711 [info] update#setState idle
+2023-12-25 12:06:01.713 [info] update#setState checking for updates
+2023-12-25 12:06:01.715 [info] update#setState idle
+2023-12-25 13:06:01.717 [info] update#setState checking for updates
+2023-12-25 13:06:01.725 [info] update#setState idle
+2023-12-25 14:06:01.720 [info] update#setState checking for updates
+2023-12-25 14:06:01.729 [info] update#setState idle
+2023-12-25 15:06:01.723 [info] update#setState checking for updates
+2023-12-25 15:06:01.725 [info] update#setState idle
+2023-12-25 16:06:01.726 [info] update#setState checking for updates
+2023-12-25 16:06:01.728 [info] update#setState idle
+2023-12-25 17:04:46.679 [info] Extension host with pid 8962 exited with code: 0, signal: unknown.

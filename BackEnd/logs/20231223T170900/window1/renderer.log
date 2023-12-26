@@ -1,3 +1,7 @@
 2023-12-23 17:09:01.209 [warning] Via 'product.json#extensionEnabledApiProposals' extension 'ms-python.python' wants API proposal 'registerIssueDataProvider' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.
 2023-12-23 17:09:01.504 [info] Started local extension host with pid 9779.
 2023-12-23 17:09:04.225 [info] [perf] Render performance baseline is 26ms
+2023-12-23 22:41:31.274 [info] Extension host (LocalProcess pid: 9779) is unresponsive.
+2023-12-23 22:41:31.322 [info] Extension host (LocalProcess pid: 9779) is responsive.
+2023-12-23 22:41:31.657 [info] UNRESPONSIVE extension host: received responsive event and cancelling profiling session
+2023-12-23 22:41:32.482 [info] UNRESPONSIVE extension host: starting to profile NOW

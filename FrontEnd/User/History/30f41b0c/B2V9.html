@@ -1,0 +1,138 @@
+<!-- *ngIf="!loading"-->
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-toolbar class="toolbar" color="primary">
+    <button mat-icon-button aria-label="Cancelar" routerLink="/admin/aprobar-solicitud-vehicular" onclick="event.preventDefault()">
+      <mat-icon>clear</mat-icon>
+    </button>
+    <span>{{title}}</span>
+    <span class="flex-spacer"></span>
+    <button mat-icon-button aria-label="Guardar" [disabled]="submitting||loading" *ngIf="f.sv_aprobacion.value===null">
+      <mat-icon>save</mat-icon>
+    </button>
+  </mat-toolbar>
+  <igx-bottom-nav>
+    <igx-bottom-nav-item>
+      <igx-bottom-nav-header>
+        <igx-icon>fact_check</igx-icon>Solicitud
+      </igx-bottom-nav-header>
+      <igx-bottom-nav-content>
+        <!--Solicitud-->
+
+
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Tipo Solicitud</mat-label>
+          <input matInput placeholder="Placeholder" [value]="vehicleRequest?.kt_nombre" readonly >
+        </mat-form-field>
+      
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Solicitante</mat-label>
+          <input matInput placeholder="Placeholder" [value]="vehicleRequest?.pe_nombres" readonly >
+        </mat-form-field>
+      
+        <mat-form-field appearance="outline" class="width1-3">
+          <mat-label>Fecha</mat-label>
+          <input matInput [matDatepicker]="picker" [value]="vehicleRequest?.sv_fecha_requerimiento" readonly  [disabled]="true">
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      
+        <mat-form-field appearance="outline" class="width1-3">
+          <mat-label>Tipo Vehículo</mat-label>
+          <input matInput placeholder="Tipo de vehículo" [value]="vehicleRequest?.vt_nombre" readonly >
+        </mat-form-field>
+      
+        <mat-form-field appearance="outline" class="width1-3">
+          <mat-label>Placa</mat-label>
+          <input matInput placeholder="Placa del vehículo" [value]="vehicleRequest?.ve_placa" readonly >
+        </mat-form-field>
+      
+        <mat-form-field appearance="outline" class="width1-3">
+          <mat-label>Modelo</mat-label>
+          <input matInput placeholder="Modelo del vehículo" [value]="vehicleRequest?.vm_nombre" readonly >
+        </mat-form-field>
+      
+        <mat-form-field appearance="outline" class="width1-3">
+          <mat-label>Kms</mat-label>
+          <input matInput placeholder="Kilometraje" [value]="vehicleRequest?.ve_km" readonly >
+        </mat-form-field>
+      
+        <mat-form-field appearance="outline" class="width1-3">
+          <mat-label>Nivel Combustible</mat-label>
+          <input matInput placeholder="Nivel de Combustible" [value]="vehicleRequest?.ve_combustible_nivel" readonly >
+        </mat-form-field>
+      
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Descripción</mat-label>
+          <textarea matInput placeholder="Descrición de solicitud..." [value]="vehicleRequest?.sv_descripcion" readonly></textarea>
+        </mat-form-field>
+      
+        <mat-form-field class="full-width">
+          <mat-label>Observación</mat-label>
+          <textarea matInput placeholder="Descrición de Aprobación/Negación..." formControlName="sv_observacion" ></textarea>
+        </mat-form-field>
+      
+        <igx-buttongroup style="display: inline-block; width: 80%; margin:auto 10%; text-align: center;">
+          <button igxButton igxRipple="red" [selected]="f.sv_aprobacion.value===0" (click)="aprobar(false)">
+              <igx-icon>thumb_down</igx-icon><span class="flex-spacer">{{ (vehicleRequest?.sv_aprobacion===null?'Negar':'Negado') }}</span>
+          </button>
+          <button igxButton igxRipple="green" [selected]="f.sv_aprobacion.value===1" (click)="aprobar(true)">
+              <span class="flex-spacer">{{ (vehicleRequest?.sv_aprobacion===null?'Aprobar':'Aprobado') }}</span><igx-icon>thumb_up</igx-icon>
+          </button>
+        </igx-buttongroup>
+      
+
+
+        <!--Solicitud-->
+      </igx-bottom-nav-content>
+    </igx-bottom-nav-item>
+
+    <igx-bottom-nav-item>
+      <igx-bottom-nav-header>
+        <igx-icon>legend_toggle</igx-icon>Historial
+      </igx-bottom-nav-header>
+      <igx-bottom-nav-content>
+        <!--Historial-->
+
+        <div class="container vertical sample">
+          <div class="legend-title">
+              Renewable Electricity Generated
+          </div>
+          <div class="legend">
+              <igx-legend
+              name="Legend"
+              #legend
+              orientation="Horizontal">
+              </igx-legend>
+          </div>
+          <div class="container fill">
+              <igx-category-chart
+              name="chart"
+              #chart
+              chartType="Line"
+              isHorizontalZoomEnabled="false"
+              isVerticalZoomEnabled="false"
+              [dataSource]="_countryRenewableElectricity"
+              includedProperties="year, europe, china, america"
+              [legend]="legend"
+              yAxisTitle="TWh"
+              yAxisTitleLeftMargin="10"
+              yAxisTitleRightMargin="5"
+              yAxisLabelLeftMargin="0"
+              computedPlotAreaMarginMode="Series">
+              </igx-category-chart>
+          </div>
+        </div>
+        
+
+        <!--Historial-->
+      </igx-bottom-nav-content>
+    </igx-bottom-nav-item>
+
+
+  </igx-bottom-nav>
+</form>
+<!--
+<div *ngIf="loading" class="text-center m-5">
+    <span class="spinner-border spinner-border-lg align-center"></span>
+</div>-->
+<span *ngIf="loading||submitting" class="spinner-border spinner-border-lg align-center"></span>
