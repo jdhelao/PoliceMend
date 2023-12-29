@@ -23,54 +23,54 @@
           <mat-label>Tipo Solicitud</mat-label>
           <input matInput placeholder="Placeholder" [value]="vehicleRequest?.kt_nombre" readonly >
         </mat-form-field>
-      
+
         <mat-form-field appearance="outline" class="half-width">
           <mat-label>Solicitante</mat-label>
           <input matInput placeholder="Placeholder" [value]="vehicleRequest?.pe_nombres" readonly >
         </mat-form-field>
-      
+
         <mat-form-field appearance="outline" class="width1-3">
           <mat-label>Fecha</mat-label>
           <input matInput [matDatepicker]="picker" [value]="vehicleRequest?.sv_fecha_requerimiento" readonly  [disabled]="true">
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
-      
+
         <mat-form-field appearance="outline" class="width1-3">
           <mat-label>Tipo Vehículo</mat-label>
           <input matInput placeholder="Tipo de vehículo" [value]="vehicleRequest?.vt_nombre" readonly >
         </mat-form-field>
-      
+
         <mat-form-field appearance="outline" class="width1-3">
           <mat-label>Placa</mat-label>
           <input matInput placeholder="Placa del vehículo" [value]="vehicleRequest?.ve_placa" readonly >
         </mat-form-field>
-      
+
         <mat-form-field appearance="outline" class="width1-3">
           <mat-label>Modelo</mat-label>
           <input matInput placeholder="Modelo del vehículo" [value]="vehicleRequest?.vm_nombre" readonly >
         </mat-form-field>
-      
+
         <mat-form-field appearance="outline" class="width1-3">
           <mat-label>Kms</mat-label>
           <input matInput placeholder="Kilometraje" [value]="vehicleRequest?.ve_km" readonly >
         </mat-form-field>
-      
+
         <mat-form-field appearance="outline" class="width1-3">
           <mat-label>Nivel Combustible</mat-label>
           <input matInput placeholder="Nivel de Combustible" [value]="vehicleRequest?.ve_combustible_nivel" readonly >
         </mat-form-field>
-      
+
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Descripción</mat-label>
           <textarea matInput placeholder="Descrición de solicitud..." [value]="vehicleRequest?.sv_descripcion" readonly></textarea>
         </mat-form-field>
-      
+
         <mat-form-field class="full-width">
           <mat-label>Observación</mat-label>
           <textarea matInput placeholder="Descrición de Aprobación/Negación..." formControlName="sv_observacion" ></textarea>
         </mat-form-field>
-      
+
         <igx-buttongroup style="display: inline-block; width: 80%; margin:auto 10%; text-align: center;">
           <button igxButton igxRipple="red" [selected]="f.sv_aprobacion.value===0" (click)="aprobar(false)">
               <igx-icon>thumb_down</igx-icon><span class="flex-spacer">{{ (vehicleRequest?.sv_aprobacion===null?'Negar':'Negado') }}</span>
@@ -79,7 +79,7 @@
               <span class="flex-spacer">{{ (vehicleRequest?.sv_aprobacion===null?'Aprobar':'Aprobado') }}</span><igx-icon>thumb_up</igx-icon>
           </button>
         </igx-buttongroup>
-      
+
 
 
         <!--Solicitud-->
@@ -93,21 +93,30 @@
       <igx-bottom-nav-content>
         <!--Historial-->
 
-        <div style="display: block; padding-bottom: 100px;">
-          <apx-chart
-            [series]="chartOptions.series"
-            [chart]="chartOptions.chart"
-            [xaxis]="chartOptions.xaxis"
-            [stroke]="chartOptions.stroke"
-            [colors]="chartOptions.colors"
-            [dataLabels]="chartOptions.dataLabels"
-            [legend]="chartOptions.legend"
-            [markers]="chartOptions.markers"
-            [grid]="chartOptions.grid"
-            [yaxis]="chartOptions.yaxis"
-            [title]="chartOptions.title"
-        ></apx-chart>
-        </div>
+<div id="wrapper">
+  <div id="chart-line">
+    <apx-chart
+      [series]="chartOptions1.series"
+      [chart]="chartOptions1.chart"
+      [xaxis]="chartOptions1.xaxis"
+      [dataLabels]="chartOptions1.dataLabels"
+      [colors]="chartOptions1.colors"
+      [fill]="chartOptions1.fill"
+      [markers]="chartOptions1.markers"
+      [stroke]="chartOptions1.stroke"
+    ></apx-chart>
+  </div>
+  <div id="chart-line2">
+    <apx-chart
+      [series]="chartOptions2.series"
+      [chart]="chartOptions2.chart"
+      [xaxis]="chartOptions2.xaxis"
+      [colors]="chartOptions2.colors"
+      [fill]="chartOptions2.fill"
+      [yaxis]="chartOptions2.yaxis"
+    ></apx-chart>
+  </div>
+</div>
 
         <!--Historial-->
       </igx-bottom-nav-content>

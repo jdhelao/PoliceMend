@@ -48,6 +48,64 @@ class VehiculoController extends Controller
         return response()->json($obj, 200);
     }
 
+    public function getVehicleHistory ($type, $id) {
+        $obj = null;
+        if ($type == 'gas') { /* Gas levels*/
+            $obj = DB::select('SELECT DISTINCT created_at as _date, ve_combustible_nivel as _value
+            from solicitud_vehiculos
+            where (sv_estado=1) and ve_codigo = '.$id.'
+            UNION
+            SELECT DISTINCT IFNULL(oa.updated_at,oa.created_at) as _date, oa_combustible_nivel as _value
+            from orden_abastecimientos as oa
+            inner join solicitud_vehiculos as sv on (sv.sv_codigo=oa.sv_codigo and sv.ve_codigo = '.$id.')
+            where (oa_estado=1)
+            order by 1');
+        }
+        else if ($type == 'gal') { /* Gallons */
+            $obj = DB::select('SELECT DISTINCT IFNULL(oa.updated_at,oa.created_at) as _date, oa_galones as _value
+            from orden_abastecimientos as oa
+            inner join solicitud_vehiculos as sv on (sv.sv_codigo=oa.sv_codigo and sv.ve_codigo = '.$id.')
+            where (oa_estado=1)
+            order by 1');
+        }
+        else if ($type == 'gal-kms') { /* Consumption of gallons per km */
+            $obj = DB::select('SELECT sv.created_at as _date
+            #, GREATEST(CAST((((sv.ve_km - oa.oa_km) * (oa.oa_combustible_nivel - sv.ve_combustible_nivel) / 100) / oa.oa_galones) AS DECIMAL(18,2)), 0) as _value
+            , GREATEST(cast((((oa.oa_combustible_nivel - sv.ve_combustible_nivel) / 100) * oa.oa_galones) / (sv.ve_km - oa.oa_km) as  DECIMAL(18,2)), 0) AS _value
+            #, (($kilometraje_final - $kilometraje_inicial) * ($nivel_tanque_inicial - $nivel_tanque_final       ) / 100) / $galones as _value
+            from solicitud_vehiculos as sv
+            LEFT OUTER JOIN orden_abastecimientos as oa on (oa.oa_codigo = (
+                SELECT ho.oa_codigo
+                from orden_abastecimientos as ho
+                inner join solicitud_vehiculos as hs on (hs.sv_codigo=ho.sv_codigo)
+                WHERE ho.oa_estado = 1 and ho.sv_codigo < sv.sv_codigo and hs.ve_codigo = sv.ve_codigo
+                ORDER BY ho.oa_codigo desc
+                limit 0,1
+            ))
+            where (sv.sv_estado = 1) and (sv.ve_codigo = '.$id.')
+            #and sv.sv_codigo = 13
+            order by 1');
+        }
+        else if ($type == 'gal-day') { /* Consumption of gallons per day */
+            $obj = DB::select('SELECT sv.created_at as _date
+            , GREATEST(cast((((oa.oa_combustible_nivel - sv.ve_combustible_nivel) / 100) * oa.oa_galones) / DATEDIFF(sv.created_at, IFNULL(oa.updated_at,oa.created_at)) as  DECIMAL(18,2)), 0) AS _value
+            #, (($kilometraje_final - $kilometraje_inicial) * ($nivel_tanque_inicial - $nivel_tanque_final       ) / 100) / $galones as _value
+            from solicitud_vehiculos as sv
+            LEFT OUTER JOIN orden_abastecimientos as oa on (oa.oa_codigo = (
+                SELECT ho.oa_codigo
+                from orden_abastecimientos as ho
+                inner join solicitud_vehiculos as hs on (hs.sv_codigo=ho.sv_codigo)
+                WHERE ho.oa_estado = 1 and ho.sv_codigo < sv.sv_codigo and hs.ve_codigo = sv.ve_codigo
+                ORDER BY ho.oa_codigo desc
+                limit 0,1
+            ))
+            where (sv.sv_estado = 1) and (sv.ve_codigo = '.$id.')
+            #and sv.sv_codigo = 13
+            order by 1');
+        }
+        return response()->json($obj, 200);
+    }
+
     public function create (Request $req) {
         if (isset($req->vt_codigo) and isset($req->ve_placa) and isset($req->ve_chasis)/* and isset($req->ve_motor)*/) {
             if (!Vehiculos::where('vt_codigo', $req->vt_codigo)->where('ve_placa', $req->ve_placa)->orWhere('vt_codigo', $req->vt_codigo)->where('ve_placa', $req->ve_chasis)->exists()) {

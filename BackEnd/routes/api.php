@@ -132,6 +132,7 @@ Route::get('/vehiculo/marcas/{id}',[VehiculoController::class,'marcas']);
 Route::get('/vehiculo/modelos',[VehiculoController::class,'modelos']);
 Route::get('/vehiculo/modelos/{id}',[VehiculoController::class,'modelos']);
 Route::get('/vehiculo/personas/{id}',[VehiculoController::class,'getVehiclesFromPerson']);
+Route::get('/vehiculo/historial/{type}/{id}',[VehiculoController::class,'getVehicleHistory']);
 
 Route::get('/contrato/tipos',[ContratoController::class,'tipos']);
 Route::get('/contrato/tipos/{id}',[ContratoController::class,'tipos']);

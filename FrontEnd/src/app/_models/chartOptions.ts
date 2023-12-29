@@ -9,14 +9,16 @@ import {
     ApexYAxis,
     ApexGrid,
     ApexTitleSubtitle,
-    ApexLegend
+    ApexLegend,
+    ApexFill
   } from "ng-apexcharts";
-  
+
 export type ChartOptions = {
     series: ApexAxisChartSeries;
     chart: ApexChart;
     xaxis: ApexXAxis;
     stroke: ApexStroke;
+    fill: ApexFill;
     dataLabels: ApexDataLabels;
     markers: ApexMarkers;
     colors: string[];
