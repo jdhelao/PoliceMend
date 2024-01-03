@@ -13,7 +13,7 @@
 
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
-  
+
     <ng-container matColumnDef="oa_codigo">
       <th class="col_1" mat-header-cell *matHeaderCellDef> Orden </th>
       <td class="col_1" mat-cell *matCellDef="let element" class="col_1"> {{element.oa_codigo}} </td>
@@ -52,11 +52,15 @@
     <ng-container matColumnDef="pe_nombres">
       <th class="col_8" mat-header-cell *matHeaderCellDef> Personal </th>
       <td class="col_8" mat-cell *matCellDef="let element"> {{element.pe_nombres}} </td>
-    </ng-container> 
+    </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+</table>
+
+<button class="action" mat-fab color="primary" aria-label="Descargar" (click)="download()" *ngIf="dataSource!==undefined && dataSource.length > 0">
+  <mat-icon>download</mat-icon>
+</button>
 
 <div *ngIf="loading" class="text-center m-5">
     <span class="spinner-border spinner-border-lg align-center"></span>

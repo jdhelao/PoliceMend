@@ -25,6 +25,12 @@ table.mat-elevation-z8 {
     max-width: calc(100% - 40px) !important;
 }
 
+.action{
+  position: fixed;
+  top: calc(100% - 70px);
+  left: calc(100% - 70px);
+}
+
 
 /* #Mobile (Landscape)
 ================================================== */
@@ -36,7 +42,7 @@ table.mat-elevation-z8 {
         height:0;
         opacity:0;
         visibility: collapse;
-    } 
+    }
 }
 /*  #Mobile (Portrait)
 ================================================== */
@@ -48,5 +54,5 @@ table.mat-elevation-z8 {
         height:0;
         opacity:0;
         visibility: collapse;
-    }    
+    }
 }

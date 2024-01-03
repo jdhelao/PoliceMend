@@ -9,7 +9,7 @@
 </igx-input-group>
 <div class="list">
   <igx-list [displayDensity]="density">
-      <igx-list-item [isHeader]="true">Solicitudes</igx-list-item>
+      <igx-list-item [isHeader]="true">Ordenes de Abastecimiento</igx-list-item>
       <igx-list-item igxRipple igxRippleTarget=".igx-list__item-content" #item
           *ngFor="let sv of vehicleRequests | igxFilter: filterVehicleRequests | slice:0:30;">
           <igx-avatar igxListThumbnail shape="circle">

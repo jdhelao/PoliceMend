@@ -61,6 +61,8 @@ import { PerfilListComponent } from './perfil/perfil-list.component';
 import { OrdenAbastecimientoEditComponent } from './orden-abastecimiento/orden-abastecimiento-edit.component';
 import { OrdenAbastecimientoListComponent } from './orden-abastecimiento/orden-abastecimiento-list.component';
 import { RAbastecimientosComponent } from './r-abastecimientos/r-abastecimientos.component';
+import { OrdenMantenimientoListComponent } from './orden-mantenimiento/orden-mantenimiento-list.component';
+import { OrdenMantenimientoEditComponent } from './orden-mantenimiento/orden-mantenimiento-edit.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,7 @@ import { RAbastecimientosComponent } from './r-abastecimientos/r-abastecimientos
     CircuitoListComponent, CircuitoEditComponent,
     CircuitoListComponent, CircuitoEditComponent,
     SubcircuitoListComponent, SubcircuitoEditComponent,
-    PersonalComponent, PersonalListComponent, PersonalEditComponent, RSugerenciasComponent, DistritoListComponent, DistritoEditComponent, CircuitoListComponent, CircuitoEditComponent, SubcircuitoListComponent, SubcircuitoEditComponent, VehiculoListComponent, VehiculoEditComponent, ContratoEditComponent, ContratoListComponent, EntidadListComponent, EntidadEditComponent, SVehicularListComponent, SVehicularEditComponent, PerfilEditComponent, PerfilListComponent, SVehicularAprobarListComponent, SVehicularAprobarEditComponent, OrdenAbastecimientoEditComponent, OrdenAbastecimientoListComponent, RAbastecimientosComponent
+    PersonalComponent, PersonalListComponent, PersonalEditComponent, RSugerenciasComponent, DistritoListComponent, DistritoEditComponent, CircuitoListComponent, CircuitoEditComponent, SubcircuitoListComponent, SubcircuitoEditComponent, VehiculoListComponent, VehiculoEditComponent, ContratoEditComponent, ContratoListComponent, EntidadListComponent, EntidadEditComponent, SVehicularListComponent, SVehicularEditComponent, PerfilEditComponent, PerfilListComponent, SVehicularAprobarListComponent, SVehicularAprobarEditComponent, OrdenAbastecimientoEditComponent, OrdenAbastecimientoListComponent, RAbastecimientosComponent, OrdenMantenimientoListComponent, OrdenMantenimientoEditComponent
   ],
   imports: [
     CommonModule,

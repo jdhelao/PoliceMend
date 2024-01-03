@@ -88,9 +88,9 @@ class DatabaseSeeder extends Seeder
         DB::table('aplicacion_perfil')->insertOrIgnore(['pf_codigo' => 1, 'ap_codigo' => 12]);
         DB::table('aplicacion_perfil')->insertOrIgnore(['pf_codigo' => 1, 'ap_codigo' => 13]);
         DB::table('aplicacion_perfil')->insertOrIgnore(['pf_codigo' => 1, 'ap_codigo' => 14]);
-        DB::table('aplicacion_perfil')->insertOrIgnore(['pf_codigo' => 3, 'ap_codigo' => 15]);
-        DB::table('aplicacion_perfil')->insertOrIgnore(['pf_codigo' => 3, 'ap_codigo' => 16]);
-        DB::table('aplicacion_perfil')->insertOrIgnore(['pf_codigo' => 3, 'ap_codigo' => 17]);
+        DB::table('aplicacion_perfil')->insertOrIgnore(['pf_codigo' => 1, 'ap_codigo' => 15]);
+        DB::table('aplicacion_perfil')->insertOrIgnore(['pf_codigo' => 1, 'ap_codigo' => 16]);
+        DB::table('aplicacion_perfil')->insertOrIgnore(['pf_codigo' => 1, 'ap_codigo' => 17]);
         /*Policia-Custodio*/
         DB::table('aplicacion_perfil')->insertOrIgnore(['pf_codigo' => 2, 'ap_codigo' => 10]);
         DB::table('aplicacion_perfil')->insertOrIgnore(['pf_codigo' => 2, 'ap_codigo' => 11]);
@@ -98,8 +98,6 @@ class DatabaseSeeder extends Seeder
         /*Jefe Logistica*/
         DB::table('aplicacion_perfil')->insertOrIgnore(['pf_codigo' => 3, 'ap_codigo' => 15]);
         DB::table('aplicacion_perfil')->insertOrIgnore(['pf_codigo' => 3, 'ap_codigo' => 17]);
-        /*Admin profiles and permissions admin*/
-        DB::table('aplicacion_perfil')->insertOrIgnore(['pf_codigo' => 1, 'ap_codigo' => 16]);
 
         /*RANGOS, Fuente: https://ecuador.unir.net/actualidad-unir/rangos-policia-nacional-ecuador  ;   https://revistaseguridad360.com/noticias/comunicaciones/policia-rangos*/
         DB::table('rangos')->insertOrIgnore(['ra_codigo' => 0, 'ra_nombre' => 'Ninguno']);

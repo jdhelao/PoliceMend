@@ -30,6 +30,8 @@ import { SVehicularAprobarListComponent } from './s-vehicular-aprobar/s-vehicula
 import { SVehicularAprobarEditComponent } from './s-vehicular-aprobar/s-vehicular-aprobar-edit.component';
 import { OrdenAbastecimientoListComponent } from './orden-abastecimiento/orden-abastecimiento-list.component';
 import { OrdenAbastecimientoEditComponent } from './orden-abastecimiento/orden-abastecimiento-edit.component';
+import { OrdenMantenimientoListComponent } from './orden-mantenimiento/orden-mantenimiento-list.component';
+import { OrdenMantenimientoEditComponent } from './orden-mantenimiento/orden-mantenimiento-edit.component';
 
 import { RSugerenciasComponent } from './r-sugerencias/r-sugerencias.component';
 import { RAbastecimientosComponent } from './r-abastecimientos/r-abastecimientos.component';
@@ -80,6 +82,8 @@ const routes: Routes = [
 
   { path: 'orden-abastecimiento', component: OrdenAbastecimientoListComponent },
   { path: 'orden-abastecimiento/edit/:id', component: OrdenAbastecimientoEditComponent },
+  { path: 'orden-mantenimiento', component: OrdenMantenimientoListComponent },
+  { path: 'orden-mantenimiento/edit/:id', component: OrdenMantenimientoEditComponent },
 
   { path: 'reporte-abastecimiento', component: RAbastecimientosComponent },
 

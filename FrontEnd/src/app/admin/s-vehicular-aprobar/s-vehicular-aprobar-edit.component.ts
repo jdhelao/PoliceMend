@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { AbstractType, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, AbstractFormGroupDirective, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { User, SolicitudVehicular } from '@app/_models';
+import { User, SolicitudVehicular, Entidad } from '@app/_models';
 import { AccountService, AlertService } from '@app/_services';
 import { environment } from '@environments/environment';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
@@ -34,6 +34,7 @@ export class SVehicularAprobarEditComponent implements OnInit {
   submitting = false;
   submitted = false;
 
+  lsEntities: Entidad[] = [];
   vehicleRequest: SolicitudVehicular | undefined;
 
   chartOptions1: ChartOptions1 = {
@@ -132,6 +133,9 @@ export class SVehicularAprobarEditComponent implements OnInit {
       sv_codigo: [Validators.required],
       sv_aprobacion: [null, Validators.required],
       sv_observacion: [null, Validators.required],
+
+      en_codigo: [null],
+      kt_codigo: [null],
       us_codigo: [null],
     });
 
@@ -153,6 +157,10 @@ export class SVehicularAprobarEditComponent implements OnInit {
                   this.title = 'Solicitud ' + (Boolean(data.sv_aprobacion) ? 'Aprobada' : 'Negada');
                   this.form.disable();
                 }
+                if (data.kt_codigo == 1) { /* maintenance */
+                  this.loadEntitiesList(data.kt_codigo);
+                  this.form.controls["en_codigo"].setValidators([Validators.required]);
+                }
                 this.loadHistory(data.ve_codigo);
               }
             },
@@ -168,6 +176,16 @@ export class SVehicularAprobarEditComponent implements OnInit {
       this.router.navigateByUrl('admin/aprobar-solicitud-vehicular');
     }
     console.log('chartOptions1'); console.log(this.chartOptions1); console.log('chartOptions2'); console.log(this.chartOptions2);
+  }
+
+  async loadEntitiesList($type: number) {
+    this.loading = true;
+    this.http.get<any>(environment.urlAPI + 'entidades/por-tipo/' + $type).subscribe((data: Entidad | any) => {
+      if (data !== null && data !== undefined && data.length > 0) {
+        this.lsEntities = data;
+      }
+      this.loading = false;
+    });
   }
 
   ngOnDestroy() {
@@ -192,6 +210,19 @@ export class SVehicularAprobarEditComponent implements OnInit {
     this.alertService.clear();
 
     this.submitted = true;
+
+    console.log(this.form.value);
+    // set as required when is MantReq and Aprobe
+    if (this.form.value.kt_codigo == 1 && Boolean(this.form.value.sv_aprobacion) === true) { /* maintenance */
+      console.log('mante YES');
+      this.form.controls["en_codigo"].setValidators([Validators.required]);
+      this.form.patchValue({ en_codigo: this.form.value.en_codigo});
+    }
+    else {
+      console.log('mante NOT');
+      this.form.controls["en_codigo"].setValidators(null);
+      this.form.patchValue({ en_codigo: this.form.value.en_codigo});
+    }
 
     this.form.patchValue(this.user as SolicitudVehicular);
     console.log(this.form.value);
@@ -239,26 +270,30 @@ export class SVehicularAprobarEditComponent implements OnInit {
       }
     });
 
-    this.http.get<any>(environment.urlAPI + 'vehiculo/historial/gal/' + ve_codigo).subscribe((data: any) => {
-      if (data !== null && data !== undefined && data.length > 0) {
-        var series_data: any[][] = [];
-        var min = 9999999;
-        var max = 0;
-        var avg = 0;
-        var _n = 0;
-        data.forEach((gas: { _date: any; _value: number }) => {
-          series_data.push([new Date(gas._date).getTime(), gas._value]);
-          min = (gas._value > 0 && gas._value <= min ? gas._value : min);
-          max = (gas._value >= max ? gas._value : max);
-          avg += Number(gas._value);
-          _n = (gas._value > 0 ? _n + 1 : _n);
-        });
-        if (_n > 0) {
-          avg = avg / _n;
+    if (this.vehicleRequest?.kt_codigo == 2) {/* fuel request */
+      this.http.get<any>(environment.urlAPI + 'vehiculo/historial/gal/' + ve_codigo).subscribe((data: any) => {
+        if (data !== null && data !== undefined && data.length > 0) {
+          var series_data: any[][] = [];
+          var min = 9999999;
+          var max = 0;
+          var avg = 0;
+          var _n = 0;
+          data.forEach((gas: { _date: any; _value: number }) => {
+            if (Number(gas._value) != 0) {
+              series_data.push([new Date(gas._date).getTime(), gas._value]);
+              min = (gas._value <= min ? gas._value : min);
+              max = (gas._value >= max ? gas._value : max);
+              avg += Number(gas._value);
+              _n++;
+            }
+          });
+          if (_n > 0) {
+            avg = avg / _n;
+          }
+          this.chartOptions1.series.push({ name: "Min(" + Number(min).toFixed(2) + ") Max(" + Number(max).toFixed(2) + ") x̅(" + Number(avg).toFixed(2) + ") <br/>Galones", data: series_data });
         }
-        this.chartOptions1.series.push({ name: "Min(" + Number(min).toFixed(2) + ") Max(" + Number(max).toFixed(2) + ") x̅(" + Number(avg).toFixed(2) + ") <br/>Galones", data: series_data });
-      }
-    });
+      });
+    }
 
     this.http.get<any>(environment.urlAPI + 'vehiculo/historial/gal-kms/' + ve_codigo).subscribe((data: any) => {
       if (data !== null && data !== undefined && data.length > 0) {
@@ -268,11 +303,13 @@ export class SVehicularAprobarEditComponent implements OnInit {
         var avg = 0;
         var _n = 0;
         data.forEach((gas: { _date: any; _value: number }) => {
-          series_data.push([new Date(gas._date).getTime(), gas._value]);
-          min = (gas._value > 0 && gas._value <= min ? gas._value : min);
-          max = (gas._value >= max ? gas._value : max);
-          avg += Number(gas._value);
-          _n = (gas._value > 0 ? _n + 1 : _n);
+          if (Number(gas._value) != 0) {
+            series_data.push([new Date(gas._date).getTime(), gas._value]);
+            min = (gas._value <= min ? gas._value : min);
+            max = (gas._value >= max ? gas._value : max);
+            avg += Number(gas._value);
+            _n++;
+          }
         });
         if (_n > 0) {
           avg = avg / _n;
@@ -281,26 +318,31 @@ export class SVehicularAprobarEditComponent implements OnInit {
       }
     });
 
-    this.http.get<any>(environment.urlAPI + 'vehiculo/historial/gal-day/' + ve_codigo).subscribe((data: any) => {
-      if (data !== null && data !== undefined && data.length > 0) {
-        var series_data: any[][] = [];
-        var min = 9999999;
-        var max = 0;
-        var avg = 0;
-        var _n = 0;
-        data.forEach((gas: { _date: any; _value: number }) => {
-          series_data.push([new Date(gas._date).getTime(), gas._value]);
-          min = (gas._value > 0 && gas._value <= min ? gas._value : min);
-          max = (gas._value >= max ? gas._value : max);
-          avg += Number(gas._value);
-          _n = (gas._value > 0 ? _n + 1 : _n);
-        });
-        if (_n > 0) {
-          avg = avg / _n;
+    if (this.vehicleRequest?.kt_codigo == 2) {/* fuel request */
+      this.http.get<any>(environment.urlAPI + 'vehiculo/historial/gal-day/' + ve_codigo).subscribe((data: any) => {
+        if (data !== null && data !== undefined && data.length > 0) {
+          var series_data: any[][] = [];
+          var min = 9999999;
+          var max = 0;
+          var avg = 0;
+          var _n = 0;
+          data.forEach((gas: { _date: any; _value: number }) => {
+            if (Number(gas._value) != 0) {
+              series_data.push([new Date(gas._date).getTime(), gas._value]);
+              min = (gas._value <= min ? gas._value : min);
+              max = (gas._value >= max ? gas._value : max);
+              avg += Number(gas._value);
+              _n++;
+            }
+          });
+          if (_n > 0) {
+            avg = avg / _n;
+          }
+          this.chartOptions1.series.push({ name: "Min(" + Number(min).toFixed(2) + ") Max(" + Number(max).toFixed(2) + ") x̅(" + Number(avg).toFixed(2) + ") <br/>Galones x Día", data: series_data });
         }
-        this.chartOptions1.series.push({ name: "Min(" + Number(min).toFixed(2) + ") Max(" + Number(max).toFixed(2) + ") x̅(" + Number(avg).toFixed(2) + ") <br/>Galones x Día", data: series_data });
-      }
-    });
+      });
+    }
+
   }
 
 }

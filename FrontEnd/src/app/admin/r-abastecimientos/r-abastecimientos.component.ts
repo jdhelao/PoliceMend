@@ -15,7 +15,7 @@ export class RAbastecimientosComponent implements OnInit {
   dateIni!: Date;
   dateEnd!: Date;
   dataSource !: RAbastecimiento[];
-  displayedColumns: string[] = ['oa_codigo', 'vt_nombre', 've_modelo', 've_placa', 've_combustible','pe_nombres', 'oa_galones', 'oa_total'];
+  displayedColumns: string[] = ['oa_codigo', 'vt_nombre', 've_modelo', 've_placa', 've_combustible', 'pe_nombres', 'oa_galones', 'oa_total'];
 
   loading: boolean = false;
   submitting: boolean = false;
@@ -49,7 +49,7 @@ export class RAbastecimientosComponent implements OnInit {
       this.loading = true;
       this.http.get<any>(environment.urlAPI + 'orden-abastecimientos/reporte/' + formatDate(this.dateIni, 'yyyy-MM-dd', 'en') + '/' + formatDate(this.dateEnd, 'yyyy-MM-dd', 'en')).subscribe((data: RAbastecimiento[]) => {
         console.log(data);
-        if (data !== null && data !== undefined  && data.length > 0
+        if (data !== null && data !== undefined && data.length > 0
         ) {
           this.dataSource = data;
         }
@@ -72,8 +72,37 @@ export class RAbastecimientosComponent implements OnInit {
       this.alertService.info('Sin Conexión!!', { autoClose: true });
     }
   }
+
+  download() {
+    if (this.dataSource !== undefined && this.dataSource.length > 0) {
+      let text = 'Orden,Tipo Vehículo,Modelo,Color,Chasis,Placa,Tipo Combustible,Cédula,Solicitante,Doc. Consumo,Galones,Costo\n';
+
+      this.dataSource.forEach((ra: RAbastecimiento, index) => {
+        text = ''.concat(text
+          , String(ra.oa_codigo), ','
+          , String(ra.vt_nombre), ','
+          , String(ra.ve_modelo), ','
+          , String(ra.ve_color), ','
+          , String(ra.ve_chasis), ','
+          , String(ra.ve_placa), ','
+          , String(ra.ve_combustible), ','
+          , String(ra.pe_dni), ','
+          , String(ra.pe_nombres), ','
+          , String(ra.oa_documento), ','
+          , String(ra.oa_galones), ','
+          , String(ra.oa_total), '\n');
+      });
+
+      const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
+      const blob = new Blob([bom, text], { type: 'text/csv;charset=utf-8' });
+      const downloadLink = document.createElement('a');
+      downloadLink.href = window.URL.createObjectURL(blob);
+      downloadLink.download = 'OrdenesAbastecimiento.csv';
+      downloadLink.click();
+    }
+  }
 }
 
-export interface RAbastecimiento extends SolicitudVehicular, OrdenAbastecimiento, Vehiculo, Personal{
+export interface RAbastecimiento extends SolicitudVehicular, OrdenAbastecimiento, Vehiculo, Personal {
 
 }

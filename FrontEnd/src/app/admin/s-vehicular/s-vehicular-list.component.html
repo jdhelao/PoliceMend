@@ -26,7 +26,7 @@
           <span igxListAction>
               <igx-switch *ngIf="sv.sv_aprobacion===null" [checked]="sv.sv_estado" (click)="disable(sv.sv_codigo)"></igx-switch>
 
-              <button mat-raised-button aria-label="Número de orden" color="primary" routerLink="/admin/orden-abastecimiento/edit/{{sv.id_orden}}" *ngIf="sv.id_orden!==null&&sv.sv_aprobacion===1">
+              <button mat-raised-button aria-label="Número de orden" color="primary" routerLink="/admin/{{sv.kt_codigo == 1? 'orden-mantenimiento': 'orden-abastecimiento'}}/edit/{{sv.id_orden}}" *ngIf="sv.id_orden!==null&&sv.sv_aprobacion===1">
                 Orden #{{sv.id_orden}}
               </button>
               <!--<mat-icon *ngIf="sv.sv_aprobacion===1" color="primary">thumb_up</mat-icon>-->

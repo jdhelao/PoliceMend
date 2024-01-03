@@ -50,6 +50,8 @@
     <button class="clearSearch" size mat-icon-button matTooltip="Limpiar Busqueda" aria-label="Limpiar" [hidden]="clearSearch_hidden"
         (click)="clearSearch()">
         <mat-icon>close</mat-icon></button>
+    <button class="clearSearch" size mat-icon-button matTooltip="Buscar" aria-label="Buscar" [hidden]="!clearSearch_hidden">
+        <mat-icon>search</mat-icon></button>
 </div>
 
 <!--</div>

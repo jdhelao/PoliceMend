@@ -14,15 +14,15 @@ class OrdenAbastecimientos extends Model
     protected $primaryKey = 'oa_codigo';
 
     protected $fillable = [
-        'sv_codigo',
-        'en_codigo',
+        'sv_codigo', /*ID de la Solicitud de la persona*/
+        'en_codigo', /*Entidad donde se realizó el consumo*/
         'oa_total',
         'oa_galones',
         'oa_km',
         'oa_combustible_nivel',
-        'oa_documento',
-        'oa_archivo_datos',
-        'oa_archivo_tipo',
+        'oa_documento', /*Numero de factura*/
+        'oa_archivo_datos', /*guardar el archivo la factura/voucher in base64*/
+        'oa_archivo_tipo', /*guardar la extension del archivo*/
         'oa_estado'
     ];
 

@@ -66,6 +66,15 @@
           <textarea matInput placeholder="Descrición de solicitud..." [value]="vehicleRequest?.sv_descripcion" readonly></textarea>
         </mat-form-field>
 
+        <mat-form-field class="full-width" *ngIf="vehicleRequest?.kt_codigo==1">
+          <mat-label>Taller</mat-label>
+          <mat-select formControlName="en_codigo">
+            <mat-option *ngFor="let en of lsEntities" [value]="en.en_codigo">
+              {{en.en_nombre}} ({{ en.di_codigo}})
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
         <mat-form-field class="full-width">
           <mat-label>Observación</mat-label>
           <textarea matInput placeholder="Descrición de Aprobación/Negación..." formControlName="sv_observacion" ></textarea>
@@ -86,8 +95,8 @@
       </igx-bottom-nav-content>
     </igx-bottom-nav-item>
 
-    <igx-bottom-nav-item>
-      <igx-bottom-nav-header>
+    <igx-bottom-nav-item> <!-- fix: https://github.com/apexcharts/vue-apexcharts/issues/185 -->
+      <igx-bottom-nav-header onclick="window.dispatchEvent(new Event('resize'));">
         <igx-icon>legend_toggle</igx-icon>Historial
       </igx-bottom-nav-header>
       <igx-bottom-nav-content>

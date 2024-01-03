@@ -7,6 +7,7 @@ use App\Models\SolicitudVehiculos;
 use App\Models\VehiculoHistoriales;
 use App\Models\Vehiculos;
 use App\Models\OrdenAbastecimientos;
+use App\Models\OrdenMantenimientos;
 use DB;
 
 class SolicitudVehiculoController extends Controller
@@ -123,6 +124,15 @@ class SolicitudVehiculoController extends Controller
 
             /* CHECK ORDERS */
             if ($obj->sv_aprobacion !== null) {
+                /*Maintenance orders*/
+                if ($obj->kt_codigo == 1){
+                    if (OrdenMantenimientos::where('sv_codigo', $obj->sv_codigo)->exists()) {
+                        OrdenMantenimientos::where('sv_codigo', $obj->sv_codigo)->update(['om_estado' => $obj->sv_aprobacion, 'updated_by' => ($req->updated_by??$req->us_codigo??null),]);
+                    }
+                    else {
+                        OrdenMantenimientos::create(['sv_codigo' => $obj->sv_codigo, 'en_codigo' => $req->en_codigo, 'created_by' => ($req->updated_by??$req->us_codigo??null),]);
+                    }
+                }
                 /*Fuel orders*/
                 if ($obj->kt_codigo == 2){
                     if (OrdenAbastecimientos::where('sv_codigo', $obj->sv_codigo)->exists()) {
