@@ -11,6 +11,7 @@ export * from './contrato';
 export * from './distrito';
 export * from './entidad';
 export * from './pais';
+export * from './perfil copy';
 export * from './perfil';
 export * from './personal';
 export * from './provincia';

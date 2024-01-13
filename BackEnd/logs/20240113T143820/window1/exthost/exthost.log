@@ -1,0 +1,12 @@
+2024-01-13 14:38:21.383 [info] Extension host with pid 4017 started
+2024-01-13 14:38:21.383 [info] Skipping acquiring lock for /opt/lampp/htdocs/PoliceMend/BackEnd/User/workspaceStorage/861cd8e9dd3851a84fedc05037bcdaef.
+2024-01-13 14:38:21.463 [info] ExtensionService#_doActivateExtension vscode.emmet, startup: false, activationEvent: 'onLanguage'
+2024-01-13 14:38:21.559 [info] ExtensionService#_doActivateExtension vscode.php-language-features, startup: false, activationEvent: 'onLanguage:php'
+2024-01-13 14:38:21.709 [info] ExtensionService#_doActivateExtension vscode.git-base, startup: true, activationEvent: '*', root cause: vscode.git
+2024-01-13 14:38:21.717 [info] ExtensionService#_doActivateExtension vscode.npm, startup: true, activationEvent: 'workspaceContains:package.json'
+2024-01-13 14:38:21.764 [info] ExtensionService#_doActivateExtension vscode.git, startup: true, activationEvent: '*'
+2024-01-13 14:38:21.785 [info] ExtensionService#_doActivateExtension vscode.github, startup: true, activationEvent: '*'
+2024-01-13 14:38:21.986 [info] Eager extensions activated
+2024-01-13 14:38:22.033 [info] ExtensionService#_doActivateExtension vscode.debug-auto-launch, startup: false, activationEvent: 'onStartupFinished'
+2024-01-13 14:38:22.036 [info] ExtensionService#_doActivateExtension vscode.merge-conflict, startup: false, activationEvent: 'onStartupFinished'
+2024-01-13 14:38:22.042 [info] ExtensionService#_doActivateExtension esbenp.prettier-vscode, startup: false, activationEvent: 'onStartupFinished'

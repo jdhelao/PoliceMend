@@ -1,0 +1,55 @@
+All workspace roots are using versions of Angular that do not support control flow block syntax. Block syntax parsing in templates will be disabled.
+[Info  - 2:38:13 PM] Angular language server process ID: 3587
+[Info  - 2:38:13 PM] Imported typescript/lib/tsserverlibrary is version 5.2.2.
+[Info  - 2:38:13 PM] Using @angular/language-service v17.0.6 from /root/.vscode/extensions/angular.ng-template-17.0.3/node_modules/@angular/language-service/index.js
+[Info  - 2:38:13 PM] Logging is turned off. To enable, run command 'Open Angular server log'.
+[Info  - 2:38:16 PM] Enabling language service for /opt/lampp/htdocs/PoliceMend/FrontEnd/tsconfig.json.
+/root/.vscode/extensions/angular.ng-template-17.0.3/node_modules/@angular/language-service/bundles/language-service.js:57928
+                throw new Error(`Failed to get script info when trying to read ${fileName}`);
+                      ^
+
+Error: Failed to get script info when trying to read /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/respuesto/respuesto-edit.component.html
+    at LanguageServiceAdapter.readResource (/root/.vscode/extensions/angular.ng-template-17.0.3/node_modules/@angular/language-service/bundles/language-service.js:57928:23)
+    at AdapterResourceLoader.load (/root/.vscode/extensions/angular.ng-template-17.0.3/node_modules/@angular/language-service/bundles/language-service.js:48569:69)
+    at extractTemplate (/root/.vscode/extensions/angular.ng-template-17.0.3/node_modules/@angular/language-service/bundles/language-service.js:44020:52)
+    at ComponentDecoratorHandler.updateResources (/root/.vscode/extensions/angular.ng-template-17.0.3/node_modules/@angular/language-service/bundles/language-service.js:45335:37)
+    at TraitCompiler.updateResources (/root/.vscode/extensions/angular.ng-template-17.0.3/node_modules/@angular/language-service/bundles/language-service.js:34574:31)
+    at /root/.vscode/extensions/angular.ng-template-17.0.3/node_modules/@angular/language-service/bundles/language-service.js:55978:52
+    at ActivePerfRecorder.inPhase (/root/.vscode/extensions/angular.ng-template-17.0.3/node_modules/@angular/language-service/bundles/language-service.js:32935:24)
+    at NgCompiler.updateWithChangedResources (/root/.vscode/extensions/angular.ng-template-17.0.3/node_modules/@angular/language-service/bundles/language-service.js:55961:26)
+    at NgCompiler.fromTicket (/root/.vscode/extensions/angular.ng-template-17.0.3/node_modules/@angular/language-service/bundles/language-service.js:55881:30)
+    at CompilerFactory.getOrCreate (/root/.vscode/extensions/angular.ng-template-17.0.3/node_modules/@angular/language-service/bundles/language-service.js:58926:48)
+
+Node.js v18.15.0
+[Info  - 2:47:21 PM] Connection to server got closed. Server will restart.
+[Info  - 2:47:21 PM] Angular language server process ID: 7574
+[Info  - 2:47:21 PM] Imported typescript/lib/tsserverlibrary is version 5.2.2.
+[Info  - 2:47:21 PM] Using @angular/language-service v17.0.6 from /root/.vscode/extensions/angular.ng-template-17.0.3/node_modules/@angular/language-service/index.js
+[Info  - 2:47:21 PM] Logging is turned off. To enable, run command 'Open Angular server log'.
+[Info  - 2:47:24 PM] Enabling language service for /opt/lampp/htdocs/PoliceMend/FrontEnd/tsconfig.json.
+[Error - 2:47:40 PM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/repuesto/repuesto-edit.component.html
+[Error - 2:47:40 PM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/repuesto/repuesto-edit.component.html
+[Error - 2:47:40 PM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/repuesto/repuesto-edit.component.html
+[Error - 2:47:43 PM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/repuesto/repuesto-edit.component.html
+[Error - 2:47:45 PM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/repuesto/repuesto-edit.component.html
+[Error - 2:47:45 PM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/repuesto/repuesto-edit.component.html
+[Error - 2:47:48 PM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/repuesto/repuesto-edit.component.html
+[Error - 2:47:56 PM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/repuesto/repuesto-edit.component.html
+[Error - 2:47:58 PM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/repuesto/repuesto-edit.component.html
+[Error - 2:48:04 PM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/repuesto/repuesto-edit.component.html
+[Error - 2:48:08 PM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/repuesto/repuesto-edit.component.html
+[Error - 2:48:08 PM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/repuesto/repuesto-list.component.html
+[Error - 2:48:12 PM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/repuesto/repuesto-edit.component.html
+[Error - 2:48:12 PM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/repuesto/repuesto-list.component.html
+[Error - 2:48:19 PM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/repuesto/repuesto-list.component.html
+[Error - 2:48:19 PM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/repuesto/repuesto-edit.component.html
+[Error - 2:48:20 PM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/repuesto/repuesto-edit.component.html
+[Error - 2:48:20 PM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/repuesto/repuesto-list.component.html
+[Error - 2:48:24 PM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/repuesto/repuesto-list.component.html
+[Error - 2:48:26 PM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/repuesto/repuesto-list.component.html
+[Error - 2:48:28 PM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/repuesto/repuesto-list.component.html
+[Error - 4:02:57 PM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/_models/perfil copy.ts
+[Error - 4:02:57 PM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/_models/perfil copy.ts
+[Error - 4:37:10 PM] Request codeLens/resolve failed.
+  Message: Request codeLens/resolve failed with message: Could not determine component for file:///opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/repuesto/repuesto-edit.component.html
+  Code: -32603 

@@ -1,0 +1,31 @@
+<!-- *ngIf="!loading"-->
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-toolbar class="toolbar" color="primary">
+      <button mat-icon-button aria-label="Cancelar" routerLink="/admin/repuesto" onclick="event.preventDefault()">
+        <mat-icon>clear</mat-icon>
+      </button>
+      <span>{{title}}</span>
+      <span class="flex-spacer"></span>
+      <button mat-icon-button aria-label="Guardar" [disabled]="submitting||loading">
+        <mat-icon>save</mat-icon>
+      </button>
+    </mat-toolbar>
+  
+    <mat-form-field class="full-width">
+      <mat-label>Repuesto</mat-label>
+      <input matInput formControlName="re_nombre" [ngClass]="{ 'is-invalid': submitted && f.re_nombre.errors }"
+        oninput="this.value=this.value.replace(/[^a-zA-Z0-9 ]/g,'')">
+      <div *ngIf="submitted && f.re_nombre.errors" class="invalid-feedback">
+        <div *ngIf="f.re_nombre.errors.required">Nombre requerido</div>
+        <div *ngIf="f.re_nombre.errors.minlength">Nombre debetener más characters</div>
+        <div *ngIf="f.re_nombre.errors.maxlength">Nombre debetener menos characters</div>
+      </div>
+    </mat-form-field>
+  
+  </form>
+  <!--
+  <div *ngIf="loading" class="text-center m-5">
+      <span class="spinner-border spinner-border-lg align-center"></span>
+  </div>-->
+  <span *ngIf="loading||submitting" class="spinner-border spinner-border-lg align-center"></span>
+  

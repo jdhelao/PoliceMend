@@ -186,3 +186,7 @@
 	at MessagePortMain.<anonymous> (/snap/code/148/usr/share/code/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:171:6183)
 	at MessagePortMain.emit (node:events:513:28)
 	at MessagePortMain._internalPort.emit (node:electron/js2c/utility_init:2:367)
+2024-01-13 10:27:23.996 [info] Extension host (LocalProcess pid: 14575) is unresponsive.
+2024-01-13 10:27:24.418 [info] Extension host (LocalProcess pid: 14575) is responsive.
+2024-01-13 10:27:24.418 [info] UNRESPONSIVE extension host: received responsive event and cancelling profiling session
+2024-01-13 10:27:24.711 [info] UNRESPONSIVE extension host: starting to profile NOW
