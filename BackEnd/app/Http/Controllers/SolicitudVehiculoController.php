@@ -42,7 +42,7 @@ class SolicitudVehiculoController extends Controller
         ->leftJoin('vehiculo_tipos as vt', 'vt.vt_codigo', '=', 've.vt_codigo')
         ->leftJoin('orden_abastecimientos as oa', 'oa.sv_codigo', '=', 'solicitud_vehiculos.sv_codigo')
         ->leftJoin('orden_mantenimientos  as om', 'om.sv_codigo', '=', 'solicitud_vehiculos.sv_codigo')
-        ->where('sv_estado',true)
+        ->where('solicitud_vehiculos.sv_estado',true)
         ->where('solicitud_vehiculos.pe_codigo',$person)
         ->whereNotNull(($type==1)?'om.sv_codigo':'oa.sv_codigo')
         ->orderBy('solicitud_vehiculos.created_at', 'DESC')->get();

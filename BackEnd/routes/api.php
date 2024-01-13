@@ -21,6 +21,7 @@ use App\Http\Controllers\VehiculoController;
 use App\Http\Controllers\ContratoController;
 use App\Http\Controllers\EntidadController;
 use App\Http\Controllers\SolicitudVehiculoController;
+use App\Http\Controllers\OrdenMantenimientoController;
 use App\Http\Controllers\OrdenAbastecimientoController;
 /*
 |--------------------------------------------------------------------------
@@ -158,6 +159,9 @@ Route::post('/solicitud-vehiculos',[SolicitudVehiculoController::class,'create']
 Route::put('/solicitud-vehiculos',[SolicitudVehiculoController::class,'update']);
 Route::get('/solicitud-vehiculos/persona/{id}',[SolicitudVehiculoController::class,'getVehicleRequestsByPerson']);
 Route::get('/solicitud-vehiculos-aprobadas/{type}/persona/{person}',[SolicitudVehiculoController::class,'getApprovedVehicleRequestsByPerson']);
+
+Route::get('/orden-mantenimiento/{id}/persona/{person}',[OrdenMantenimientoController::class,'getOrderByPerson']);
+Route::put('/orden-mantenimiento',[OrdenMantenimientoController::class,'update']);
 
 Route::get('/orden-abastecimientos/{id}/persona/{person}',[OrdenAbastecimientoController::class,'getOrderByPerson']);
 Route::get('/orden-abastecimientos/reporte/{ini}/{end}',[OrdenAbastecimientoController::class,'getReport']);
