@@ -1,0 +1,13 @@
+All workspace roots are using versions of Angular that do not support control flow block syntax. Block syntax parsing in templates will be disabled.
+[Info  - 9:11:08 PM] Angular language server process ID: 14643
+[Info  - 9:11:08 PM] Imported typescript/lib/tsserverlibrary is version 5.2.2.
+[Info  - 9:11:08 PM] Using @angular/language-service v17.0.6 from /root/.vscode/extensions/angular.ng-template-17.0.3/node_modules/@angular/language-service/index.js
+[Info  - 9:11:08 PM] Logging is turned off. To enable, run command 'Open Angular server log'.
+[Info  - 9:11:13 PM] Enabling language service for /opt/lampp/htdocs/PoliceMend/FrontEnd/tsconfig.json.
+[Error - 4:32:50 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/_models/OrdenMantenimiento copy.ts
+[Error - 4:32:50 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/_models/OrdenMantenimiento copy.ts
+[Error - 4:32:51 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/_models/OrdenMantenimiento copy.ts
+[Error - 4:32:51 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/_models/OrdenMantenimiento copy.ts
+[Error - 4:34:05 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/_models/OrdenMantenimientoActividad.ts
+[Error - 4:34:05 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/_models/OrdenMantenimientoActividad.ts
+[Info  - 6:44:15 AM] Disabling language service for /opt/lampp/htdocs/PoliceMend/FrontEnd/node_modules/rxjs/tsconfig.json because project is not an Angular project ('@angular/core' could not be found).

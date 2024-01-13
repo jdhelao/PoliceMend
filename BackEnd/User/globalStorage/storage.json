@@ -770,8 +770,7 @@
                 "items": [
                     {
                         "id": "workbench.action.navigateBack",
-                        "label": "&&Back",
-                        "enabled": false
+                        "label": "&&Back"
                     },
                     {
                         "id": "workbench.action.navigateForward",
@@ -780,8 +779,7 @@
                     },
                     {
                         "id": "workbench.action.navigateToLastEditLocation",
-                        "label": "&&Last Edit Location",
-                        "enabled": false
+                        "label": "&&Last Edit Location"
                     },
                     {
                         "id": "vscode.menubar.separator"
@@ -1689,7 +1687,7 @@
             "editorPartMinWidth": 220,
             "titleBarHeight": 0,
             "activityBarWidth": 48,
-            "sideBarWidth": 344,
+            "sideBarWidth": 345,
             "statusBarHeight": 22,
             "windowBorder": false
         }
@@ -1700,10 +1698,10 @@
             "backupPath": "/opt/lampp/htdocs/PoliceMend/BackEnd/Backups/b0423fc6d540c9c15a36e800e3af9c1f",
             "uiState": {
                 "mode": 0,
-                "x": 1920,
-                "y": 24,
-                "width": 1913,
-                "height": 1052
+                "x": 0,
+                "y": 49,
+                "width": 1920,
+                "height": 1031
             }
         },
         "openedWindows": []

@@ -1,3 +1,6 @@
+export * from './OrdenAbastecimiento';
+export * from './OrdenMantenimiento';
+export * from './OrdenMantenimientoActividad';
 export * from './alert';
 export * from './aplicacion';
 export * from './chartOptions';
@@ -7,8 +10,6 @@ export * from './contacto';
 export * from './contrato';
 export * from './distrito';
 export * from './entidad';
-export * from './OrdenAbastecimiento';
-export * from './OrdenMantenimiento';
 export * from './pais';
 export * from './perfil';
 export * from './personal';
