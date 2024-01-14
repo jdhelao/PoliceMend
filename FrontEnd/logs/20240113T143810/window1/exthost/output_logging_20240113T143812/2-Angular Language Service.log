@@ -53,3 +53,9 @@ Node.js v18.15.0
 [Error - 4:37:10 PM] Request codeLens/resolve failed.
   Message: Request codeLens/resolve failed with message: Could not determine component for file:///opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/repuesto/repuesto-edit.component.html
   Code: -32603 
+[Error - 4:54:25 PM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/_models/repuesto.ts
+[Error - 4:54:25 PM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/_models/repuesto.ts
+[Error - 5:48:05 PM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/_models/OrdenMantenimientoActividad copy.ts
+[Error - 5:48:05 PM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/_models/OrdenMantenimientoActividad copy.ts
+[Error - 5:48:13 PM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/_models/OrdenMantenimientoRepuesto.ts
+[Error - 5:48:13 PM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/_models/OrdenMantenimientoRepuesto.ts
