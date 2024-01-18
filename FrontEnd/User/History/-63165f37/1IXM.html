@@ -1,0 +1,19 @@
+<mat-form-field class="full-width">
+    <mat-label>Seleccione rango de fechas</mat-label>
+    <mat-date-range-input [rangePicker]="picker"  [disabled]="submitting">
+      <input matStartDate placeholder="Inicio" (dateChange)="onChangeDates($event.value,1)">
+      <input matEndDate placeholder="Fin" (dateChange)="onChangeDates($event.value,2)">
+    </mat-date-range-input>
+    <!--<mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>-->
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+</mat-form-field>
+
+
+<button class="action" mat-fab color="primary" aria-label="Descargar" (click)="download()" *ngIf="dataSource!==undefined && dataSource.length > 0">
+  <mat-icon>download</mat-icon>
+</button>
+
+<div *ngIf="loading" class="text-center m-5">
+    <span class="spinner-border spinner-border-lg align-center"></span>
+</div>

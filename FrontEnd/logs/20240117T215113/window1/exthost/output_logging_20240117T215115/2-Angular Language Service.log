@@ -1,0 +1,37 @@
+All workspace roots are using versions of Angular that do not support control flow block syntax. Block syntax parsing in templates will be disabled.
+[Info  - 9:51:17 PM] Angular language server process ID: 7528
+[Info  - 9:51:17 PM] Imported typescript/lib/tsserverlibrary is version 5.2.2.
+[Info  - 9:51:17 PM] Using @angular/language-service v17.0.6 from /root/.vscode/extensions/angular.ng-template-17.0.3/node_modules/@angular/language-service/index.js
+[Info  - 9:51:17 PM] Logging is turned off. To enable, run command 'Open Angular server log'.
+[Info  - 9:51:24 PM] Enabling language service for /opt/lampp/htdocs/PoliceMend/FrontEnd/tsconfig.json.
+[Error - 12:17:25 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/r-mantenimientos/r-mantenimientos.component.html
+[Error - 12:17:27 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/r-mantenimientos/r-mantenimientos.component.html
+[Error - 12:17:30 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/r-mantenimientos/r-mantenimientos.component.spec.ts
+[Error - 12:17:34 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/r-mantenimientos/r-mantenimientos.component.html
+[Error - 12:17:34 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/r-mantenimientos/r-mantenimientos.component.html
+[Error - 12:17:34 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/r-mantenimientos/r-mantenimientos.component.html
+[Error - 12:17:36 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/r-mantenimientos/r-mantenimientos.component.html
+[Error - 12:17:37 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/r-mantenimientos/r-mantenimientos.component.html
+[Error - 12:17:40 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/r-mantenimientos/r-mantenimientos.component.ts
+[Error - 12:17:40 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/r-mantenimientos/r-mantenimientos.component.ts
+[Error - 12:17:40 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/r-mantenimientos/r-mantenimientos.component.ts
+[Error - 12:17:41 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/r-mantenimientos/r-mantenimientos.component.ts
+[Error - 12:17:43 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/r-mantenimientos/r-mantenimientos.component.html
+[Error - 12:17:45 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/r-mantenimientos/r-mantenimientos.component.html
+[Error - 12:17:47 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/r-mantenimientos/r-mantenimientos.component.html
+[Error - 12:17:50 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/r-mantenimientos/r-mantenimientos.component.html
+[Error - 12:17:57 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/r-mantenimientos/r-mantenimientos.component.html
+[Error - 12:18:01 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/r-mantenimientos/r-mantenimientos.component.html
+[Error - 12:18:28 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/r-mantenimientos/r-mantenimientos.component.html
+[Error - 12:18:31 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/r-mantenimientos/r-mantenimientos.component.html
+[Error - 12:18:40 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/r-mantenimientos/r-mantenimientos.component.html
+[Error - 12:18:45 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/r-mantenimientos/r-mantenimientos.component.html
+[Error - 12:18:54 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/r-mantenimientos/r-mantenimientos.component.html
+[Error - 12:19:01 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/r-mantenimientos/r-mantenimientos.component.html
+[Error - 12:19:17 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/r-mantenimientos/r-mantenimientos.component.html
+[Error - 12:19:21 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/r-mantenimientos/r-mantenimientos.component.html
+[Error - 12:19:22 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/r-mantenimientos/r-mantenimientos.component.html
+[Error - 12:19:27 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/r-mantenimientos/r-mantenimientos.component.html
+[Error - 12:19:29 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/r-mantenimientos/r-mantenimientos.component.html
+[Error - 12:19:34 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/r-mantenimientos/r-mantenimientos.component.html
+[Error - 12:19:45 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/r-mantenimientos/r-mantenimientos.component.html
