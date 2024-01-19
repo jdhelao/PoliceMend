@@ -10,3 +10,5 @@
 2024-01-18 20:03:53.406 [info] ExtensionService#_doActivateExtension vscode.debug-auto-launch, startup: false, activationEvent: 'onStartupFinished'
 2024-01-18 20:03:53.408 [info] ExtensionService#_doActivateExtension vscode.merge-conflict, startup: false, activationEvent: 'onStartupFinished'
 2024-01-18 20:03:53.426 [info] ExtensionService#_doActivateExtension esbenp.prettier-vscode, startup: false, activationEvent: 'onStartupFinished'
+2024-01-18 22:49:43.977 [info] Extension host terminating: renderer closed the MessagePort
+2024-01-18 22:49:44.035 [info] Extension host with pid 6258 exiting with code 0

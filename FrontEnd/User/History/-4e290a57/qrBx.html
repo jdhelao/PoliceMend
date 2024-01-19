@@ -1,0 +1,69 @@
+<div class="p-4">
+<div class="container">
+<h5>Hola {{user?.us_login }} !</h5>
+<br />
+
+<!--
+<p><a routerLink="/users">Manage Users</a></p>
+<br />
+<p><a routerLink="/users/add">Add Users</a></p>
+<br />
+<p><a routerLink="/admin/usuario">Usuarios</a></p>
+<br />
+<p><a routerLink="/admin/usuario/list">Usuario Lista</a></p>
+<br />
+<p><a routerLink="/admin/personal">Personal</a></p>
+<br />
+<p><a routerLink="/admin/personal/list">Personal Lista</a></p>
+<br />
+-->
+
+<!--
+    <section>
+        <div class="example-label">Basic</div>
+        <div class="example-button-row">
+          <button mat-button>Basic</button>
+          <button mat-button color="primary">Primary</button>
+          <button mat-button color="accent">Accent</button>
+          <button mat-button color="warn">Warn</button>
+          <button mat-button disabled>Disabled</button>
+          <a mat-button href="https://www.google.com/" target="_blank">Link</a>
+        </div>
+      </section>
+    -->
+<!--
+<div class="mnu_option" *ngFor="let opt of menu">
+    <p><a routerLink="{{opt.ap_ruta}}">{{opt.ap_nombre}}</a></p>
+</div>
+<p><a routerLink="/sugerencias">Sugerencias y Reclamos</a></p>
+-->
+
+<div class="app-grid">
+    <div class="app-item" *ngFor="let app of menu">
+      <img class="app-icon" src="assets/apps/{{ app.ap_codigo }}.svg" alt="{{ app.ap_nombre }}">
+      <p class="app-name">{{ app.ap_nombre }}</p>
+    </div>
+</div>
+
+
+
+</div>
+</div>
+
+<div class="box_filter">
+    <!--
+<input #searchOpt class="form-control filter" type="text" ng-model="searchOpt" placeholder="Buscar"
+    (keyup)="fnFilterMenu(searchOpt.value)" />
+    -->
+    <input class="form-control filter" id="searchOption" type="text" placeholder="Buscar" [(ngModel)]="searchFilter"
+        (ngModelChange)="filterMenu()" />
+    <button class="clearSearch" size mat-icon-button matTooltip="Limpiar Busqueda" aria-label="Limpiar" [hidden]="clearSearch_hidden"
+        (click)="clearSearch()">
+        <mat-icon>close</mat-icon></button>
+    <button class="clearSearch" size mat-icon-button matTooltip="Buscar" aria-label="Buscar" [hidden]="!clearSearch_hidden">
+        <mat-icon>search</mat-icon></button>
+</div>
+
+<!--</div>
+    <input class="filter" matInput type="text" placeholder="Filtrar" formControlName="menu_filter">-->
+<!----->
