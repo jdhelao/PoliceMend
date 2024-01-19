@@ -1,0 +1,15 @@
+2024-01-19 10:06:46.011 [info] update#setState idle
+2024-01-19 10:07:16.008 [info] update#setState checking for updates
+2024-01-19 10:07:16.017 [info] update#setState idle
+2024-01-19 10:50:25.554 [warning] No ptyHost heartbeat after 6 seconds
+2024-01-19 10:50:42.240 [warning] No ptyHost heartbeat after 6 seconds
+2024-01-19 11:00:03.439 [warning] No ptyHost heartbeat after 6 seconds
+2024-01-19 11:07:16.015 [info] update#setState checking for updates
+2024-01-19 11:07:16.027 [info] update#setState idle
+2024-01-19 12:07:16.031 [info] update#setState checking for updates
+2024-01-19 12:07:16.042 [info] update#setState idle
+2024-01-19 12:29:31.475 [warning] No ptyHost heartbeat after 6 seconds
+2024-01-19 12:29:51.053 [warning] No ptyHost heartbeat after 6 seconds
+2024-01-19 12:30:19.953 [warning] No ptyHost heartbeat after 6 seconds
+2024-01-19 12:30:32.814 [error] CodeWindow: detected unresponsive
+2024-01-19 12:30:41.496 [warning] No ptyHost heartbeat after 6 seconds

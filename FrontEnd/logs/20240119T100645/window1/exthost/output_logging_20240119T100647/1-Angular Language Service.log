@@ -1,0 +1,9 @@
+All workspace roots are using versions of Angular that do not support control flow block syntax. Block syntax parsing in templates will be disabled.
+[Info  - 10:06:48 AM] Angular language server process ID: 13109
+[Info  - 10:06:48 AM] Imported typescript/lib/tsserverlibrary is version 5.3.2.
+[Info  - 10:06:48 AM] Using @angular/language-service v17.1.0-rc.0 from /root/.vscode/extensions/angular.ng-template-17.1.0/node_modules/@angular/language-service/index.js
+[Info  - 10:06:49 AM] Logging is turned off. To enable, run command 'Open Angular server log'.
+[Info  - 10:06:53 AM] Enabling language service for /opt/lampp/htdocs/PoliceMend/FrontEnd/tsconfig.json.
+[Error - 10:29:53 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/_models/OrdenMovilizacion.ts
+[Error - 10:29:53 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/_models/OrdenMovilizacion.ts
+[Error - 10:29:53 AM] No config file for /opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/_models/OrdenMovilizacion.ts

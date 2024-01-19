@@ -1,0 +1,36 @@
+<!-- *ngIf="!loading"-->
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-toolbar class="toolbar" color="primary">
+      <button mat-icon-button aria-label="Cancelar" routerLink="/admin/orden-movilizacion"
+        onclick="event.preventDefault()">
+        <mat-icon>clear</mat-icon>
+      </button>
+      <span>{{title}}</span>
+      <span class="flex-spacer"></span>
+      <button mat-icon-button aria-label="Guardar" [disabled]="submitting||loading">
+        <mat-icon>save</mat-icon>
+      </button>
+    </mat-toolbar>
+  
+  <!--
+    <mat-form-field class="width2-3">
+      <mat-label>Documento/Voucher/Factura</mat-label>
+      <input matInput aria-label="Documento" formControlName="oa_documento" [ngClass]="{ 'is-invalid': submitted && f.oa_documento.errors }">
+      <div *ngIf="submitted && f.oa_documento.errors" class="invalid-feedback">
+        <div *ngIf="f.oa_documento.errors.required">Dato requerido</div>
+      </div>
+    </mat-form-field>
+  -->
+  <mat-form-field class="full-width">
+    <mat-label>Ocupantes</mat-label>
+    <textarea matInput placeholder="Lista de ocupantes..." formControlName="od_ocupantes"></textarea>
+  </mat-form-field>
+  
+  
+  </form>
+  <!--
+  <div *ngIf="loading" class="text-center m-5">
+      <span class="spinner-border spinner-border-lg align-center"></span>
+  </div>-->
+  <span *ngIf="loading||submitting" class="spinner-border spinner-border-lg align-center"></span>
+  
