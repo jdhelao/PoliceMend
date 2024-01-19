@@ -17,6 +17,7 @@ return new class extends Migration
         Schema::dropIfExists('usuarios');
         Schema::dropIfExists('aplicaciones');
         Schema::dropIfExists('aplicacion_perfil');
+        Schema::dropIfExists('catalogos');
 
         Schema::dropIfExists('paises');
         Schema::dropIfExists('provincias');
@@ -54,7 +55,7 @@ return new class extends Migration
         Schema::dropIfExists('orden_mantenimiento_actividades');
         Schema::dropIfExists('orden_mantenimiento_repuestos');
         Schema::dropIfExists('orden_abastecimientos');
-        
+
         Schema::dropIfExists('repuestos');
         Schema::dropIfExists('sugerencias');
 
@@ -115,6 +116,21 @@ return new class extends Migration
             $table->foreign('ap_codigo')->references('ap_codigo')->on('aplicaciones')->onDelete('set null');
 
             $table->unique(['pf_codigo', 'ap_codigo']);
+        });
+
+        Schema::create('catalogos', function (Blueprint $table) {
+            $table->id('ca_codigo');
+
+            $table->string('ca_nombre')->nullable();
+            $table->string('ca_prefijo')->nullable();
+            $table->string('ca_tabla')->nullable();
+
+            $table->boolean('ca_estado')->default(true);
+
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->unsignedBigInteger('created_by')->nullable();$table->foreign('created_by')->references('us_codigo')->on('usuarios')->onDelete('set null');
+            $table->timestamp('updated_at')->default(DB::raw('NULL ON UPDATE CURRENT_TIMESTAMP'))->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();$table->foreign('updated_by')->references('us_codigo')->on('usuarios')->onDelete('set null');
         });
 
         /*División política*/
@@ -705,6 +721,7 @@ return new class extends Migration
         Schema::dropIfExists('usuarios');
         Schema::dropIfExists('aplicaciones');
         Schema::dropIfExists('aplicacion_perfil');
+        Schema::dropIfExists('catalogos');
 
         Schema::dropIfExists('paises');
         Schema::dropIfExists('provincias');

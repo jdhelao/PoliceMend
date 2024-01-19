@@ -1,0 +1,21 @@
+2024-01-18 00:26:56.409 [info] update#setState idle
+2024-01-18 00:27:26.407 [info] update#setState checking for updates
+2024-01-18 00:27:26.409 [info] update#setState idle
+2024-01-18 01:27:26.416 [info] update#setState checking for updates
+2024-01-18 01:27:26.426 [info] update#setState idle
+2024-01-18 02:27:26.435 [info] update#setState checking for updates
+2024-01-18 02:27:26.441 [info] update#setState idle
+2024-01-18 02:46:46.110 [warning] No ptyHost heartbeat after 6 seconds
+2024-01-18 02:48:11.937 [warning] No ptyHost heartbeat after 6 seconds
+2024-01-18 02:48:46.417 [warning] No ptyHost heartbeat after 6 seconds
+2024-01-18 02:49:01.985 [warning] No ptyHost heartbeat after 6 seconds
+2024-01-18 02:50:11.029 [warning] No ptyHost heartbeat after 6 seconds
+2024-01-18 02:52:20.317 [warning] No ptyHost heartbeat after 6 seconds
+2024-01-18 02:52:53.882 [error] No ptyHost heartbeat after 12 seconds
+2024-01-18 02:53:32.298 [warning] No ptyHost heartbeat after 6 seconds
+2024-01-18 02:56:18.684 [error] CodeWindow: detected unresponsive
+2024-01-18 02:56:47.594 [warning] No ptyHost heartbeat after 6 seconds
+2024-01-18 02:59:45.018 [warning] No ptyHost heartbeat after 6 seconds
+2024-01-18 03:00:10.958 [info] Extension host with pid 28899 exited with code: 0, signal: unknown.
+2024-01-18 03:00:11.521 [warning] [storage main] detected slow close() operation: Time: 3494ms, DB size: 151552b, Large Keys: iconThemeData:90164, colorThemeData:13990, memento/experiment.service.memento:3119, workbench.activity.placeholderViewlets:2793, __$__targetStorageMarker:2126
+2024-01-18 03:00:11.552 [warning] [storage main] detected slow close() operation: Time: 3525ms, DB size: 143360b, Large Keys: memento/workbench.editors.files.textFileEditor:33903, memento/workbench.parts.editor:17797, history.entries:10667, workbench.view.extensions.state:1995, __$__targetStorageMarker:1532

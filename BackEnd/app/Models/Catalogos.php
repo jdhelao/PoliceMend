@@ -18,7 +18,9 @@ class Catalogos extends Model
         'ca_nombre',
         'ca_prefijo',
         'ca_tabla',
-        'ca_estado'
+        'ca_estado',
+        'created_by',
+        'updated_by'
     ];
 
     /**

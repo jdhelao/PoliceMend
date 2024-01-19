@@ -13,3 +13,6 @@ php artisan db:seed
 php artisan make:model Books
 php artisan make:controller BookController
 
+#clean cache
+/usr/local/php81/bin/php-cli artisan cache:clear
+/usr/local/php81/bin/php-cli artisan route:cache

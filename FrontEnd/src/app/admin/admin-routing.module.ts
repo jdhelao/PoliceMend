@@ -35,12 +35,16 @@ import { OrdenMantenimientoEditComponent } from './orden-mantenimiento/orden-man
 
 import { RSugerenciasComponent } from './r-sugerencias/r-sugerencias.component';
 import { RAbastecimientosComponent } from './r-abastecimientos/r-abastecimientos.component';
+import { RMantenimientosComponent } from './r-mantenimientos/r-mantenimientos.component';
 
 import { PerfilListComponent } from './perfil/perfil-list.component';
 import { PerfilEditComponent } from './perfil/perfil-edit.component';
 
 import { RepuestoListComponent } from './repuesto/repuesto-list.component';
 import { RepuestoEditComponent } from './repuesto/repuesto-edit.component';
+
+import { CatalogoListComponent } from './catalogo/catalogo-list.component';
+import { CatalogoEditComponent } from './catalogo/catalogo-edit.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -89,6 +93,7 @@ const routes: Routes = [
   { path: 'orden-mantenimiento/edit/:id', component: OrdenMantenimientoEditComponent },
 
   { path: 'reporte-abastecimiento', component: RAbastecimientosComponent },
+  { path: 'reporte-mantenimiento', component: RMantenimientosComponent },
 
   { path: 'perfil', component: PerfilListComponent },
   { path: 'perfil/edit/:id', component: PerfilEditComponent },
@@ -97,6 +102,10 @@ const routes: Routes = [
   { path: 'repuesto', component: RepuestoListComponent },
   { path: 'repuesto/edit/:id', component: RepuestoEditComponent },
   { path: 'repuesto/add', component: RepuestoEditComponent },
+
+  { path: 'catalogo', component: CatalogoListComponent },
+  { path: 'catalogo/:type/edit/:id', component: CatalogoEditComponent },
+  { path: 'catalogo/add', component: CatalogoEditComponent },
 
   { path: 'reporte-sugerencias', component: RSugerenciasComponent },
 ];

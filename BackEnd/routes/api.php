@@ -26,6 +26,7 @@ use App\Http\Controllers\OrdenMantenimientoActividadController;
 use App\Http\Controllers\OrdenMantenimientoRepuestoController;
 use App\Http\Controllers\OrdenAbastecimientoController;
 use App\Http\Controllers\RepuestoController;
+use App\Http\Controllers\CatalogoController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -179,6 +180,11 @@ Route::get('/repuestos/{all}',[RepuestoController::class,'read']);
 Route::get('/repuestos/{id}',[RepuestoController::class,'read']);
 Route::post('/repuestos',[RepuestoController::class,'create']);
 Route::put('/repuestos',[RepuestoController::class,'update']);
+
+Route::get('/catalogos',[CatalogoController::class,'index']);
+Route::get('/catalogos/{type}/objeto/{id}',[CatalogoController::class,'read']);
+Route::post('/catalogos/{type}/objeto',[CatalogoController::class,'save']);
+Route::put('/catalogos/{type}/objeto',[CatalogoController::class,'save']);
 
 Route::get('/sugerencias',[SugerenciaController::class,'index']);
 Route::get('/sugerencias/{all}',[SugerenciaController::class,'read']);

@@ -18,11 +18,23 @@ class OrdenMantenimientoController extends Controller
 
         ->leftJoin('entidad_usuarios as eu', 'eu.en_codigo', '=', 'orden_mantenimientos.en_codigo')
         ->leftJoin('usuarios as us', 'us.us_codigo', '=', 'eu.us_codigo')
-        
+
         ->where('om_estado',true)
         //->where('sv.pe_codigo',$person)->orWhere('us.pe_codigo', $person)
         ->whereRaw($person.' IN (sv.pe_codigo, us.pe_codigo, 1/*admin*/)')
         ->find($id);
+        return response()->json($obj, 200);
+    }
+
+    public function getReport ($ini, $end, $fin) {
+        $obj = OrdenMantenimientos::select([DB::raw("orden_mantenimientos.*, ve.*, vt.vt_nombre, pe.pe_dni, concat(pe.pe_nombre1, ' ', pe.pe_apellido1, ' ' ) as pe_nombres, sv.sv_descripcion")])
+        ->join('solicitud_vehiculos as sv', 'sv.sv_codigo', '=', 'orden_mantenimientos.sv_codigo')
+        ->join('vehiculos as ve', 've.ve_codigo', '=', 'sv.ve_codigo')
+        ->join('vehiculo_tipos as vt', 'vt.vt_codigo', '=', 've.vt_codigo')
+        ->join('personas as pe', 'pe.pe_codigo', '=', 'sv.pe_codigo')
+        ->where('om_estado',true)
+        ->where(DB::raw('IFNULL(om_progreso, 0)'), '>=', ($fin*100))
+        ->whereBetween(DB::raw('IFNULL(orden_mantenimientos.updated_at, orden_mantenimientos.created_at)'), [$ini, Carbon::parse($end)->endOfDay()->toDateTimeString()])->get();
         return response()->json($obj, 200);
     }
 

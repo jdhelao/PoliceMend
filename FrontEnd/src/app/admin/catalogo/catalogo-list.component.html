@@ -1,0 +1,43 @@
+<mat-form-field class="width1-3" >
+  <mat-label>Tipo</mat-label>
+  <mat-select [(ngModel)]="selectedType" (selectionChange)="getCatalogList(selectedType)">
+    <mat-option *ngFor="let ca of catalogType" [value]="ca.ca_codigo">
+      {{ca.ca_nombre}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<igx-input-group type="search" class="search width2-3" style="float: right;">
+  <igx-prefix>
+      <igx-icon>search</igx-icon>
+  </igx-prefix>
+  <input #search igxInput placeholder="Buscar Catalogo" [(ngModel)]="seachCatalog">
+  <igx-suffix *ngIf="search.value.length > 0" (click)="seachCatalog = ''">
+      <igx-icon>clear</igx-icon>
+  </igx-suffix>
+</igx-input-group>
+
+<div class="list">
+  <igx-list [displayDensity]="density">
+      <igx-list-item [isHeader]="true">Catalogos</igx-list-item>
+      <igx-list-item igxRipple igxRippleTarget=".igx-list__item-content" #item
+          *ngFor="let ca of catalogList | igxFilter: filterCatalogs | slice:0:30;">
+          <igx-avatar igxListThumbnail shape="circle">
+              <button mat-icon-button aria-label="Editar catálog"
+                  routerLink="/admin/catalogo/{{selectedType}}/edit/{{ca.ca_codigo}}">
+                  <!--<igx-icon fontSet="material">edit</igx-icon>-->
+                  <mat-icon>edit</mat-icon>
+              </button>
+          </igx-avatar>
+          <span igxListLineTitle>{{ ca.ca_nombre }}</span>
+
+          <span igxListAction class="actions">
+              <igx-switch [checked]="ca.ca_estado" (click)="disable(ca.ca_codigo)"></igx-switch>
+          </span>
+      </igx-list-item>
+  </igx-list>
+</div>
+<button class="add" mat-fab color="primary" aria-label="Crear" routerLink="/admin/catalogo/add">
+  <mat-icon>add</mat-icon>
+</button>
+<span *ngIf="loading" class="spinner-border spinner-border-lg align-center"></span>

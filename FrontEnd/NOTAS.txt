@@ -1,4 +1,17 @@
+#Start the serve
 ng serve
 npm start
 
+#Create componetn
 ng g component admin/perfil/perfil-edit --flat
+
+##Deploy on Google Cloud##
+#Install Firebase CLI 
+ npm install -g firebase-tools
+
+#Initialize the project 
+ firebase login
+ firebase init
+
+#Deploy to Firebase Hosting 
+ firebase deploy

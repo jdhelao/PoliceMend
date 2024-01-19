@@ -67,6 +67,9 @@ import { OrdenMantenimientoListComponent } from './orden-mantenimiento/orden-man
 import { OrdenMantenimientoEditComponent } from './orden-mantenimiento/orden-mantenimiento-edit.component';
 import { RepuestoEditComponent } from './repuesto/repuesto-edit.component';
 import { RepuestoListComponent } from './repuesto/repuesto-list.component';
+import { RMantenimientosComponent } from './r-mantenimientos/r-mantenimientos.component';
+import { CatalogoEditComponent } from './catalogo/catalogo-edit.component';
+import { CatalogoListComponent } from './catalogo/catalogo-list.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +78,7 @@ import { RepuestoListComponent } from './repuesto/repuesto-list.component';
     CircuitoListComponent, CircuitoEditComponent,
     CircuitoListComponent, CircuitoEditComponent,
     SubcircuitoListComponent, SubcircuitoEditComponent,
-    PersonalComponent, PersonalListComponent, PersonalEditComponent, RSugerenciasComponent, DistritoListComponent, DistritoEditComponent, CircuitoListComponent, CircuitoEditComponent, SubcircuitoListComponent, SubcircuitoEditComponent, VehiculoListComponent, VehiculoEditComponent, ContratoEditComponent, ContratoListComponent, EntidadListComponent, EntidadEditComponent, SVehicularListComponent, SVehicularEditComponent, PerfilEditComponent, PerfilListComponent, SVehicularAprobarListComponent, SVehicularAprobarEditComponent, OrdenAbastecimientoEditComponent, OrdenAbastecimientoListComponent, RAbastecimientosComponent, OrdenMantenimientoListComponent, OrdenMantenimientoEditComponent, RepuestoEditComponent, RepuestoListComponent
+    PersonalComponent, PersonalListComponent, PersonalEditComponent, RSugerenciasComponent, DistritoListComponent, DistritoEditComponent, CircuitoListComponent, CircuitoEditComponent, SubcircuitoListComponent, SubcircuitoEditComponent, VehiculoListComponent, VehiculoEditComponent, ContratoEditComponent, ContratoListComponent, EntidadListComponent, EntidadEditComponent, SVehicularListComponent, SVehicularEditComponent, PerfilEditComponent, PerfilListComponent, SVehicularAprobarListComponent, SVehicularAprobarEditComponent, OrdenAbastecimientoEditComponent, OrdenAbastecimientoListComponent, RAbastecimientosComponent, OrdenMantenimientoListComponent, OrdenMantenimientoEditComponent, RepuestoEditComponent, RepuestoListComponent, RMantenimientosComponent, CatalogoEditComponent, CatalogoListComponent
   ],
   imports: [
     CommonModule,
