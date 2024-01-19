@@ -16,3 +16,6 @@
 2024-01-18 02:56:18.442 [warning] No ptyHost heartbeat after 6 seconds
 2024-01-18 02:56:44.738 [warning] No ptyHost heartbeat after 6 seconds
 2024-01-18 02:57:26.844 [warning] No ptyHost heartbeat after 6 seconds
+2024-01-18 03:10:30.084 [info] update#setState checking for updates
+2024-01-18 03:10:30.087 [info] update#setState idle
+2024-01-18 09:33:47.564 [info] Extension host with pid 14854 exited with code: 0, signal: unknown.

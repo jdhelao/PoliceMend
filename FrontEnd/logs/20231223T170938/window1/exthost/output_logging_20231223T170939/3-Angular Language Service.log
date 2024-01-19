@@ -1,9 +1,0 @@
-All workspace roots are using versions of Angular that do not support control flow block syntax. Block syntax parsing in templates will be disabled.
-[Info  - 5:13:03 PM] Angular language server process ID: 11363
-[Info  - 5:13:03 PM] Imported typescript/lib/tsserverlibrary is version 5.2.2.
-[Info  - 5:13:03 PM] Using @angular/language-service v17.0.6 from /root/.vscode/extensions/angular.ng-template-17.0.3/node_modules/@angular/language-service/index.js
-[Info  - 5:13:03 PM] Logging is turned off. To enable, run command 'Open Angular server log'.
-[Info  - 5:13:05 PM] Enabling language service for /opt/lampp/htdocs/PoliceMend/FrontEnd/tsconfig.json.
-[Error - 5:13:40 PM] Request codeLens/resolve failed.
-  Message: Request codeLens/resolve failed with message: Could not determine component for file:///opt/lampp/htdocs/PoliceMend/FrontEnd/src/app/admin/r-abastecimientos/r-abastecimientos.component.html
-  Code: -32603 

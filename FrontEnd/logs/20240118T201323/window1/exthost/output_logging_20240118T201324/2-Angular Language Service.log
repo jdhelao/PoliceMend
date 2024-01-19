@@ -1,0 +1,7 @@
+All workspace roots are using versions of Angular that do not support control flow block syntax. Block syntax parsing in templates will be disabled.
+[Info  - 8:13:26 PM] Angular language server process ID: 10474
+[Info  - 8:13:26 PM] Imported typescript/lib/tsserverlibrary is version 5.3.2.
+[Info  - 8:13:26 PM] Using @angular/language-service v17.1.0-rc.0 from /root/.vscode/extensions/angular.ng-template-17.1.0/node_modules/@angular/language-service/index.js
+[Info  - 8:13:26 PM] Logging is turned off. To enable, run command 'Open Angular server log'.
+[Info  - 8:13:31 PM] Enabling language service for /opt/lampp/htdocs/PoliceMend/FrontEnd/tsconfig.json.
+[Info  - 8:51:31 PM] Disabling language service for /opt/lampp/htdocs/PoliceMend/FrontEnd/node_modules/rxjs/tsconfig.json because project is not an Angular project ('@angular/core' could not be found).
